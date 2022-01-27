@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Submission{% endblock %}
+{% block body_title %}Submission{% endblock %}
+{% block container_title %}New submission{% endblock %} 
+{% block body %}   
+ <div class='container'>
+   
+   <h4 class='text-primary'>Guidelines for the authors</h4> 
+    {{ guidelines }}
+  <br>
+  <br>
+{{ form_start(submissionform) }} 
+ Agree to the terms <span  class='text-danger'>*</span> 
+{{ form_widget(submissionform.agree_to_the_terms) }}<br> 
+
+  
+ Title <span  class='text-danger'>*</span>
+ {{ form_widget(submissionform.title,{'attr':{'class':'form-control'}}) }}
+ Subtitle
+          {{ form_widget(submissionform.sub_title,{'attr':{'class':'form-control'}}) }}
+ Abstract
+          {{ form_widget(submissionform.abstract,{'attr':{'class':'form-control'}}) }}
+<br>
+ Project starts at
+          {{ form_widget(submissionform.project_start_at) }}  End at    {{ form_widget(submissionform.project_end_at) }}
+<br>
+
+    <button  class="btn btn-primary">{{ button_label|default('Save and continue') }}</button>
+{{ form_end(submissionform) }}  
+     </div> 
+{% endblock%}  

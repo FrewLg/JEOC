@@ -1,0 +1,12 @@
+{% extends 'homelayout.html.twig' %}
+{% block title %}Manage your subscriptions{% endblock %}
+{% block container_title %}Manage your subscriptions{% endblock %}
+{% block breadcrumb %}Manage your subscriptions{% endblock %}
+{% block body %}
+     <h4 class='text-success'> Manage your subscription</h4>
+     <hr>
+
+    {{ include('subscription/_form.html.twig') }}
+
+ 
+{% endblock %}

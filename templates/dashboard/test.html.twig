@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User {% endblock %}
+
+{% block container_title %}Users{% endblock %}
+ {% block pagehead %}  Users {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Users</li>  {% endblock %} 
+
+{% block body %}
+
+  
+	<div class="row">
+		<div class="col-lg-12">
+
+<a href="{{ path('exportexcel') }}" class='btn btn-info  btn-xs mb-1 btn-block'>Export all Researcher in Excel 
+				<span class='badge bg-sucess badge-primary'> <i class='fa fa-book'></i></span>
+				</a>
+
+			<div class="table-responsive">
+    <table class="table dataTables-example table-striped table-bordered table-responsive table-hover " id="example">
+
+ 					<thead>
+						<tr>
+							<th>#</th>
+							<th>Title</th>
+							<th>Researcher(PI)</th>
+							<th>Co-PIs</th>
+							<th>Affiliation of PI</th>
+							<th>Submission Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for submission in submissions %}
+							<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+          <td class="sorting_1">{{ loop.index }}</td>
+								 
+								<td>{{ submission.title }}</td>
+								<td>{{ submission.author.userInfo }}
+                                
+                                <span class='badge bg-success'>
+												+({{ submission.coAuthors|length   }})
+											</span>
+                                </td>
+
+								<td>
+									<ol>
+										{% for copi in submission.coAuthors %}
+
+											<li>
+												{{copi.Researcher.userInfo}}
+											</li>
+
+
+										{% else %}
+
+											 
+												<span class='text-danger'>No Co-PI found</span>
+											 
+
+										{% endfor %}
+									</ol>
+
+								</td><td>
+
+<br>{{ submission.author.userInfo.college }},<br>Department of 
+{{ submission.author.userInfo.department }}
+</td>
+								<td>
+									{% if submission.sentAt %}
+										{{ submission.sentAt|date() }}
+									{% endif %}
+								</td>
+
+							</tr>
+
+
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+            <div class="navigation">
+		{{ knp_pagination_render(submissions) }}
+	</div>
+		</div>
+	</div>     
+{% endblock %}

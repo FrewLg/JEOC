@@ -1,0 +1,20 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}Scholarship{% endblock %}
+ {% block pagehead %}Scholarship {% endblock %}
+
+{% block body %}
+     
+        <div class="row features-block">
+        <div class="col-lg-12 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+            <small>{% if scholarship.createdAt %} {{ scholarship.createdAt|date() }} {% endif %}
+            </small>
+            <h5>{{ scholarship.name|raw }}  [{{ scholarship.country }}]</h5>
+            <p>
+            {{ scholarship.description |raw}} </p>
+         <small>Deadline: {{ scholarship.deadline ? scholarship.deadline|date('Y-m-d H:i:s') : '' }}</small>
+<br><a href="{{ scholarship.url }}">Apply here {{ scholarship.url }} </a>
+         </div>
+
+    </div> 
+{% endblock %}

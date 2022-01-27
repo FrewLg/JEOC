@@ -1,0 +1,47 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}Call for training{% endblock %}
+ 
+{% block pagehead %}Call For training {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Call For training</li>  {% endblock %} 
+{% block body %}
+  {% for call_for_training in call_for_trainings %}
+
+        <div class="col-lg-8 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+ <article class=""> 
+							 
+							<small>
+							{{ call_for_training.CreatedAt ? call_for_training.CreatedAt|date('Y-M-d h:s') : '' }}
+							</small> 
+							
+							<h6 class="">
+
+								<a href="{{ path('call_for_training_show', {'id': call_for_training.id }) }}">
+ 
+								<p  style="font-family:arial; text-align:justify;">	{{ call_for_training.description|striptags|slice(0, 170)|raw }}</p>
+								</a>
+							</h6> 
+				 
+					 
+				 </article>
+
+</div>
+		{% else %}
+
+			<td colspan="7">No calls made yet</td>
+
+		{% endfor %}
+ 
+
+                    {% block pagination%}
+
+                   {% endblock %}
+                        
+                        <div class="pagination-block">
+<div class="navigation">
+            {{ knp_pagination_render(call_for_trainings) }}
+        </div>
+                           
+                        </div>
+
+{% endblock %}

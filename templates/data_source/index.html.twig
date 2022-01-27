@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DataSource index{% endblock %}
+
+{% block body %}
+    <h1>DataSource index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Obtaioned_date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for data_source in data_sources %}
+            <tr>
+                <td>{{ data_source.id }}</td>
+                <td>{{ data_source.name }}</td>
+                <td>{{ data_source.description }}</td>
+                <td>{{ data_source.obtaionedDate ? data_source.obtaionedDate.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+                <td>
+                    <a href="{{ path('data_source_show', {'id': data_source.id}) }}">show</a>
+                    <a href="{{ path('data_source_edit', {'id': data_source.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('data_source_new') }}">Create new</a>
+{% endblock %}

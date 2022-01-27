@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PublishedSubmissionAttachment{% endblock %}
+
+{% block body %}
+    <h1>PublishedSubmissionAttachment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ published_submission_attachment.id }}</td>
+            </tr>
+            <tr>
+                <th>Attachment_file</th>
+                <td>{{ published_submission_attachment.attachmentFile }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ published_submission_attachment.description }}</td>
+            </tr>
+            <tr>
+                <th>Uploaded_at</th>
+                <td>{{ published_submission_attachment.uploadedAt ? published_submission_attachment.uploadedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Is_approved</th>
+                <td>{{ published_submission_attachment.isApproved ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Dataset_label</th>
+                <td>{{ published_submission_attachment.datasetLabel }}</td>
+            </tr>
+            <tr>
+                <th>Sample_size</th>
+                <td>{{ published_submission_attachment.sampleSize }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ published_submission_attachment.location }}</td>
+            </tr>
+            <tr>
+                <th>Codebook</th>
+                <td>{{ published_submission_attachment.codebook }}</td>
+            </tr>
+            <tr>
+                <th>Study_region</th>
+                <td>{{ published_submission_attachment.studyRegion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('published_submission_attachment_index') }}">back to list</a>
+
+    <a href="{{ path('published_submission_attachment_edit', {'id': published_submission_attachment.id}) }}">edit</a>
+
+    {{ include('published_submission_attachment/_delete_form.html.twig') }}
+{% endblock %}

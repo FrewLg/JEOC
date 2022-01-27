@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CoAuthor{% endblock %}
+
+{% block body %}
+    <h1>Create new CoAuthor</h1>
+
+    {{ include('co_author/_form.html.twig') }}
+
+    <a href="{{ path('co_author_index') }}">back to list</a>
+{% endblock %}

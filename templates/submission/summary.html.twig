@@ -1,0 +1,498 @@
+{# <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> #}
+<style>
+	body {
+		margin: 35px;
+		color: #484b51;
+		background-image:url("{{ asset('files/site_setting/'~site_logo ) }}");
+	}
+	.text-secondary-d1 {
+		color: #728299 !important;
+	}
+	#footer {
+		position: fixed;
+		right: 0;
+		bottom: 10px;
+		text-align: center;
+		border-top: 1px solid black;
+	}
+	#footer .page:after {
+		content: counter(page, decimal);
+	}
+	@page {
+		margin: 20px 30px 40px 50px;
+	}
+	footer .pagenum:before {
+		content: counter(page);
+	}
+	.page-header {
+		margin: 0 0 1rem;
+		padding-bottom: 1rem;
+		padding-top: 0.5rem;
+		border-bottom: 1px dotted #e2e2e2;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+		-ms-flex-align: center;
+		align-items: center;
+	}
+	p {
+		font-family: arial;
+		text-align: justify;
+	}
+	table,
+	th,
+	td {
+		border: 1px solid #9fa8b9;
+		border-collapse: collapse;
+		{
+			# border-style: dotted; #
+		}
+	}
+	th {
+		padding: 2px 5px;
+		background-color: #9fa8b9;
+	}
+
+
+	td {
+		background-color: white;
+		padding: 2px 10px;
+	}
+
+
+	.page-title {
+		padding: 0;
+		margin: 0;
+		font-size: 1.75rem;
+		font-weight: 300;
+	}
+	.brc-default-l1 {
+		border-color: #dce9f0 !important;
+	}
+
+	.ml-n1,
+	.mx-n1 {
+		margin-left: -0.25rem !important;
+	}
+	.mr-n1,
+	.mx-n1 {
+		margin-right: -0.25rem !important;
+	}
+	.mb-4,
+	.my-4 {
+		margin-bottom: 1.5rem !important;
+	}
+
+	hr {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		border: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.text-grey-m2 {
+		color: #888a8d !important;
+	}
+
+	.text-success-m2 {
+		color: #86bd68 !important;
+	}
+
+	.font-bolder,
+	.text-600 {
+		font-weight: 600 !important;
+	}
+
+	.text-110 {
+		font-size: 110% !important;
+	}
+	.text-blue {
+		color: #478fcc !important;
+	}
+	.pb-25,
+	.py-25 {
+		padding-bottom: 0.75rem !important;
+	}
+
+	.pt-25,
+	.py-25 {
+		padding-top: 0.75rem !important;
+	}
+	.bgc-default-tp1 {
+		background-color: rgba(121, 169, 197, 0.92) !important;
+	}
+	.bgc-default-l4,
+	.bgc-h-default-l4:hover {
+		background-color: #f3f8fa !important;
+	}
+	.page-header .page-tools {
+		-ms-flex-item-align: end;
+		align-self: flex-end;
+	}
+
+	.btn-light {
+		color: #757984;
+		background-color: #f5f6f9;
+		border-color: #dddfe4;
+	}
+	.w-2 {
+		width: 1rem;
+	}
+
+	.text-120 {
+		font-size: 120% !important;
+	}
+	.text-primary-m1 {
+		color: #4087d4 !important;
+	}
+
+	.text-danger-m1 {
+		color: #dd4949 !important;
+	}
+	.text-blue-m2 {
+		color: #68a3d5 !important;
+	}
+	.text-150 {
+		font-size: 150% !important;
+	}
+	.text-60 {
+		font-size: 60% !important;
+	}
+	.text-grey-m1 {
+		color: #7b7d81 !important;
+	}
+	.align-bottom {
+		vertical-align: bottom !important;
+	}
+</style>
+{# <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> #}
+
+{# <h3>Summary</h3> #}
+
+
+<h5 class="font-20 fw-bold d-block mt-2">Title: 
+	{{ submission.title }} :
+	{{ submission.subtitle ? submission.subtitle : "no subtitle"  }}</h5>
+
+<div class="col-md-12">
+
+	{# <div class="card">
+		<div class="card-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h4 class="card-title">Research Members:</h4>
+				</div>
+				<!--end col-->
+
+			</div>
+			<!--end row-->
+		</div>
+		<!--end card-header-->
+		<div class="card-body border-bottom-dashed">
+			{% for author in submission.coAuthors %}
+				<div class="row ml-2">
+					{{ loop.index }}
+					{{ author.name}}
+
+					{{ author.email}}
+
+					{{ author.department}}
+
+				</div>
+			</div>
+		{% endfor %}
+
+	</div> #}
+</div>
+
+
+<h5 class="font-20 fw-bold d-block mt-2">General objective:</h5>
+<p>
+	{{ submission.GeneralObjective }}
+</p>
+<h5 class="font-20 fw-bold d-block mt-2">Specific Objectives:</h5>
+
+<ul class="list-unstyled mb-0 " style="list-style-type:codepen">
+	{% for objective in submission.specificObjectives %}
+		<li class="col-12   list-unstyled">
+
+			{{ objective.objective}}
+
+
+		</li>
+	{% endfor %}
+
+</ul>
+
+
+<h3>Executive summary/ abstract:</h3>
+<h6 style="font-family:arial; text-align:justify;">
+	{{ submission.abstract ? submission.abstract |raw: "no executive summary" }}
+
+</h6>
+
+<div class="row">
+	<div class="card-body pt-0">
+		<hr>
+		<h3>Keywords:</h3>
+
+
+		{% for row in submission.keywords | split(',') %}
+			<span class="badge bg-soft-dark px-3 py-2 fw-semibold">{{row}}</span>
+
+		{% else %}
+			<span class="badge bg-soft-dark px-3 py-2 fw-semibold">No keywords</span>
+
+		{% endfor %}
+
+
+		<div class="card-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h4 class="card-title">Research Outcome</h4>
+				</div>
+
+				<p>
+					{{ submission.ResearchOutcome ? submission.ResearchOutcome |raw: "No Research Outcome found" }}</p>
+			</div>
+			<!--end row-->
+		</div>
+
+		<div class="card-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h4 class="card-title">Background and Rationale of Research</h4>
+				</div>
+
+				<p>{{ submission.BackgroundAndRationale ? submission.BackgroundAndRationale |raw: "No background found" }}</p>
+			</div>
+			<!--end row-->
+		</div>
+
+
+		<div class="card-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h4 class="card-title">Methodology</h4>
+				</div>
+
+				{{ submission.methodology ? submission.methodology |raw: "No methodology found" }}
+			</div>
+			<!--end row-->
+		</div>
+
+		{# 
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+										<div class="col">
+											<h4 class="card-title">Attachments</h4>
+										</div>
+										<!--end col-->
+				
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+									<ul class="list-group custom-list-group">
+										{% for attachment in submission.submissionAttachements %}
+				
+											<li class="list-group-item align-items-center d-flex justify-content-between">
+												<div class="media">
+													<span class="me-3 align-self-center rounded fa fa-file-pdf"></span>
+													<div class="media-body align-self-center">
+														<a href="{{ asset('uploads/submission/' ~ attachment.file ) }}" class="font-12 text-primary">Download
+															{{attachment.name }}</a>
+													</div>
+													<!--end media body-->
+												</div>
+				
+											</li>
+				
+										{% endfor %}
+				
+									</ul>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div> #}
+
+
+		<h4>Action plan
+		</h4>
+		<div class="" style='width:90%'>
+
+ {{ submission.ActionPlan  |raw   }}
+	</div>
+
+		<h5>Project budget
+		</h5>
+
+
+	</div>
+
+	<!--end col-->
+	<div class="col-12">
+
+		<div class="table-responsive">
+			<table style="border: 1px solid grey; width:100%;">
+					{% if submission.submissionBudgets|length>0 %}
+				
+				<thead>
+					<tr class="bg-gray-dark">
+						<th>Expense</th>
+						<th>Description</th>
+						<th>Unit Price</th>
+						<th>Quantity</th>
+						<th>Total</th>
+
+					</tr>
+				</thead>
+				{% endif %}
+				<tbody>
+
+					{% set total = 0 %}
+					{% for budget in submission.submissionBudgets %}
+
+
+						<tr>
+							<td>{{ budget.category }}</td>
+
+
+							<td>
+								{{ budget.description }}
+							</td>
+
+							<td>{{ budget.cost }}</td>
+							<td>{{ budget.quantity }}</td>
+
+							<td>
+								{{ budget.cost * budget.quantity }}
+							</td>
+							{% set total = total + (budget.cost * budget.quantity)  %}
+
+						</tr>
+						{% else %}
+
+					{% endfor %}
+					<tr class="bg-black text-white">
+						<td colspan="3" class="border-0"></td>
+						<td class="border-0 font-14">
+							<b>Total</b>
+						</td>
+						<td class="border-0 font-14">
+							<b>{{ total }}
+								ETB</b>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+					 
+
+		<div class="col-12">
+			<div class="table-responsive">
+
+					<h5>Time table :
+					</h5>
+
+					<table style="border: 1px solid grey; width:100%;">
+						<thead>
+				{% if submission.researchTimeTables|length >0 %}
+							<tr class="bg-gray-dark">
+								<th>Task</th>
+
+								<th>Date Start</th>
+
+								<th>Date End</th>
+								<th>Remark</th>
+
+							</tr>
+						</thead>
+				{% endif %}
+						<tbody>
+							{% for schedule in submission.researchTimeTables %}
+
+
+								<tr>
+									<td>{{ schedule.task }}</td>
+
+
+									<td>
+										{{ schedule.DateStart|date('d M Y ') }}
+									</td>
+
+									<td>
+										{{ schedule.DateEnd|date('d M Y') }}
+
+									</td>
+									<td>{{ schedule.remark }}</td>
+
+
+								</tr>
+								{% else %}
+
+							{% endfor %}
+
+
+						</tbody>
+					</table>
+			 
+
+			</div>
+			<div class="card-header">
+				<div class="row align-items-center">
+					<div class="col">
+						<h4 class="card-title">References</h4>
+					</div>
+
+					<p>{{ submission.Reference ? submission.Reference |raw: "No Reference found" }}</p>
+				</div>
+				<!--end row-->
+			</div>
+
+		</div>
+	</diV>
+	{# <script type="text/php">
+			if ( isset($pdf) ) { 
+			    $pdf->page_script('
+			        if ($PAGE_COUNT > 1) {
+			            $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+			            $size = 12;
+			            $pageText = "Page " . $PAGE_NUM . " of " . $PAGE_COUNT;
+			            $y = 15;
+			            $x = 520;
+			            $pdf->text($x, $y, $pageText, $font, $size);
+			        } 
+			    ');
+			}
+			</script> #}
+	{# <script type="text/php">
+			    if (isset($pdf)) {
+			        $pdf->page_script('
+			            $text = sprintf(_("Page %d/%d"),  $PAGE_NUM, $PAGE_COUNT);
+			            // Uncomment the following line if you use a Laravel-based i18n
+			            //$text = __("Page :pageNum/:pageCount", ["pageNum" => $PAGE_NUM, "pageCount" => $PAGE_COUNT]);
+			            $font = null;
+			            $size = 10;
+			            $color = array(0,0,0);
+			            $word_space = 0.0;  //  default
+			            $char_space = 0.0;  //  default
+			            $angle = 0.0;   //  default
+			
+			            // Compute text width to center correctly
+			            $textWidth = $fontMetrics->getTextWidth($text, $font, $size);
+			
+			            $x = ($pdf->get_width() - $textWidth) / 2;
+			            $y = $pdf->get_height() - 35;
+			
+			            $pdf->text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+			        ');  
+			    }
+			</script> #}

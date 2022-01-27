@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EditorialDecision{% endblock %}
+
+{% block body %}
+    <h1>Create new EditorialDecision</h1>
+
+    {{ include('editorial_decision/_form.html.twig') }}
+
+    <a href="{{ path('editorial_decision_index') }}">back to list</a>
+{% endblock %}

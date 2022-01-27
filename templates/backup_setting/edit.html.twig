@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BackupSetting{% endblock %}
+
+{% block body %}
+    <h1>Edit BackupSetting</h1>
+
+    {{ include('backup_setting/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('backup_setting_index') }}">back to list</a>
+
+    {{ include('backup_setting/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,80 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies. 
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    site_settingsfile: '%kernel.project_dir%/config/packages/site_settings.yaml'
+    submission_files: '%kernel.project_dir%/public/files/proposals/submissions'
+    college_guidelines: '%kernel.project_dir%/public/files/guidelines'
+    site_backup_settings_file: '/home/ghost/Desktop/projects/harona/ParameterVariables.sh'
+    site_backup_file: '/home/ghost/Desktop/projects/harona/jubackup.sh'
+    project_dir: '%kernel.project_dir%/' 
+    review_files: '%kernel.project_dir%/public/files/proposals/review_files'
+    profile_pictures: '%kernel.project_dir%/public/files/profile_pictures'
+    site_setting: '%kernel.project_dir%/public/files/site_setting'
+    collaborators_cv: '%kernel.project_dir%/public/files/collaborators_cv'
+    grant_winners_award: '%kernel.project_dir%/public/files/grant_winners_award' 
+    datasets: '%kernel.project_dir%/public/files/proposals/datasets'
+    env(DATABASE_URL): "mysql://root:r00tme@127.0.0.1:3306/juresearch?serverVersion=5.7"
+    # env(MAILER_DSN): "gmail://firewlegese74@gmail.com:PassMaDick1212@localhost?encryption=tls&auth_mode=oauth"
+    # env(MAILER_URL): "gmail://firewlegese74@gmail.com:PassMaDick1212@localhost?encryption=tls&auth_mode=oauth"
+    ldap_dc_value : '%env(resolve:LDAP_DC_VALUE)%'
+ 
+    app_name  : 'Jimma University Research'
+ 
+    uas_token  : '%env(resolve:UAS_API_TOKEN)%'
+    uas_host  : '%env(resolve:UAS_HOST)%'
+    msg_api_host  : '%env(resolve:MSG_API_HOST)%'
+    msg_api_token  : '%env(resolve:MSG_API_TOKEN)%'
+#    app.supported_locales: ['en', 'am','or', 'fr']
+######
+     
+services:
+    ju.form.flow.createSubmission:
+        class: App\Form\CreateSubmissionFlow
+        autoconfigure: true
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface: '@lexik_form_filter.query_builder_updater'
+    # Lexik\Bundle\TranslationBundle\Command\ImportTranslationsCommand: 
+    query_builder_updater: '@Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface'
+    email_verifier: '@SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface'
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    Symfony\Component\Ldap\Ldap:
+        arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
+    Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
+        arguments:
+            -   host: 10.140.5.15
+                port: 389
+                #          encryption: tls
+                options:
+                    protocol_version: 3
+                    referrals: false
+
+    App\Security\LdapUserProvider:
+        arguments:
+            $ldapBaseDn: '%env(LDAP_BASE_DN)%'
+            $ldapSearchDn: '%env(LDAP_SEARCH_DN)%'
+            $ldapSearchPassword: '%env(LDAP_SEARCH_PASSWORD)%'
+            $ldapSearchDnString:  '%env(LDAP_SEARCH_DN_STRING)%'
+
+    # App\EventListener\ExceptionListener:
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.exception }

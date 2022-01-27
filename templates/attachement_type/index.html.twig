@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AttachementType index{% endblock %}
+
+{% block body %}
+    <h1>AttachementType index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for attachement_type in attachement_types %}
+            <tr>
+                <td>{{ attachement_type.id }}</td>
+                <td>{{ attachement_type.name }}</td>
+                <td>
+                    <a href="{{ path('attachement_type_show', {'id': attachement_type.id}) }}">show</a>
+                    <a href="{{ path('attachement_type_edit', {'id': attachement_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('attachement_type_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,54 @@
+{# college coordinator modal #}
+<div class="modal fade" id="modal-college-coordinator">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">College Coordinator</h4>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{{ form_start(college_coordinator_form) }}
+    {{ form_widget(college_coordinator_form) }}
+    <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(college_coordinator_form) }}
+
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				{# <button type="button" class="btn btn-primary">Save changes</button> #}
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+{# directorate modal #}
+<div class="modal fade" id="modal-directorate-office-user">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Directorate Office </h4>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{{ form_start(directorateOfficeUser_form) }}
+    {{ form_widget(directorateOfficeUser_form) }}
+    <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(directorateOfficeUser_form) }}
+
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				{# <button type="button" class="btn btn-primary">Save changes</button> #}
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+

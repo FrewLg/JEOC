@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PublishedSubmissionAttachment{% endblock %}
+
+{% block body %}
+    <h1>Edit PublishedSubmissionAttachment</h1>
+
+    {{ include('published_submission_attachment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('published_submission_attachment_index') }}">back to list</a>
+
+    {{ include('published_submission_attachment/_delete_form.html.twig') }}
+{% endblock %}

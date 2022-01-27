@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SiteSetting index{% endblock %}
+
+{% block body %}
+    <h1>SiteSetting index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Prefix</th>
+                <th>Contact_address</th>
+                <th>About</th>
+                <th>Privacy_statement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for site_setting in site_settings %}
+            <tr>
+                <td>{{ site_setting.id }}</td>
+                <td>{{ site_setting.name }}</td>
+                <td>{{ site_setting.prefix }}</td>
+                <td>{{ site_setting.contactAddress }}</td>
+                <td>{{ site_setting.about }}</td>
+                <td>{{ site_setting.privacyStatement }}</td>
+                <td>
+                    <a href="{{ path('site_setting_show', {'id': site_setting.id}) }}">show</a>
+                    <a href="{{ path('site_setting_edit', {'id': site_setting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('site_setting_new') }}">Create new</a>
+{% endblock %}

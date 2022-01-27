@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CallForTraining{% endblock %}
+
+{% block body %}
+    <h1>Call For Training</h1>
+	<br>
+<div class="col-lg-10 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+
+
+		<article class=""> 
+							<h5> {{ call_for_training.name}}</h5>
+							 <hr>
+							<small>
+							{{ call_for_training.createdAt ? call_for_training.createdAt|date('Y-M-d h:s') : '' }}
+							</small> 
+                            <small>
+				Deadline: 		{{ call_for_training.deadline ? call_for_training.deadline|date('Y-M-d h:s') : '' }}
+							</small> 
+ 
+ 								<p  style="font-family:arial; text-align:justify;">	{{ call_for_training.description|raw }}</p>
+
+ 						 {{ call_for_training.description|raw }}
+ 				 
+					 
+				 </article>
+
+
+</div>
+    
+ 
+ 
+{% endblock %}

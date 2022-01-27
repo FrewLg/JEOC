@@ -1,0 +1,80 @@
+{% extends 'adminlte.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>Researcher</h1>
+    
+    <div class="col-md-4">
+            <!-- Widget: user widget style 1 -->
+            <div class="card card-widget widget-user shadow">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+                <h5 class="widget-user-username">       {{ user.suffix }}
+   {% if user.firstName is defined %}
+                                   
+                                    {{ user.firstName }}
+                                    {% else %}
+                                    {% endif %}
+                                    
+                                   {% if user.midleName is defined %}
+                                   
+                                    {{ user.midleName }}
+                                    {% else %}
+                                    {% endif %}
+ 
+                                   {% if user.lastName is defined %}
+                                   
+                                    {{ user.lastName }}
+                                    {% else %}
+                                    {% endif %} </h5>
+                <h5 class="widget-user-desc">{{ user.affiliation}}</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="
+                
+                 {% if user.image is defined %}
+                  {{ asset('files/profile_pictures/'~user.image ) }}" 
+                                       {% else %}
+                   {{ asset('/img/defaultuser.png') }}" 
+                                    {% endif %}
+                                    
+                " alt="User Avatar">
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">3,200</h5>
+                      <span class="description-text">SALES</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">13,000</h5>
+                      <span class="description-text">FOLLOWERS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4">
+                    <div class="description-block">
+                      <h5 class="description-header">35</h5>
+                      <span class="description-text">PRODUCTS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+            <!-- /.widget-user -->
+          </div>
+          
+  <a href="{{ path('user_index') }}">back to list</a>
+
+  
+{% endblock %}

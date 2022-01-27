@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ResearchReportPhase{% endblock %}
+
+{% block body %}
+    <h1>Create new ResearchReportPhase</h1>
+
+    {{ include('research_report_phase/_form.html.twig') }}
+
+    <a href="{{ path('research_report_phase_index') }}">back to list</a>
+{% endblock %}

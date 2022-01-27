@@ -1,0 +1,337 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}Edit Profile
+{% endblock %}
+{% block container_title %}Profile
+{% endblock %}
+{% block pagehead %}
+	Profile
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Profile</li>
+{% endblock %}
+{% block body %}
+
+	{% set userInfo = user.userInfo %}
+	<div class="row m-b-lg m-t-lg ">
+		<div class="col-md-6">
+
+			<div class="profile-image">
+
+				{% if userInfo.image is defined %}
+					<img src="{{ asset('files/profile_pictures/'~ userInfo.image ) }}" class="rounded-circle circle-border m-b-md" alt="profile" style="width:200px; height:200px;">
+				{% else %}
+					<img src="{{ asset('/img/defaultuser.png') }}" class="rounded-circle circle-border m-b-md" alt="profile" style="width:200px; height:200px;">
+				{% endif %}
+			</div>
+			<div class="profile-info">
+				<div class="">
+					<div>
+						<h4 class="no-margins">
+							{{  user }}
+
+						</h4>
+						<h5>
+							{% if userInfo.affiliation is defined %}
+
+								{{ userInfo.affiliation }}
+								{% else %}
+							{% endif %}
+						</h5>
+						<small>
+							{% if userInfo.bio is defined %}
+
+								{{ userInfo.bio |raw}}
+								{% else %}
+							{% endif %}
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<table class="table table-hover text-nowrap ">
+				<tbody>
+					<tr>
+						<td>
+							<strong>Tel:</strong>
+							{{ info.phoneNumber }}
+						</td>
+						<td>
+							<strong>Gender:</strong>
+							{{ info.gender }}
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							<strong>Email:</strong>
+							{{ user.email }}
+						</td>
+						<td>
+							<strong>Address</strong>
+							{{ info.address }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong>
+								Affiliation:
+							</strong>
+							{{ info.affiliation }}
+						</td>
+						<td>
+							<strong>
+								College:
+							</strong>
+							{{ info.college }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<small class='text-success'>
+				<b>
+					{{ totalSubmissions }}
+					Research submissions
+				</b>
+			</small>
+
+
+		</div>
+
+
+	</div>
+
+
+	<div class="col-lg-12">
+		<div class="tabs-container">
+			<ul class="nav nav-tabs" role="tablist">
+				<li>
+					<a class="nav-link active show" data-toggle="tab" href="#tab-list">
+						Personal info
+					</a>
+				</li>
+				<li>
+					<a class="nav-link" data-toggle="tab" href="#tab-researches">Researches
+					</a>
+				</li>
+				<li>
+					<a class="nav-link" data-toggle="tab" href="#tab-subscriptions">Subscriptions
+					</a>
+				</li>
+
+				<li>
+					<a class="nav-link" data-toggle="tab" href="#tab-create">Edit Profile
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+
+				<div role="tabpanel" id="tab-list" class="tab-pane active show">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Suffix</th>
+									<td>{{ info.Suffix }}</td>
+								</tr>
+
+								<tr>
+									<th>Full name</th>
+									<td>{{ info.firstName }}
+										{{ info.midleName }}
+										{{ info.lastName }}</td>
+								</tr>
+								<tr>
+									<th>Username</th>
+									<td>{{ user.username }}</td>
+								</tr>
+								<tr>
+									<th>Gender</th>
+									<td>{{ info.gender }}</td>
+								</tr>
+								<tr>
+									<th>Affiliation</th>
+									<td>{{ info.affiliation }}</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+				<div role="tabpanel" id="tab-researches" class="tab-pane">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+								<h4 class='text-success'>Submissions</h4>
+
+								<table class="table table-striped">
+									<thead>
+										<tr>
+
+											<th>Research
+											</th>
+											<th>Publication
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for usersubmission in usersubmissions %}
+											<tr>
+												<td>
+													{{ usersubmission.research }}
+												</td>
+												<td>{{ usersubmission.Submissions }}</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="4">No submission has been made yet</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<h4 class='text-success'>Reviews</h4>
+
+								<table class="table table-striped">
+									<thead>
+										<tr>
+
+											<th>Research
+											</th>
+											<th>Publication
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for userpublication in userpublication %}
+											<tr>
+
+												<td>
+													{{ userpublication.Subbmission_type }}
+												</td>
+												<td>{{ userpublication.Proposals }}</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="4">No reviews has been made yet</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<h4 class='text-success'>Publications</h4>
+
+								<table class="table table-striped">
+									<thead>
+										<tr>
+
+											<th>Research
+											</th>
+											<th>Publication
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for userpublication in userpublication %}
+											<tr>
+
+												<td>
+													{{ userpublication.Subbmission_type }}
+												</td>
+												<td>{{ userpublication.Proposals }}</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="4">No publication has been made yet</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" id="tab-subscriptions" class="tab-pane">
+					<div class="panel-body">
+
+						{% for subscription in subscriptions %}
+							<table class='table table-striped'>
+								<tr>
+									<td>
+										Announcements:
+										{% if subscription.announcement=='1'%}
+											<span class='text-success'>Subscribed</span>
+										{% else %}
+											<span class='text-danger'>Not subscribed</span>
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										News:
+										{% if subscription.news=='1'%}
+											<span class='text-success'>Subscribed</span>
+										{% else %}
+											<span class='text-danger'>Not subscribed</span>
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										New Submissions:
+										{% if subscription.newSubmission=='1' %}
+											<span class='text-success'>Subscribed</span>
+										{% else %}
+											<span class='text-danger'>Not subscribed</span>
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<td>New call for proposal announcement:
+										{% if subscription.calls=='1' %}
+											<span class='text-success'>Subscribed</span>
+										{% else %}
+											<span class='text-danger'>Not subscribed</span>
+										{% endif %}
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="4">You havent subscribed yet</td>
+								</tr>
+							{% endfor %}
+						</table>
+						<br>
+						<hr>
+						<a href="/subscription/setting/" class="btn btn-primary ">
+							<b>{% trans %}Manage your subscriptions{% endtrans %}</b>
+						</a>
+					</div>
+				</div>
+
+
+				<div role="tabpanel" id="tab-create" class="tab-pane">
+					<div class="panel-body">
+						{{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		$('.select2').select2();
+	</script>
+{% endblock %}

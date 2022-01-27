@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CallForProposal{% endblock %}
+
+{% block body %}
+    <h1>CallForProposal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ call_for_proposal.id }}</td>
+            </tr>
+            <tr>
+                <th>Guidelines</th>
+                <td>{{ call_for_proposal.guidelines }}</td>
+            </tr>
+            <tr>
+                <th>Deadline</th>
+                <td>{{ call_for_proposal.deadline ? call_for_proposal.deadline|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ call_for_proposal.subject }}</td>
+            </tr>
+            <tr>
+                <th>Post_date</th>
+                <td>{{ call_for_proposal.postDate ? call_for_proposal.postDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_date</th>
+                <td>{{ call_for_proposal.updatedDate ? call_for_proposal.updatedDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('call_for_proposal_index') }}">back to list</a>
+
+    <a href="{{ path('call_for_proposal_edit', {'id': call_for_proposal.id}) }}">edit</a>
+
+    {{ include('call_for_proposal/_delete_form.html.twig') }}
+{% endblock %}

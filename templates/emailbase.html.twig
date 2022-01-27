@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>
+			{% block title %}{% endblock %}| Research</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="{{ app_name }}" name="description"/>
+		<meta content="" name="author"/>
+		<meta
+		http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<!-- App favicon -->
+		<link rel="shortcut icon" href="{{ asset('files/site_setting/'~site_logo ) }}">
+		<link href="{{ asset('plugins/jvectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('plugins/jquery-steps/jquery.steps.css')}}">
+		<link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('assets/css/metisMenu.min.css')}}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" href="{{ asset('assets/tagsinput.css')}}"/>
+		<link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css')}}"/>
+
+
+	</head>
+
+	<body class="dark-sidenav">
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="container-fluid">
+					<div class="col-auto align-self-center"></div>
+
+					{% block body %}{% endblock %}
+
+				</div>
+			</div>
+		</div>
+		<script src="{{ asset('assets/js/jquery.min.js')}}"></script>
+		<script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{ asset('assets/js/metismenu.min.js')}}"></script>
+		<script src="{{ asset('assets/js/waves.js')}}"></script>
+		<script src="{{ asset('assets/js/feather.min.js')}}"></script>
+		<script src="{{ asset('assets/js/simplebar.min.js')}}"></script>
+		<script src="{{ asset('assets/js/moment.js')}}"></script>
+		<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
+		<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-us-aea-en.js')}}"></script>
+		<script src="{{ asset('assets/tagsinput.js')}}"></script>
+
+		<script src="{{ asset('assets/js/app.js')}}"></script>
+
+
+	</body>
+
+</html>

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BackupSetting{% endblock %}
+
+{% block body %}
+    <h1>Create new BackupSetting</h1>
+
+    {{ include('backup_setting/_form.html.twig') }}
+
+    <a href="{{ path('backup_setting_index') }}">back to list</a>
+{% endblock %}

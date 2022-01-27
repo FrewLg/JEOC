@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrainingParticipant{% endblock %}
+
+{% block body %}
+    <h1>TrainingParticipant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ training_participant.id }}</td>
+            </tr>
+            <tr>
+                <th>Applied_at</th>
+                <td>{{ training_participant.appliedAt ? training_participant.appliedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('training_participant_index') }}">back to list</a>
+
+    <a href="{{ path('training_participant_edit', {'id': training_participant.id}) }}">edit</a>
+
+    {{ include('training_participant/_delete_form.html.twig') }}
+{% endblock %}

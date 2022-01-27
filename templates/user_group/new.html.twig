@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}User Group New
+{% endblock %}
+{% block maintitle %}User Group New
+{% endblock %}
+{% block breadcrumb %}
+
+
+	<li class="breadcrumb-item active">
+		User Group New</li>
+{% endblock %}
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+
+			{{ include('user_group/_form.html.twig') }}
+
+			<a class="btn btn-primary mx-2" href="{{ path('user_group_index') }}">back to list</a>
+
+		</div>
+	</div>
+{% endblock %}

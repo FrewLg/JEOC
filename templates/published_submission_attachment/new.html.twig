@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PublishedSubmissionAttachment{% endblock %}
+
+{% block body %}
+    <h1>Create new PublishedSubmissionAttachment</h1>
+
+    {{ include('published_submission_attachment/_form.html.twig') }}
+
+    <a href="{{ path('published_submission_attachment_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CoAuthor{% endblock %}
+
+{% block body %}
+    <h1>CoAuthor</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ co_author.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ co_author.name }}</td>
+            </tr>
+            <tr>
+                <th>Last_name</th>
+                <td>{{ co_author.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Affiliation</th>
+                <td>{{ co_author.affiliation }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ co_author.email }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ co_author.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  
+{% endblock %}

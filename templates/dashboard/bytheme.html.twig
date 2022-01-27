@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thematic Area
+{% endblock %}
+
+{% block body %}
+
+
+	<a href="{{ path('allbythemeex') }}" class='btn btn-info  btn-xs mb-1 btn-block'>Export all  in Excel
+	</a>
+
+	<a href="{{ path('review_result') }}" class='btn btn-purple  btn-xs mb-1 btn-block'>Export result in  Excel
+	</a>
+
+
+	<table class="table">
+
+		<tbody>
+			{% for thematic_area in thematic_areas %}
+				<tr class='text-info m-1' style='background-color:#0c213a'>
+					<td>{{ loop.index }}</td>
+					<td>
+						<h5 class='text-info m-0 '>{{ thematic_area.name }}
+							({{thematic_area.submissions|length}})</h5>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='4'>
+						<table class="table  table-bordered table-striped table-responsive">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Title</th>
+									<th>Researcher(PI)</th>
+									<th>Submission Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for submission in thematic_area.submissions %}
+									<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+										<td>{{ loop.index  }}</td>
+										<td>{{ submission.title }}</td>
+
+
+										<td>{{ submission.author.userInfo }}
+
+											<a href="#" class="avatar-box thumb-xxs align-self-center">
+												<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+													+
+													{{ submission.coAuthors|length   }}
+												</span>
+
+											</a>
+
+
+											{% set count = 0 %}
+											{% for  confirmation in submission.coAuthors('confirmed') %}
+												{% set count = count + 1 %}
+
+												{% if  confirmation.confirmed()|length==0  %}
+
+													<a href="#" class="avatar-box thumb-xxs align-self-center">
+
+														<span class='avatar-title bg-soft-danger rounded-circle font-13 font-weight-normal'>
+															{{count}}
+															{% if count==0 %}
+
+																{% elseif count<=1 %}
+																	<sup>st</sup>
+																{% elseif count<=2%}
+																	<sup>nd</sup>
+																{% elseif count<=3%}
+																	<sup>rd</sup>
+																{% elseif count>=4%}
+																	<sup>th</sup>
+															{% endif %}
+														</span>
+													</a>
+
+												{% endif %}
+
+
+											{% endfor %}
+										</td>
+										<td>
+											{% if submission.sentAt %}
+												{{ submission.sentAt|date('y-m-d h:s a') }}
+											{% endif %}
+										</td>
+										<td nowrap="nowrap">
+											{% if   submission.reviewAssignments|length>0  %}
+
+												<a href="#" class="avatar-box thumb-xxs align-self-center">
+													<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+														{{submission.reviewAssignments|length}}R
+													</span>
+
+												</a>
+
+											{% endif %}
+
+											{% set count = 0 %}
+											{% for  confirmation in submission.reviewAssignments('closed') %}
+												{% set count = count + 1 %}
+
+												{% if  confirmation.closed()|length==0  %}
+
+													<a href="#" class="avatar-box thumb-xxs align-self-center">
+														<span class='avatar-title bg-soft-danger rounded-circle font-13 font-weight-normal'>
+															{{count}}
+															{% if count==0 %}
+
+																{% elseif count<=1 %}
+																	<sup>st</sup>
+																{% elseif count<=2%}
+																	<sup>nd</sup>
+																{% elseif count<=3%}
+																	<sup>rd</sup>
+																{% elseif count>=4%}
+																	<sup>th</sup>
+															{% endif %}
+														</span>
+													</a> 
+												{% endif %}
+
+
+											{% endfor %}
+
+											{% if app.user.id==submission.author.id  %}
+												<span class="badge bg-success">You are the author</span>
+												<a href="{{ path('submission_status', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>
+													Status</a> 
+											{% else %}
+												<a href="{{ path('review_assignment_new', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>
+													Assign Reviewer</a>
+
+												{% if   submission.complete=='' %}
+													<a href="{{ path('submission_show', {'id': submission.id}) }}" class='badge bg-danger   mb-1'>Incomplete
+													</a>
+												{% else %}
+
+													<a href="{{ path('submission_show', {'id': submission.id}) }}" class='btn btn-info btn-xs mb-1'>Show</a>
+												{% endif %}
+
+											{% endif %}
+											{% if app.user.id== submission.author.id and submission.complete=='' %}
+												<a href="{{ path('submission_firststep_edit', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>Finish
+												</a>
+											{% endif %}
+
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="8">No submissions found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+
+						</table>
+					</td>
+				</tr>
+
+
+				{% else %}no records found
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

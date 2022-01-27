@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BackupSetting{% endblock %}
+
+{% block body %}
+    <h1>BackupSetting</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ backup_setting.id }}</td>
+            </tr>
+            <tr>
+                <th>Emailto</th>
+                <td>{{ backup_setting.emailto }}</td>
+            </tr>
+            <tr>
+                <th>Emailfrom</th>
+                <td>{{ backup_setting.emailfrom }}</td>
+            </tr>
+            <tr>
+                <th>Email_subject</th>
+                <td>{{ backup_setting.emailSubject }}</td>
+            </tr>
+            <tr>
+                <th>Db_user</th>
+                <td>{{ backup_setting.dbUser }}</td>
+            </tr>
+            <tr>
+                <th>Db_password</th>
+                <td>{{ backup_setting.dbPassword }}</td>
+            </tr>
+            <tr>
+                <th>Destination_dir</th>
+                <td>{{ backup_setting.destinationDir }}</td>
+            </tr>
+            <tr>
+                <th>Logfile_name</th>
+                <td>{{ backup_setting.logfileName }}</td>
+            </tr>
+            <tr>
+                <th>Mysql_host</th>
+                <td>{{ backup_setting.mysqlHost }}</td>
+            </tr>
+            <tr>
+                <th>Source_dir</th>
+                <td>{{ backup_setting.sourceDir }}</td>
+            </tr>
+            <tr>
+                <th>Remote_machine_ip</th>
+                <td>{{ backup_setting.remoteMachineIp }}</td>
+            </tr>
+            <tr>
+                <th>Emailto_cc</th>
+                <td>{{ backup_setting.emailtoCc }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backup_setting_index') }}">back to list</a>
+
+    <a href="{{ path('backup_setting_edit', {'id': backup_setting.id}) }}">edit</a>
+
+    {{ include('backup_setting/_delete_form.html.twig') }}
+{% endblock %}

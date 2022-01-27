@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GuidelineForReviewer{% endblock %}
+
+{% block body %}
+    <h1>Create new GuidelineForReviewer</h1>
+
+    {{ include('guideline_for_reviewer/_form.html.twig') }}
+
+    <a href="{{ path('guideline_for_reviewer_index') }}">back to list</a>
+{% endblock %}

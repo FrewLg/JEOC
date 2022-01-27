@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}User Group List
+{% endblock %}
+{% block maintitle %}User Group List
+{% endblock %}
+
+{% block breadcrumb %}
+
+	<li class="breadcrumb-item active">
+		User Group List
+	</li>
+
+{% endblock %}
+
+{% block body %}
+	<div class="card card-outline card-info">
+		<div class="card-header">
+			<div class="card-title">
+				User Group List(0)
+			</div>
+			<div class="card-tools">
+
+				<a class="btn btn-primary" href="{{ path('user_group_new') }}">Register new</a>
+
+			</div>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Created At</th>
+						<th>Updated At</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user_group in user_groups %}
+						<tr>
+							<td>{{ loop.index }}</td>
+							<td>{{ user_group.name }}</td>
+							<td>{{ user_group.createdAt ? user_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+							<td>{{ user_group.updatedAt ? user_group.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+							<td>
+								<a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-info btn-sm" title="add permissions">
+									<i class="fa fa-check-double"></i>
+								</a>
+								<a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-success btn-sm" title="add users">
+									<i class="fa fa-users"></i>
+								</a>
+								
+								<a href="{{ path('user_group_edit', {'id': user_group.id}) }}" class="btn btn-warning btn-sm" title="edit">
+									<i class="fa fa-pen"></i>
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

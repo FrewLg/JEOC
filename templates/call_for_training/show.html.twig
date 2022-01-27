@@ -1,0 +1,90 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}CallForTraining{% endblock %}
+
+{% block body %}
+    {# <h1>Call For Training</h1> #}
+	<br>
+<div class="col-lg-10 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+
+
+		<article class=""> 
+							<h5> {{ call_for_training.name}}</h5>
+							 <hr>
+                             
+							<small>
+							{{ call_for_training.createdAt ? call_for_training.createdAt|date('Y-M-d h:s') : '' }}
+							</small> 
+                           <br> <small>
+
+				Deadline: 		{{ call_for_training.deadline ? call_for_training.deadline|date('Y-M-d h:s') : '' }}
+							</small> 
+ 
+<h4> Time Remaining:        <p id="demo" class='text-success'>Time  remaining</p></h4><hr>
+
+ 								<p  style="font-family:arial; text-align:justify;">	{{ call_for_training.description|raw }}</p>
+
+ 						 {{ call_for_training.description|raw }}
+                          <br>
+                          {% if call_for_training.documentAttachment %}
+																	<a href="{{ asset('/files/proposals/review_files/'~ call_for_training.DocumentAttachment ) }}" class="badge bg-info mt-2">
+																		Download   file
+																		<i class="fa fa-user    "></i>
+																	</a>
+																{% else %}
+																	  
+																{% endif %}
+                                                                <br>
+                                                                <hr>
+                                                               
+                          {% if ifexists %}
+                                                               
+                                                                
+    <a href="#" class='btn btn-success btn-xs'>Registered </a>
+				 {% else %}
+    <a href="{{ path('participate', {'id': call_for_training.id}) }}" class='btn btn-primary btn-xs'>Register </a>
+																	  
+																{% endif %}
+					 
+				 </article>
+
+
+</div>
+    
+ 
+
+<script>
+    // Set the date we're counting down to
+
+    // var countDownDate = new Date("Jan 5, 2020 15:37:25").getTime();
+    var countDownDate = new Date("{% if call_for_training.deadline %}
+{{ call_for_training.deadline|date('M d, y h:i ') }}{% endif %}").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "<span class='text-danger'>Call  expired</span>";
+        }
+    }, 1000);
+</script>
+ 
+{% endblock %}

@@ -1,0 +1,75 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-title-box">
+			<div class="row">
+				<div class="col">
+					<h4 class="page-title">
+						{% block pagetitle %}
+							{{app_name}}
+						{% endblock %}
+					</h4>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{path('homepage')}}">Home</a>
+						</li>
+						{% block breadcrumb %}{% endblock %}
+					</ol>
+				</div>
+				<!--end col-->
+				<div class="col-auto align-self-center"> {% block header_contenttwo %}{% endblock %}
+
+
+					</div>
+					<!--end col-->
+				</div>
+				<!--end row-->
+			</div>
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success alert-dismissible fade show border-0 mb-0" role="alert">
+					<strong>Success!
+					</strong>
+					{{ message |raw}}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger alert-dismissible fade show border-0 mb-0" role="alert">
+					<strong></strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('warning') %}
+				<div class="alert alert-warning alert-dismissible fade show border-0 mb-0" role="alert">
+					<strong>Warning!
+					</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+
+
+			{% for message in app.flashes('danger') %}
+
+				<div class="alert custom-alert custom-alert-danger icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+					<div class="media">
+						<i class="la la-exclamation-triangle alert-icon text-primary align-self-center font-30 me-3"></i>
+						<div class="media-body align-self-center">
+							<h5 class="mb-1 fw-bold mt-0"></h5>
+							<span>{{ message }}
+							</span>
+						</div>
+					</div>
+					<button type="button" class="btn-close align-self-center" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+
+			</div>
+
+		{% endfor %}
+
+		<!--end page-title-box-->
+	</div>
+	<!--end col-->
+</div>

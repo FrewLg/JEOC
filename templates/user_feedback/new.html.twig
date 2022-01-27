@@ -1,0 +1,19 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}User Feedback
+{% endblock %}
+
+{% block body %}
+
+	<div class="card ">
+		<div class="card-header container">
+			<h4 style="color:#295d8a;">Send Us Feedback</h4>
+		</div>
+
+		<div class="card-body container ">
+
+			{{ include('user_feedback/_form.html.twig') }}
+		</div>
+	</div>
+
+{% endblock %}

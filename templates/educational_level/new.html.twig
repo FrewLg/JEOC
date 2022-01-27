@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EducationalLevel{% endblock %}
+
+{% block body %}
+    <h1>Create new EducationalLevel</h1>
+
+    {{ include('educational_level/_form.html.twig') }}
+
+    <a href="{{ path('educational_level_index') }}">back to list</a>
+{% endblock %}

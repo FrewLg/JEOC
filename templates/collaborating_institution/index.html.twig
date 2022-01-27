@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CollaboratingInstitution index{% endblock %}
+
+{% block body %}
+    <h1>CollaboratingInstitution index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for collaborating_institution in collaborating_institutions %}
+            <tr>
+                <td>{{ collaborating_institution.id }}</td>
+                <td>{{ collaborating_institution.name }}</td>
+                <td>{{ collaborating_institution.description }}</td>
+                <td>
+                    <a href="{{ path('collaborating_institution_show', {'id': collaborating_institution.id}) }}">show</a>
+                    <a href="{{ path('collaborating_institution_edit', {'id': collaborating_institution.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('collaborating_institution_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResearchReportPhase{% endblock %}
+
+{% block body %}
+    <h1>ResearchReportPhase</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ research_report_phase.id }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfPhases</th>
+                <td>{{ research_report_phase.numberOfPhases }}</td>
+            </tr>
+            <tr>
+                <th>MaximumDuration</th>
+                <td>{{ research_report_phase.maximumDuration }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ research_report_phase.startDate ? research_report_phase.startDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ research_report_phase.endDate ? research_report_phase.endDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ research_report_phase.status }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ research_report_phase.createdAt ? research_report_phase.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ research_report_phase.updatedAt ? research_report_phase.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('research_report_phase_index') }}">back to list</a>
+
+    <a href="{{ path('research_report_phase_edit', {'id': research_report_phase.id}) }}">edit</a>
+
+    {{ include('research_report_phase/_delete_form.html.twig') }}
+{% endblock %}

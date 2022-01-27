@@ -1,0 +1,250 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Submission
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% endblock %}
+{% block container_title %}
+Submissions
+{% endblock %}
+{% block body %}
+	<!-- testFilter.html.twig -->
+{% import "common/macro/input.html.twig" as input_macro %}
+
+
+	<div class="row">
+		<div class="col-lg-12 row">
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item active">
+					<h5 class="accordion-header m-0" id="headingOne">
+						<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							Filter
+						</button>
+					</h5>
+					<div id="collapseOne" class="accordion-collapse collapse active" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+						<div class="accordion-body active">
+						{% if sumissionFilterForm is defined %}
+						
+							{{ form_start(sumissionFilterForm) }}
+							{% for child in sumissionFilterForm.children %}
+							{% if child.vars.name != "_token" %}
+							
+								{{input_macro.input(child)}}
+							{% endif %}
+							{% endfor %}
+							<button class="btn  col-3 float-right btn-warning my-3  schedule-submit-button" type="reset">Clear</button>
+							<button class="btn mx-1  col-3 float-right btn-success my-3  schedule-submit-button" type="submit">Filter</button>
+
+							{{ form_end(sumissionFilterForm) }}
+							
+						{% else %}
+						<div>Filter not allowed here</div>
+						{% endif %}
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-10">
+
+			<div class="card ">
+				<div class="card-header container">
+					{{ info |raw}}({{submissions.totalItemCount}})
+				</div>
+
+				<div class="card-body container ">
+
+
+					<div class="table-responsive">
+
+						<table class="table  table-bordered  table-responsive">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Title</th>
+									<th>Researcher(PI)</th>
+									<th>Submission Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for submission in submissions %}
+									<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+										<td>{{ loop.index  }}</td>
+										<td>{{ submission.title }}</td>
+										<td>{{ submission.author.userInfo }}
+											<a href="#" class="avatar-box thumb-xxs align-self-center">
+												<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+													+{{ submission.coAuthors|length   }}
+												</span>
+											</a>
+
+											{% set count = 0 %}
+											{% for  confirmation in submission.coAuthors('confirmed') %}
+												{% set count = count + 1 %}
+
+												{% if  confirmation.confirmed()|length==0  %}
+
+													<a href="#" class="avatar-box thumb-xxs align-self-center">
+
+														<span class='avatar-title bg-soft-danger rounded-circle font-13 font-weight-normal'>
+															{{count}}
+															{% if count==0 %}
+
+																{% elseif count<=1 %}
+																	<sup>st</sup>
+																{% elseif count<=2%}
+																	<sup>nd</sup>
+																{% elseif count<=3%}
+																	<sup>rd</sup>
+																{% elseif count>=4%}
+																	<sup>th</sup>
+															{% endif %}
+														</span>
+													</a>
+
+												{% endif %}
+
+
+											{% endfor %}
+
+										</td>
+
+
+										<td>
+											{% if submission.sentAt %}
+												{{ submission.sentAt|date('d-m-y h:s a') }}
+											{% endif %}
+										</td>
+										<td nowrap="nowrap">
+
+											{% if   submission.reviewAssignments|length>0  %}
+
+												<a href="#" class="avatar-box thumb-xxs align-self-center">
+													<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+														{{submission.reviewAssignments|length}}R
+													</span>
+
+												</a>
+
+											{% endif %}
+
+											{% set count = 0 %}
+											{% for  confirmation in submission.reviewAssignments('closed') %}
+												{% set count = count + 1 %}
+
+												{% if  confirmation.closed()|length==0  %}
+
+													<a href="#" class="avatar-box thumb-xxs align-self-center">
+
+														<span class='avatar-title bg-soft-danger rounded-circle font-13 font-weight-normal'>
+															{{count}}
+															{% if count==0 %}
+
+																{% elseif count<=1 %}
+																	<sup>st</sup>
+																{% elseif count<=2%}
+																	<sup>nd</sup>
+																{% elseif count<=3%}
+																	<sup>rd</sup>
+																{% elseif count>=4%}
+																	<sup>th</sup>
+															{% endif %}
+														</span>
+													</a>
+
+												{% endif %}
+
+
+											{% endfor %}
+
+
+											{% if app.user.id==submission.author.id  %}
+												<span class="badge bg-success">You are the author</span>
+												<a href="{{ path('submission_status', {'id': submission.id}) }}" class='btn btn-primary btn-xs '>
+													Status</a>
+
+											</a>
+
+										{% else %}
+											<a href="{{ path('review_assignment_new', {'id': submission.id}) }}" class='btn btn-primary btn-xs '>Assign Reviewer</a>
+
+
+											{% if   submission.complete=='' %}
+												<a href="{{ path('submission_show', {'id': submission.id}) }}" class='badge bg-danger   '>Incomplete
+												</a>
+											{% else %}
+
+												<a href="{{ path('submission_show', {'id': submission.id}) }}" class='btn btn-info btn-xs '>Show</a>
+											{% endif %}
+
+										{% endif %}
+										{% if app.user.id==submission.author.id and submission.complete=='' %}
+											<a href="{{ path('submission_firststep_edit', {'id': submission.id}) }}" class='btn btn-primary btn-xs '>Finish
+											</a>
+										{% endif %}
+									</tr>
+
+								{% else %}
+									<tr>
+										<td colspan="8">no records found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+
+					</div>
+					<div class="navigation">
+						{{ knp_pagination_render(submissions) }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2">
+			<div class="card ">
+				<div class="card-header  ">
+					<b>Quick Filter</b>
+				</div>
+
+				<div class="card-body container ">
+					<div class="row ">
+
+						{{ include('dashboard/quick_filter.html.twig') }}
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('.daterangerpicker').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('.daterangerpicker').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+
+  $('.daterangerpicker').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
+{% endblock %}

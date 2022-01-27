@@ -1,0 +1,318 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PublishedResearch{% endblock %}
+
+ 
+ 
+{% macro displayBudget(researchWorks) %}
+	 
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Title</label>
+			{{form_widget(researchWorks.title)}}
+
+		</div>
+	</div>
+
+	<div class="col-md-1">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Allotted budget</label>
+			{{form_widget(researchWorks.allotted_budget)}}
+
+		</div>
+	</div>
+
+	<div class="col-md-1">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Year</label>
+			{{form_widget(researchWorks.year)}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">successfully completed</label>
+			{{form_widget(researchWorks.successfully_completed )}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-1">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">irb clearance</label>
+			{{form_widget(researchWorks.irb_clearance )}}
+
+		</div>
+	</div> 
+    
+
+	<div class="col-md-1">
+		<div class="form-group">
+
+			<button type="button" class=" btn btn-danger btn-sm close  remove-collection-widget mt-4   bgc-h-danger-l2 radius-round ">
+				<span aria-hidden="true">×</span>
+
+			</button>
+		</div>
+	</div>
+
+{% endmacro %}
+ 
+ 
+{% block body %}
+<div class="row">
+	<div class="col-sm-12">
+		 
+				{{ form_start(submissionform,{ "attr":{"id":"form-horizontal", "class":""}}) }}
+				{# <h3>Get started</h3> #}
+                <br>
+				 <div class="col-12">
+								<br>
+                                If previously granted Mega project from the institute (at list in past 4 years)
+<br>
+
+
+Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+    <div id="ifYes" style="display:none">
+ <button type="button" class="btn btn-primary add-another-collection-widget btn btn-sm btn-bd-primary float-right " data-list-selector="#budget-fields-list">
+									<span aria-hidden="true">+</span>
+									Add research title
+								</button>
+                                <ul id="budget-fields-list" class="m-t-5" data-prototype="{{_self.displayBudget(submissionform.researchWorks.vars.prototype)|e }}" data-widget-tags="{{ '<div class="row "></div>'|e }}" data-widget-counter="{{ submissionform.researchWorks|length }}">
+									 
+								</ul> 
+
+          {# <input type='text' id='yes' name='yes'><br> #}
+
+
+Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno2" id="yesCheck2"> 
+No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno2" id="noCheck2"><br>
+ <div id="ifYes2" style="display:none">
+        If yes, explain:
+         <input type='text' id='yess' name='yes'><br>
+    </div>
+
+        What can we do to accommodate you? 
+         <input type='text' id='acc' name='acc'>
+    </div>
+        
+        other 3<input type='text' id='other3' name='other3'><br>
+        other 4<input type='text' id='other4' name='other4'><br>
+
+</div>
+
+                      
+								
+							</div>
+				<fieldset>
+					 
+
+						<div class="accordion" id="accordionExample">
+							<div class="accordion-item">
+								<h5 class="accordion-header m-0" id="headingOne">
+									<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										Profile
+									</button>
+								</h5>
+								<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+									<div class="accordion-body"></div>
+								</div>
+							</div>
+
+							{#  #}
+						</div>
+
+				 
+							{% if form_errors(submissionform) %}
+							 
+							{% endif %}
+							<div class="col-md-12">
+								{{ form_errors(submissionform) }}
+							</div>
+    <button class="btn btn-success">{{ button_label|default('Save titles') }}</button>
+						 
+
+				{{ form_end(submissionform,{'render_rest':false}) }}
+				 
+			</div>
+			 
+		</div>
+
+        <h1>PublishedResearch index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Allotted_budget</th>
+                <th>Year</th>
+                <th>Final_report</th>
+                <th>Remark</th>
+                <th>Successfully_completed</th>
+                <th>Irb_clearance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for published_research in alltitles %}
+            <tr>
+                <td>{{ published_research.id }}</td>
+                <td>{{ published_research.title }}</td>
+                <td>{{ published_research.allottedBudget }}</td>
+                <td>{{ published_research.year ? published_research.year|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ published_research.finalReport }}</td>
+                <td>{{ published_research.remark }}</td>
+                <td>{{ published_research.successfullyCompleted ? 'Yes' : 'No' }}</td>
+                <td>{{ published_research.irbClearance }}</td>
+                <td>
+                    <a href="{{ path('published_research_show', {'id': published_research.id}) }}">show</a>
+                    <a href="{{ path('published_research_edit', {'id': published_research.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{# 
+        <form method="post" action="{{ path('published_research_delete', {'id': published_research.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ published_research.id) }}">
+    <button class="btn">Delete</button>
+</form> #}
+
+        
+        <script type="text/javascript">
+
+function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.display = 'block';
+    }
+    else document.getElementById('ifYes').style.display = 'none';
+
+
+    if (document.getElementById('yesCheck2').checked) {
+        document.getElementById('ifYes2').style.display = 'block';
+    }
+    else document.getElementById('ifYes2').style.display = 'none';
+
+
+}
+
+user_profile_researchWorks_1_successfully_completed
+
+
+</script>
+Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+    <div id="ifYes" style="display:none">
+        If yes, explain:
+         <input type='text' id='yes' name='yes'><br>
+
+
+Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno2" id="yesCheck2"> 
+No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno2" id="noCheck2"><br>
+ <div id="ifYes2" style="display:none">
+        If yes, explain:
+         <input type='text' id='yess' name='yes'><br>
+    </div>
+
+        What can we do to accommodate you? 
+         <input type='text' id='acc' name='acc'>
+    </div>
+        
+        other 3<input type='text' id='other3' name='other3'><br>
+        other 4<input type='text' id='other4' name='other4'><br>
+
+</div>
+
+        {% endblock%}
+{% block script %}
+	{# <script src="{{ asset('plugins/jquery-steps/jquery.steps.min.js')}}"></script> #}
+	<script src="{{ asset('plugins/select2/select2.min.js')}}"></script>
+	{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="{{ asset('assets/pages/jquery.form-wizard.init.js')}}"></script>
+    #}
+    <script> 
+		jQuery(document).ready(function () {
+
+$(document).on('click', '.remove-collection-widget', function (e) {
+$(this).closest('.row').fadeOut().remove();
+
+
+});
+$(document).on('click', '.add-another-collection-widget', function (e) {
+var list = jQuery(jQuery(this).attr('data-list-selector'));
+
+var counter = list.data('widget-counter') || list.children().length;
+var newWidget = list.attr('data-prototype');
+newWidget = newWidget.replace(/__name__/g, counter);
+counter++;
+list.data('widget-counter', counter);
+var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+newElem.appendTo(list);
+$(".select").select2("destroy").select2();
+});
+});
+
+
+var form = $("#form-horizontal");
+
+
+$("#form-horizontal").steps({
+headerTag: "h3",
+bodyTag: "fieldset",
+transitionEffect: "slideLeft",
+onStepChanging: function (event, currentIndex, newIndex) { // Allways allow previous action even if the current form is not valid!
+if (currentIndex > newIndex) {
+return true;
+}
+
+
+// Needed in some cases if the user went back (clean up)
+if (currentIndex < newIndex) { // To remove error styles
+form.find(".body:eq(" + newIndex + ") label.error").remove();
+form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+}
+
+form.validate().settings.ignore = ":disabled,:hidden";
+return form.valid();
+},  
+}).validate({
+errorPlacement: function errorPlacement(error, element) {
+element.after(error);
+},
+rules: {
+"submission[title]": {
+required: true,
+minlength: 5
+},
+"submission[agree_to_the_terms]": {
+required: true
+}
+
+},
+messages: {
+"submission[agree_to_the_terms]": {
+required: "You need to agree with the Terms and Conditions before you continue."
+
+}
+}
+});
+   
+{# var $input = $('<button class="btn btn-success" type="submit">Save</button>'); #}
+
+$input.appendTo($('ul[aria-label=Pagination]'));
+	</script>
+	<script>
+		$(function () {
+$(".select2").select2();
+
+})
+	</script>
+{% endblock %}
+

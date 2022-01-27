@@ -1,0 +1,35 @@
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+config/packages/site_settings.yaml
+/public/bundles/
+sessions/
+/sessions/
+/var/
+/public/files/
+/public/files
+public/files/
+vendor/
+/vendor/
+/vendor
+/public/proposals/*
+.env.*
+/.env.*
+.env.local
+.env.local.php
+.env.*.local
+config/secrets/prod/prod.decrypt.private.php
+public/uploads/*
+public/profile_pictures
+/public/profile_pictures/
+var/
+vendor/
+###< symfony/framework-bundle ###
+.env
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

@@ -1,0 +1,29 @@
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+#    spool: { type: 'memory' }
+
+    transport: gmail
+    username: firewlegese74
+    password: PassMaDick1212
+    host: smtp.gmail.com
+    port: 587
+    encryption: tsl
+    auth_mode: login
+    spool:
+        type: file
+        path: '%kernel.cache_dir%/swiftmailer/spool'
+    sender_address: ~
+    antiflood:
+        threshold: 99
+        sleep: 0
+
+    delivery_addresses: ['dev@example.com']
+    delivery_whitelist:
+        # all email addresses matching these regexes will be delivered
+        # like normal, as well as being sent to dev@example.com
+        - '/@specialdomain\.com$/'
+        - '/^firewlegese74@gmail\.com$/'
+
+#    delivery_addresses: []
+ #   disable_delivery: ~
+    logging: '%kernel.debug%'

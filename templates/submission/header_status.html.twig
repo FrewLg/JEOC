@@ -1,0 +1,32 @@
+<dl class="row mb-0">
+    <div class="col-sm-2 text-sm-right">
+        <dt>
+            {% if submission.sentAt %} {{ submission.sentAt|date() }} {% endif %}
+        </dt>
+    </div>
+    <div class="col-sm-10 text-sm-left">
+        <dd>
+            <div class="nowrap">
+                <div style="width: 100%;" class="text-success strong"> <strong> {{ submission.prefix }}
+                        {{ submission.Title }}:{{ submission.subTitle }} </strong></div>
+            </div>
+            <small>Project duration <strong>
+                    {% if submission.projectStartAt %} {{ submission.projectStartAt|date('d M Y') }} {% endif %}
+                    - {% if submission.projectStartAt %} {{ submission.projectStartAt|date('d M Y') }} {% endif %}
+            </strong>
+                <div class='float-right'> {% if submission.document %}
+                    <a href="{{ asset('/files/proposals/submissions/'~ submission.document  ) }}"
+                        class="mb-2 btn btn-outline-success mr-2 float-right">
+                        Download attachment
+                        <i class="fa fa-download material-icons warning"></i>
+                    </a>
+                    {% else %}
+                    <span class="label label-danger">
+                        {% trans %}No attachement found{% endtrans %}
+                    </span>
+                    {% endif %}
+                </div>
+            </small>
+        </dd>
+    </div>
+</dl>

@@ -1,0 +1,16 @@
+{% extends 'blanklayout.html.twig' %}
+
+{% block container_title %}Manage your subscriptions{% endblock %}
+{% block breadcrumb %}Unsubscribe{% endblock %}
+{% block body %}
+ 
+
+    <h4 class='text-success'> Unsubscribe for all emails</h4>
+    <hr>
+   {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ button_label|default('Unsubscribe for all mails') }}</button>
+{{ form_end(form) }}
+ 
+ 
+{% endblock %}

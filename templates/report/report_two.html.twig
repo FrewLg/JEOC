@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report{% endblock %}
+  {% block container_title %}Publication report{% endblock %} 
+{% block body %}
+
+        
+        <div class="row">
+            <div class="col-lg-9">
+                  
+                            
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li><a class="nav-link active" href="#tab-1" data-toggle="tab">{% trans %}Report visualization{% endtrans %} </a></li>
+                                            <li><a class="nav-link" href="#tab-2" data-toggle="tab">{% trans %}Tabulated reort{% endtrans %}</a></li>
+                                  <li><a class="nav-link" href="#tab-3" data-toggle="tab">{% trans %}Remarks and feedbacks{% endtrans %}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                <div class="tab-content">
+                                <div class="tab-pane active" id="tab-1">
+                                     <div class="row">
+                <div class="col-md-12">
+
+                    <h3 class='text-success'>{% trans %}Visualized{% endtrans %}</h3>
+<div id="div_chart" class="col-lg-2 col-sm-5 col-md-4" style='width:100px;'></div>
+    <script type="text/javascript" src=""></script>
+    <script type="text/javascript">
+        {{ gc_draw(piechart, 'div_chart') }}
+        </script> 
+            </div>
+             </div>
+</div>
+                                <div class="tab-pane" id="tab-2">
+
+<h3 class='text-success'>Tabulated report</h3>
+ 
+   <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <th>{% trans %}Research type{% endtrans %}</th>
+                <th>{% trans %}Thematic Areas{% endtrans %}</th>
+                <th>{% trans %}Date{% endtrans %}</th> 
+                <th>{% trans %}Status{% endtrans %}</th> 
+            </tr>
+        </thead>
+        <tbody>
+        {% for publication in publications  %}
+            <tr {% if publication.complete=='completed' %}class='text-success'
+               {% elseif publication.complete==''%}class='text-danger'{% endif %} >
+                <td>{{ loop.index  }}</td>
+                <td>{{ publication.title }}</td>
+                 
+                 <td>{{ publication.thematicArea }}</td>
+                <td> {% if publication.sentAt %} {{ publication.sentAt|date() }} {% endif %}</td> 
+ 
+                <td nowrap=nowrap><a href="{{ path('review_assignment_new', {'id': publication.id}) }}" class='btn btn-primary btn-xs btn-outline' >Assign Reviewer</a>
+                    <a href="{{ path('submission_show', {'id': publication.id}) }}" class='btn btn-success btn-xs btn-outline'>Show</a>
+ 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+                                </div> 
+                                <div class="tab-pane" id="tab-3">
+<h3 class='text-success'>{% trans %}Remarks{% endtrans %}</h3>
+                                </div>
+                                </div>
+
+                                </div>
+
+                                </div>
+                                </div>
+                            </div> 
+                        </div> 
+            <div class="col-lg-3">
+                <div class="wrapper wrapper-content project-manager">
+                
+                <h3 class='text-success'>{% trans %}Filter{% endtrans %}</h3>  
+                  
+                    <h5>{% trans %}Attachment files{% endtrans %}</h5>
+                </div>
+            </div>
+        </div> 
+         
+        
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Call For Training
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h4 class="card-title">
+								All Call For Training</h4>
+						</div>
+						<!--end col-->
+						<div class="col-auto">
+							<a href="{{ path('call_for_training_new') }}" class='btn btn-primary btn-xs mb-1 float-right'>Create new</a>
+
+
+						</div>
+						<!--end col-->
+					</div>
+
+
+					<!--end row-->
+				</div>
+				<!--end card-header-->
+				<div class="card-body">
+					<div class="table-responsive browser_users table-bordered">
+						<table class="table mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>#</th>
+									<th class="border-top-0">Name</th>
+									<th class="border-top-0">Training Type</th>
+									<th class="border-top-0">Deadline</th>
+									<th class="border-top-0">Posted at</th>
+									<th class="border-top-0">Actions</th>
+
+
+								</tr>
+								<!--end tr-->
+							</thead>
+							<tbody>
+
+								{% for call_for_training in call_for_trainings %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ call_for_training.name }}</td>
+
+										<td>{{ call_for_training.trainingType }}</td>
+
+										<td>{{ call_for_training.deadline ? call_for_training.deadline|date('Y-m-d H:i:s') : '' }}</td>
+										<td>{{ call_for_training.createdAt ? call_for_training.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+										<td nowrap="nowrap">
+
+
+											<a href="{{ path('call_for_training_show_adm', {'id': call_for_training.id}) }}" class='btn btn-primary btn-xs mb-1'>show</a>
+											<a href="{{ path('call_for_training_edit', {'id': call_for_training.id}) }}" class='btn btn-warning btn-xs mb-1'>edit</a>
+											<a href="{{ path('training_participant_index', {'id': call_for_training.id}) }}" class='btn btn-success btn-xs mb-1'>Applicant
+											
+											
+({{call_for_training.trainingParticipants|length}})   
+
+											</a>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="6">no records found</td>
+									</tr>
+								{% endfor %}
+								<!--end tr-->
+							</tbody>
+						</table>
+						<!--end table-->
+					</div>
+					<!--end /div-->
+				</div>
+				<!--end card-body-->
+			</div>
+			<!--end card-->
+		</div> 
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block container_title %}Subscription index{% endblock %}
+
+{% block body %}
+ 
+                     <div class="table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Calls</th>
+                <th>News</th>
+                <th>New submission</th>
+                <th>Announcement</th>
+                <th>Email</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            <tr>
+                <td>{{ subscription.id }}</td>
+                <td>{{ subscription.user }}</td>
+                <td>{{ subscription.calls ? 'Yes' : 'No' }}</td>
+                <td>{{ subscription.news ? 'Yes' : 'No' }}</td>
+                <td>{{ subscription.newSubmission ? 'Yes' : 'No' }}</td>
+                <td>{{ subscription.announcement ? 'Yes' : 'No' }}</td>
+                <td>{{ subscription.email }}</td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <a href="{{ path('subscription_new') }}">Create new</a>
+{% endblock %}

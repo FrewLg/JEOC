@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EmailMessage{% endblock %}
+
+{% block body %}
+    <h1>Create new EmailMessage</h1>
+
+    {{ include('email_message/_form.html.twig') }}
+
+    <a href="{{ path('email_message_index') }}"  class='btn btn-soft-info btn-xs'>back to list</a>
+{% endblock %}

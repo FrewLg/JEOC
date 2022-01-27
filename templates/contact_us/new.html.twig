@@ -1,0 +1,41 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %} Contact Us{% endblock %}
+ {% block pagehead %}Contact us {% endblock %}
+{% block body %}
+<section class="content">
+<h4 > Contact Us</h4>
+
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-12">
+ 
+           {{ form_start(form)}}
+
+            <div class="form-group">
+                                               {{ form_label(form.name)}}<br>
+                                   {{ form_widget(form.name)}}
+            </div>
+           
+            <div class="form-group">
+                                               {{ form_label(form.email)}}<br>
+                                   {{ form_widget(form.email)}}
+            </div> <div class="form-group">
+                                               {{ form_label(form.subject)}}<br>
+                                   {{ form_widget(form.subject)}}
+            </div> <div class="form-group">
+                                               {{ form_label(form.message)}}<br>
+                                   {{ form_widget(form.message)}}
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="Send message">
+            </div>
+           {{ form_end(form)}}
+          </div>
+        </div>
+      </div>
+
+    </section>
+{% endblock %}

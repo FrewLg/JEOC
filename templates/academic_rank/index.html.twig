@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AcademicRank index{% endblock %}
+
+{% block body %}
+    <h1>AcademicRank index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for academic_rank in academic_ranks %}
+            <tr>
+                <td>{{ academic_rank.id }}</td>
+                <td>{{ academic_rank.name }}</td>
+                <td>{{ academic_rank.description }}</td>
+                <td>
+                    <a href="{{ path('academic_rank_show', {'id': academic_rank.id}) }}">show</a>
+                    <a href="{{ path('academic_rank_edit', {'id': academic_rank.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('academic_rank_new') }}">Create new</a>
+{% endblock %}

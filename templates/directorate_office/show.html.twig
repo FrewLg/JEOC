@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Directorate Office{% endblock %}
+{% block container_title %}Directorate Office{% endblock %}
+{% block body %}
+ 
+
+    <table class="table table-striped">
+        <tbody>
+            
+            <tr>
+                <th>Name</th>
+                <td>{{ directorate_office.name }}</td>
+            </tr>
+            <tr>
+                <th>Mission</th>
+                <td>{{ directorate_office.mission |raw}}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ directorate_office.description |raw}}</td>
+            </tr>
+	 <tr>
+                <th>Objective</th>
+                <td>{{ directorate_office.objective |raw }}</td>
+            </tr>
+            <tr>
+                <th>Contact_address</th>
+                <td>{{ directorate_office.contactAddress |raw }}</td>
+            </tr>
+          
+        </tbody>
+    </table>
+
+    <a href="{{ path('directorate_office_index') }}">back to list</a>
+
+    <a href="{{ path('directorate_office_edit', {'id': directorate_office.id}) }}">edit</a>
+
+    {{ include('directorate_office/_delete_form.html.twig') }}
+{% endblock %}

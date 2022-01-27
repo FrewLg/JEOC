@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EvaluationForm index{% endblock %}
+
+{% block body %}
+    <h1>EvaluationForm index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Percent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evaluation_form in evaluation_forms %}
+            <tr>
+                <td>{{ evaluation_form.id }}</td>
+                <td>{{ evaluation_form.name }}</td>
+                <td>{{ evaluation_form.percent }}</td>
+                <td>
+                    <a href="{{ path('evaluation_form_show', {'id': evaluation_form.id}) }}">show</a>
+                    <a href="{{ path('evaluation_form_edit', {'id': evaluation_form.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('evaluation_form_new') }}">Create new</a>
+{% endblock %}

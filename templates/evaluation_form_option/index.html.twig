@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EvaluationFormOption index{% endblock %}
+
+{% block body %}
+    <h1>EvaluationFormOption index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evaluation_form_option in evaluation_form_options %}
+            <tr>
+                <td>{{ evaluation_form_option.id }}</td>
+                <td>{{ evaluation_form_option.name }}</td>
+                <td>{{ evaluation_form_option.type }}</td>
+                <td>{{ evaluation_form_option.value }}</td>
+                <td>
+                    <a href="{{ path('evaluation_form_option_show', {'id': evaluation_form_option.id}) }}">show</a>
+                    <a href="{{ path('evaluation_form_option_edit', {'id': evaluation_form_option.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('evaluation_form_option_new') }}">Create new</a>
+{% endblock %}

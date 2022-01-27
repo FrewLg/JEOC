@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+{{ form_label(form.subject) }}
+
+    {{ form_widget(form.subject) }} 
+{{ form_label(form.body) }}
+{{ form_widget(form.body ) }}
+<div class="row">
+{{ form_row(form.openAt ) }}
+{{ form_row(form.closeAt ) }}
+
+</div>
+
+<p>  
+   <button class="btn btn-success">{{ button_label|default('Save') }}</button> 
+{{ form_end(form) }}

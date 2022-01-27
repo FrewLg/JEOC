@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CoAuthor index{% endblock %}
+
+{% block body %}
+    <h1>CoAuthor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Last_name</th>
+                <th>Affiliation</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for co_author in co_authors %}
+            <tr>
+                <td>{{ co_author.id }}</td>
+                <td>{{ co_author.name }}</td>
+                <td>{{ co_author.lastName }}</td>
+                <td>{{ co_author.affiliation }}</td>
+                <td>{{ co_author.email }}</td>
+                <td>{{ co_author.role }}</td>
+                <td>
+                    <a href="{{ path('co_author_show', {'id': co_author.id}) }}">show</a>
+                    <a href="{{ path('co_author_edit', {'id': co_author.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('co_author_new') }}">Create new</a>
+{% endblock %}

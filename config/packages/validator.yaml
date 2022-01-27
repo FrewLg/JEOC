@@ -1,0 +1,25 @@
+framework:
+    validation:
+        email_validation_mode: html5
+
+        # Enables validator auto-mapping support.
+        # For instance, basic validation constraints will be inferred from Doctrine's metadata.
+        #auto_mapping:
+        #    App\Entity\: []
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        submission_file:
+            uri_prefix: /uploads/submission/
+            upload_destination: '%kernel.project_dir%/public/uploads/submission'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_remove: true  # determine whether to delete file upon removal of entity
+            delete_on_update: true  # determine wheter to delete the file upon update of entity
+
+        imageFile:
+            uri_prefix:         /uploads/submission/
+            upload_destination: '%kernel.project_dir%/public/uploads/submission'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

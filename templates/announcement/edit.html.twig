@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %} Edit Announcement{% endblock %}
+{% block body %}
+    <h1>Edit Announcement</h1>
+
+    {{ include('announcement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('announcement_new') }}" class="btn btn-soft-info">back to list</a>
+
+ {% endblock %}

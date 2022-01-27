@@ -1,0 +1,262 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}User  Info.
+{% endblock %}
+{% block maintitle %}User  Info.
+{% endblock %}
+{% block breadcrumb %}
+
+
+	<li class="breadcrumb-item active">
+		User  Info</li>
+{% endblock %}
+{% block body %}
+
+	{% set protected = false %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+
+				<a class="btn btn-primary btn-sm col-md-3 col-sm-4 col-lg-1 mr-1" href="{{ path('user_index') }}">
+					<i class="fa fa-hand-point-left"></i>
+					Back
+				</a>
+
+				{% if   is_granted('usr_edt') %}
+					<a class="btn btn-warning btn-sm col-md-3 col-sm-4 col-lg-1 mr-1" href="{{ path('user_edit', {'id': user.id}) }}">
+						<i class="fa fa-pen"></i>
+						Edit</a>
+				{% endif %}
+
+
+				{% if is_granted('usr_tgl_stts') %}
+
+
+					<form class="form-inline form-horizontal col-md-3 col-sm-4 col-lg-2 m-0 p-0" method="POST" onsubmit="return confirm('{{user.isActive ? " disable":" enable"}}??');">
+
+						<input name="toggle_status" value="true" hidden/>
+						<button type="submit" class="col-9 btn {{user.isActive ? " btn-success":" btn-danger" }} btn-success btn-sm ">
+							<i class="fa {{user.isActive ? " fa-toggle-on":" fa-toggle-off" }}"></i>
+							Toggle Status</button>
+					</form>
+
+				{% endif %}
+
+				
+
+
+				{% if is_granted('usr_rst')  %}
+
+					<a onclick="return confirm('Reset??')" class="btn btn-dark btn-sm col-md-3 col-sm-4 col-lg-1 " href="{{ path('reset_password', {'id': user.id}) }}">
+						<i class="fa fa-recycle"></i>
+						Reset</a>
+
+				{% endif %}
+				
+				<div class="btn-group btn-group-sm  col-md-3 col-sm-6 col-lg-2">
+				
+					<button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+						Addition Actions
+					</button>
+				
+
+					<div class="dropdown-menu" role="menu">
+					
+							<a href="#" type="button" class="btn btn-outline-primary btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-directorate-office-user">Make Directorate</a>
+					
+						
+							<a href="#" data-toggle="modal"  type="button" class="btn btn-outline-primary btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-college-coordinator">Make College Coordinator</a>
+						
+					
+
+					</div>
+					
+
+				</div>
+				{% if is_granted('usr_dlt') %}
+					<span class=" d-inline">
+						{{ include('user/_delete_form.html.twig') }}
+
+					</span>
+				{% endif %}
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-body">
+
+			{% set userInfo =  user.userInfo %}
+			<table class="table table-condensed table-borderless  table-valign-middle">
+				<tbody>
+
+					<tr>
+						<td>
+							<b>Name :-</b>
+							{{ userInfo }}</td>
+
+						<td>
+							<b>Username:-</b>
+							<span class="text-danger text-bold h3">
+								<u>{{ user.username}}</u>
+							</span>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<b>Gender :-</b>
+					  {% if user.userInfo.gender is defined%}
+													 {{ user.userInfo.gender ?  user.userInfo.gender|raw :"Not set"}}
+ 
+							
+						{% endif %} 
+
+						<td>
+							<b>College :-</b>
+					  {% if user.userInfo.college is defined%}
+
+							{{ userInfo.college ?  userInfo.college|raw :"Not set"}}</td> 
+
+						{% endif %} 
+
+					</tr>
+
+					<tr>
+						<td>
+							<b>Department :-</b>
+						 
+						   {% if user.userInfo.department is defined%}
+
+							{{ userInfo.department ?  userInfo.department|raw :"Not set"}}</td> 
+
+						{% endif %} 
+						<td>
+							<b>Alternative Email :-</b>
+							  {% if user.userInfo.alternativeEmail is defined%}
+
+							{{ userInfo.alternativeEmail ?  userInfo.alternativeEmail|raw :"Not set"}}</td> 
+
+						{% endif %} 
+
+</td> 
+
+
+					</tr>
+					<tr>
+						<td>
+							<b>Email :-</b>
+							{{ user.email }}
+						</td>
+
+						<td>
+							<b>Phone :-</b>
+ 
+ {% if user.userInfo.phoneNumber is defined%}
+
+							{{ userInfo.phoneNumber ?  userInfo.phoneNumber|raw :"Not set"}}</td> 
+
+						{% endif %} 
+
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td>
+							<b>Created At :-</b>
+							{{ user.registeredAt ? user.registeredAt|date('Y-m-d H:iA') : '' }}</td>
+						<td>
+							<b>Status :-</b>
+							<span class="badge {{user.isActive ? " bg-success":" bg-danger"}} ">{{user.isActive ? "active":"In-active"}}</span>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			<div class="h3">Roles</div>
+			<table class="table table-condensed table-borderless  table-valign-middle">
+				<tbody>
+
+
+					<tr>
+						<td>
+							<b>Roles :-</b>
+							{% for role in user.roles  %}
+
+								{{ role }},
+							{% endfor %}
+						</td>
+
+						<td>
+							<b>User Group :-</b>
+							{% for group in user.userGroup  %}
+
+								{{ group }},
+
+							{% endfor %}
+						</td>
+					</tr>
+					<tr>
+
+						{% if hasRole(user,"ROLE_COLLEGECOORDINATOR") %}
+							{% set collegeCoordinator = isCollegeCoordinator(user) %}
+
+
+							<td>
+								<b>Coordinator at
+								</b>
+								{{ collegeCoordinator ? collegeCoordinator.college }}</td>
+
+							<td>
+							{% endif %}
+							{% if hasRole(user,"ROLE_DIRECTORATE") %}
+								{% set directorate = isDirectorate(user) %}
+
+
+								<td>
+									<b>Directorate at
+									</b>
+									{{ directorate ? directorate.directorateOffice }}</td>
+
+								<td>
+								{% endif %}
+								{% if hasRole(user,"ROLE_VICEPRESIDENT") %}
+
+									<td>
+										<b>Vice President</b>
+									</td>
+
+
+								{% endif %}
+
+								{% if hasRole(user,"ROLE_PRESIDENT") %}
+
+									<td>
+										<b>President</b>
+									</td>
+
+								{% endif %}
+
+							</td>
+						</tr>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		{% include "user/modals.user.html.twig" %}
+	{% endblock %}
+	{% block javascripts %}
+		<script>
+			$('[data-mask]').inputmask()
+		</script>
+	{% endblock %}

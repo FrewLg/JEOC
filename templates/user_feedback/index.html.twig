@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserFeedback index
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="card ">
+		<div class="card-header  ">
+			<h4>User Feedback</h4>
+		</div>
+
+		<div class="card-body   ">
+
+			<div class="accordion" id="accordionExample">
+				{% for user_feedback in user_feedbacks %}
+					<div class="accordion-item active">
+						<h5 class="accordion-header m-0" id="headingOne">
+							<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ user_feedback.id}}" aria-expanded="false" aria-controls="collapseOne">
+								{{ user_feedback.subject }}
+							</button>
+						</h5>
+						<div id="collapseOne{{ user_feedback.id }}" class="accordion-collapse collapse active" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+							<div class="accordion-body active">
+								<h3>
+									<a href="#" class="text-navy">
+										 
+									</a>
+									{{ user_feedback.user.userInfo }}
+								</h3>
+								<p class="medium">
+
+									{{ user_feedback.sentAt ? user_feedback.sentAt|date('Y-m-d H:i:s') : '' }}
+								</p>
+								<div class="m-t-sm">
+									<a href="#" class="text-muted"></a>
+									{{ user_feedback.theFeedback }}
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<tr>
+						<td colspan="5">no records found</td>
+					</tr>
+				{% endfor %}
+			</div>
+
+
+		</div>
+	</div>
+
+
+{% endblock %}

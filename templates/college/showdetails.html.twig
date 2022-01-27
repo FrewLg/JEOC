@@ -1,0 +1,107 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}College
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">{{college.name}}</h4>
+
+				</div>
+				<!--end card-header-->
+				<div class="card-body">
+				 
+				 
+						<h4 class='text-default'>
+							Objective</h4>
+						{{ college.Objective }}
+
+						{% if institutional_reviewers_boards|length>0%}
+
+
+							<h4 class='text-default'>
+								Institutional Reviewers Board
+							</h4>
+
+							<div class='profiles'>
+
+								{% for institutional_reviewers_board in institutional_reviewers_boards %}
+									<tr style="text-align:left">
+										<td>{{ institutional_reviewers_board.id }}</td>
+										<td style="text-align:left">{{ institutional_reviewers_board.specialization }}</td>
+										<td style="text-align:left" nowrap="nowrap">{{ institutional_reviewers_board.affiliation }}</td>
+
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="4">no records found</td>
+									</tr>
+								{% endfor %}
+
+							</div>
+						{% endif %}
+
+						<h4 class='text-success'>
+							Mission</h4>
+						{{ college.mission|raw }}
+
+					</p>
+
+					{% if college.thematicAreas |length>0%}
+
+						<h4>
+							Thematic Areas</h4>
+
+						<ol>
+							{% for thematic_area in college.thematicAreas %}
+								<li>{{ thematic_area.name }}</li>
+
+
+								{% else %}
+
+							{% endfor %}
+						</ol>
+					{% endif %}
+					<hr>
+	<h4 class='text:default'>
+							Principal Contact:</h4>
+						{{ college.PrincipalContact |raw }}
+					{% if college.guidelines|length<0%}
+						{% else %}
+						{# <h4> Guideline for  researcher</h4>
+							<ol>
+								{% for guideline in college.guidelines %}
+									<li>{{ guideline.guideline|raw }}</li>
+									{% else %}
+								{% endfor %}
+							</ol> #}
+					{% endif %}
+				</div>
+			</div>
+		{% endblock %}
+		{% block asidetwo %}
+
+			Quick details</h5>
+		<hr>
+		<!--end card-header-->
+
+	
+		<div class="col-lg-12">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i> <a href="{{path('college_detail',{'prefix':'jucavm'})}}">Call for proposals</a></li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i> <a href="{{path('college_detail',{'prefix':'jucavm'})}}">Thematic areas</a></li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i><a href="{{path('college_detail',{'prefix':'jucavm'})}}">Statistics</a>
+				</li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i><a href="{{path('college_detail',{'prefix':'jucavm'})}}">IRB Members</a>
+				</li>
+			</ul>
+		</div>
+	{% endblock %}

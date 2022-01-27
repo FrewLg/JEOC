@@ -1,0 +1,77 @@
+{% extends 'homelayout.html.twig' %}
+
+
+{% block title %}Log in{% endblock %}
+    {% block pagetitle %}Login{% endblock %}
+ {% block body %}
+{{ app_description }}
+
+ {% endblock  %}
+ {% block aside %}
+
+ <div class="wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+            <form method="post" class="form-group" action={{ path('app_login') }}>
+						{% if error is defined and error %}
+
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+
+						{% if app.user %}
+							<div class="mb-3">
+								You are logged in as
+								{{ app.user.username }},
+								<a href="{{ path('app_logout') }}">Logout</a>
+							</div>
+						{% endif %}
+
+						<!-- <h5 class="h5 mb-3 font-weight-normal">Please sign in here if you have an account</h5> -->
+						<label for="inputUsername" class="font-18 fw-semibold mb-2">Username</label>
+
+						<input type="text"  name="username" placeholder='Username' id="inputUsername" class="form-control" value="{{last_username}}"  required autofocus>
+						<label for="inputPassword">Password</label>
+						<input type="password" name="password" id="inputPassword" placeholder='' class="form-control " autocomplete="current-password" required>
+
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+ 
+						<div class="form-group row my-3">
+							<div class="col-sm-12">
+								<div class="custom-control custom-switch switch-success">{# <input type="checkbox" class="custom-control-input" name='_remember_me' id="customSwitchSuccess"> #}
+									{# <label class="form-label text-muted" for="customSwitchSuccess">Remember me</label> #}
+								</div>
+							</div>
+							<!--end col-->
+							<div class="col-sm-12 ">
+								<a
+									href="{{ path('app_forgot_password_request')}}" class="text-muted font-13">
+									{# <i class="fa fa-lock"></i> #}
+									Forgot password? reset here</a>
+									<br>
+										<br>
+
+							</div>
+								
+
+							 
+							<div class="col-12">
+								<button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Login
+									<i class="fa fa-lock "></i>
+								</button>
+							</div>
+							<div class="col-12 ">
+								<p></p>
+								<p><hr>
+									If you are non-JU academic staff</p>
+								<a href="{{ path('app_register')}}" class="btn  btn-lg btn-block  w-100  btn-outline-primary ">Create account
+								</a>
+
+							</div>
+						</div>
+
+
+					</form>
+  <div class="m-3 text-center text-muted">   </div>
+</div>
+
+ 
+        {% endblock %}
+                

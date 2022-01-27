@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\CountryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=CountryRepository::class)
+ */
+class Country
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CoAuthor::class, mappedBy="country")
+     */
+    private $coAuthors;
+
+    public function __construct()
+    {
+        $this->coAuthors = new ArrayCollection();
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CoAuthor[]
+     */
+    public function getCoAuthors(): Collection
+    {
+        return $this->coAuthors;
+    }
+
+    public function addCoAuthor(CoAuthor $coAuthor): self
+    {
+        if (!$this->coAuthors->contains($coAuthor)) {
+            $this->coAuthors[] = $coAuthor;
+            $coAuthor->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoAuthor(CoAuthor $coAuthor): self
+    {
+        if ($this->coAuthors->removeElement($coAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($coAuthor->getCountry() === $this) {
+                $coAuthor->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+       public function __toString(): string
+    {
+        return $this->name;
+    }
+}

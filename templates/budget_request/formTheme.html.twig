@@ -1,0 +1,34 @@
+{% block ActionType_label %}
+{% endblock %}
+
+{# better disposition of each elements #}
+{% block ActionType_widget %}
+
+    <div class="row horizontal-form">
+    <div class="col col-md-12">
+        <table class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+                <tr class="header" style='background-color: white;'>
+                    <td>{% trans %}Name{% endtrans %}</td> 
+                     
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="header" style='background-color: white;'>
+                    <td>{{ form_widget(form.Name) }}</td> 
+                    <td>
+                        <div class="form-group">
+                            <a href="#" class="collection-up btn btn-default" title="{% trans %}Move element up{% endtrans %}"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                            <a href="#" class="collection-down btn btn-default" title="{% trans %}Move element down{% endtrans %}"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                            <a href="#" class="collection-remove btn btn-default" title="{% trans %}Delete element{% endtrans %}"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="#" class="collection-add btn btn-default" title="{% trans %}Add element{% endtrans %}"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                            <a href="#" class="collection-duplicate btn btn-default" title="{% trans %}Duplicate element{% endtrans %}"><span class="glyphicon glyphicon-th-large"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+{% endblock %}

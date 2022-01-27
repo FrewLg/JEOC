@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DataSource{% endblock %}
+
+{% block body %}
+    <h1>Create new DataSource</h1>
+
+    {{ include('data_source/_form.html.twig') }}
+
+    <a href="{{ path('data_source_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+ {% block container_title %}Report of Institutional Reviewers Board membership{% endblock %} 
+{% block title %}InstitutionalReviewersBoard  {% endblock %}
+
+{% block body %}  
+        
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li><a class="nav-link active" href="#tab-2"data-bs-toggle="tab"  data-toggle="tab">Tabulated report</a></li>
+                                            <li><a class="nav-link " href="#tab-1" data-bs-toggle="tab"data-toggle="tab">Report visualization </a></li>
+
+                                  <li><a class="nav-link" href="#tab-3" data-bs-toggle="tab" data-toggle="tab">Remarks and feedbacks</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                <div class="tab-content">
+                                <div class="tab-pane " id="tab-1">
+                                     <div class="row">
+                <div class="col-md-12">
+
+                    <h3 class='text-success'>Visualized</h3>
+<div id="div_chart" class="col-lg-2 col-sm-5 col-md-4" style='width:100px;'></div>
+    <script type="text/javascript" src=""></script>
+    <script type="text/javascript">
+        {{ gc_draw(piechart, 'div_chart') }}
+        
+        </script> 
+            </div>
+             </div>
+</div>
+                                <div class="tab-pane active" id="tab-2">
+
+<h3 class='text-success'>Tabulated report</h3>
+ 
+   <table class="table table-striped">
+ 
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Affiliation</th>
+                                <th>Mebmers</th> 
+            </tr>
+        </thead>
+        <tbody>
+        {% for institutional_reviewers_board in institutional_reviewers_boards %}
+            <tr>
+
+                                  <td>{{ loop.index }}</td>
+   <td>
+                {{ institutional_reviewers_board.affiliation }}
+                 </td>
+                                 <td>{{ institutional_reviewers_board.IRB_Members }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+                                </div> 
+                                <div class="tab-pane" id="tab-3">
+<h3 class='text-success'>Remarks</h3>
+                                </div>
+                                </div>
+
+                                </div>
+
+                                </div>
+                                </div>
+                            </div> 
+                        </div> 
+            <div class="col-lg-3">
+                <div class="wrapper wrapper-content project-manager">
+                
+                <h3 class='text-success'>Filter</h3>  
+                  
+                    <h5>Work units</h5>
+                </div>
+            </div>
+        </div> 
+         
+        
+{% endblock %}
+

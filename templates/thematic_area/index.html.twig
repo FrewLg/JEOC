@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ThematicArea index{% endblock %}
+
+{% block body %}
+    <h1>ThematicArea index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for thematic_area in thematic_areas %}
+            <tr class='text-info ' style='background-color:#303e67;color:#fff'>
+                <td>{{ thematic_area.id }}</td>
+                <td > <h5 class='text-info ' >{{ thematic_area.name }} ({{thematic_area.submissions|length}})</h5></td>
+                <td> </td>
+
+                <td>
+                    <a href="{{ path('thematic_area_show', {'id': thematic_area.id}) }}">show</a>
+                    <a href="{{ path('thematic_area_edit', {'id': thematic_area.id}) }}">edit</a>
+                </td>
+            </tr>
+            <tr>
+            <td colspan='4'>
+            <table class="table  table-bordered table-striped table-responsive">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Title</th> 
+							<th>Researcher(PI)</th>
+							<th>Submission Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for submission in thematic_area.submissions %}
+							<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+								<td>{{ loop.index  }}</td>
+								<td>{{ submission.title }}</td>
+
+								 
+								<td>{{ submission.author.email }}</td>
+								<td>
+									{% if submission.sentAt %}
+										{{ submission.sentAt|date() }}
+									{% endif %}
+								</td>
+								<td nowrap="nowrap">
+									{% if app.user.id==submission.author.id  %}
+										<span class="badge bg-success">You are the author</span>
+										<a href="{{ path('submission_status', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>
+											Status</a>
+
+									</a>
+
+								{% else %}
+									<a href="{{ path('review_assignment_new', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>Assign Reviewer</a>
+
+									{% if   submission.complete=='' %}
+										<a href="{{ path('submission_show', {'id': submission.id}) }}" class='badge bg-danger   mb-1'>Incomplete
+										</a>
+								{% else %}
+
+									<a href="{{ path('submission_show', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>Show</a>
+									{% endif %}
+
+								{% endif %}
+								{% if app.user.id==submission.author.id and submission.complete=='' %}
+									<a href="{{ path('submission_firststep_edit', {'id': submission.id}) }}" class='btn btn-primary btn-xs mb-1'>Finish
+									</a>
+								{% endif %}
+							</tr>
+						</td>
+					</tbody>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+            </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('thematic_area_new') }}">Create new</a>
+{% endblock %}

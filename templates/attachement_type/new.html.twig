@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} AttachementType{% endblock %}
+
+{% block body %}
+    <h1>New  Attachement Type</h1>
+
+    {{ include('attachement_type/_form.html.twig', {'button_label': 'Save'}) }}
+
+    <a href="{{ path('attachement_type_index') }}">back to list</a>
+ 
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %} Announcement{% endblock %}
+ {% block pagehead %}Announcement {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Announcements</li>  {% endblock %} 
+ 
+{% block body %}
+
+
+        <div class="row features-block">
+        <div class="col-lg-12 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+            <small>{% if announcement.posetedAt %} {{ announcement.posetedAt|date() }} {% endif %}
+            </small>
+            <h5>{{ announcement.subject|raw }}  </h5>
+            <p>
+            {{ announcement.body |raw}} </p>
+         </div>
+    </div>
+      
+     
+{% endblock %}

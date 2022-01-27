@@ -1,0 +1,10 @@
+lexik_form_filter:
+    listeners:
+        doctrine_orm: true
+        doctrine_dbal: false
+        doctrine_mongodb: false
+    force_case_insensitivity: false
+    encoding: ~ # Encoding for case insensitive LIKE comparisons. For example: UTF-8
+    where_method: ~  # null | and | or
+    condition_pattern: text.starts # Available values for this option are: text.contains, text.starts, text.ends, text.equal.
+  

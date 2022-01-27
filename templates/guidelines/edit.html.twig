@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Guidelines{% endblock %}
+
+{% block body %}
+    <h1>Edit Guidelines</h1>
+
+    {{ include('guidelines/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('guidelines_index') }}">back to list</a>
+
+    {{ include('guidelines/_delete_form.html.twig') }}
+{% endblock %}

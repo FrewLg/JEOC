@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Site Setting
+{% endblock %}
+{% block container_title %}Site Setting
+{% endblock %}
+
+
+{% block pagehead %}Site Setting
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Site Setting</li>
+{% endblock %}
+
+{% block body %}
+
+	<div class="tabs-container">
+		<ul class="nav nav-tabs" role="tablist">
+			<li>
+				<a class="nav-link active show" data-toggle="tab" href="#tab-list" data-bs-toggle="pill">
+					Manage Settings
+				</a>
+			</li>
+
+			<li>
+				<a class="nav-link" data-toggle="tab" href="#tab-site-setting" data-bs-toggle="pill">
+					Site Settings
+				</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" id="tab-list" class="tab-pane active show">
+				<div class="panel-body">
+
+					<div class="social-feed-box p-4">
+						{{ form_start(form) }}
+						<div class="my-custom-classs-for-errors"></div>
+
+						{{ form_widget(form) }}
+					</div>
+					<hr>
+					<button class="btn btn-success">{{ button_label|default('Save settings') |trans}}</button>
+					{{ form_end(form) }}
+
+
+				</div>
+			</div>
+
+			<div role="tabpanel" id="tab-site-setting" class="tab-pane">
+				<div class="panel-body">
+					<div class="social-feed-box p-4">
+
+						<table class="table">
+							<tbody>
+
+								<tr>
+									<th>Site name</th>
+									<td>
+										{% if site_setting.name is defined%}
+											{{ site_setting.name }}
+											{%endif%}</td>
+									</td>
+								</tr>
+								<tr>
+									<th>Prefix</th>
+									<td>
+										{% if site_setting.prefix is defined%}
+
+											{{ site_setting.prefix |raw}}
+											{%endif%}</td>
+									</td>
+								</tr>
+								<tr>
+									<th>Description:</th>
+									<td>
+										{% if site_setting.appDescription is defined%}
+
+											{{ site_setting.appDescription|raw }}
+											{%endif%}</td>
+									</td>
+								</tr>
+								<tr>
+									<th>Motto:</th>
+									<td>
+										{% if site_setting.motto is defined%}
+
+											{{ site_setting.motto |raw}}
+											{%endif%}</td>
+									</td>
+								</tr>
+
+
+								<tr>
+									<th>Corporate color:</th>
+									<td>
+										<span class="brand-text  " style='color:{{corporate_color}}'>
+											<b>Site corporate color
+											</b>
+										</span>
+										{{corporate_color}}
+
+									</td>
+								</tr>
+								<tr>
+									<th>Nav bar color:</th>
+									<td>
+										<span class="text-{{navbar_background}}  " style='color:{{navbar_background}}'>
+											<b>
+												{{navbar_background}}
+											</b>
+										</span>
+
+									</td>
+								</tr>
+
+								<tr nowrap="nowrap">
+									<th nowrap="nowrap">Site logo:</th>
+									<td>
+										<img src="{{ asset('files/site_setting/'~site_logo ) }}" alt="{{ app_name }}" style='width:100%'></td>
+								</tr>
+								<tr>
+									<th>About</th>
+									<td>
+										{% if site_setting.about is defined%}
+
+											{{ site_setting.about |raw}}
+											{%endif%}</td>
+									</td>
+								</tr>
+								<tr>
+									<th nowrap="nowrap">Privacy statement:</th>
+									<td>
+										{% if site_setting.about is defined%}
+
+											{{ site_setting.privacyStatement |raw}}
+											{%endif%}</td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+
+	<script>
+		$(function () { // Colorpicker
+$('.my-colorpicker1').colorpicker()
+// color picker with addon
+$('.my-colorpicker2').colorpicker()
+
+$('.my-colorpicker2').on('colorpickerChange', function (event) {
+$('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+})
+
+$("input[data-bootstrap-switch]").each(function () {
+$(this).bootstrapSwitch('state', $(this).prop('checked'));
+})
+
+})
+	</script>
+
+{% endblock %}

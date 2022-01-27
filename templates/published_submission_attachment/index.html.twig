@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PublishedSubmissionAttachment index{% endblock %}
+
+{% block body %}
+    <h1>PublishedSubmissionAttachment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Attachment_file</th>
+                <th>Description</th>
+                <th>Uploaded_at</th>
+                <th>Is_approved</th>
+                <th>Dataset_label</th>
+                <th>Sample_size</th>
+                <th>Location</th>
+                <th>Codebook</th>
+                <th>Study_region</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for published_submission_attachment in published_submission_attachments %}
+            <tr>
+                <td>{{ published_submission_attachment.id }}</td>
+                <td>{{ published_submission_attachment.attachmentFile }}</td>
+                <td>{{ published_submission_attachment.description }}</td>
+                <td>{{ published_submission_attachment.uploadedAt ? published_submission_attachment.uploadedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ published_submission_attachment.isApproved ? 'Yes' : 'No' }}</td>
+                <td>{{ published_submission_attachment.datasetLabel }}</td>
+                <td>{{ published_submission_attachment.sampleSize }}</td>
+                <td>{{ published_submission_attachment.location }}</td>
+                <td>{{ published_submission_attachment.codebook }}</td>
+                <td>{{ published_submission_attachment.studyRegion }}</td>
+                <td>
+                    <a href="{{ path('published_submission_attachment_show', {'id': published_submission_attachment.id}) }}">show</a>
+                    <a href="{{ path('published_submission_attachment_edit', {'id': published_submission_attachment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('published_submission_attachment_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CollaboratingInstitution{% endblock %}
+
+{% block body %}
+    <h1>Create new CollaboratingInstitution</h1>
+
+    {{ include('collaborating_institution/_form.html.twig') }}
+
+    <a href="{{ path('collaborating_institution_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResearchReport{% endblock %}
+
+{% block body %}
+    <h1>ResearchReport</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ research_report.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ research_report.title }}</td>
+            </tr>
+            <tr>
+                <th>File</th>
+                <td>{{ research_report.file }}</td>
+            </tr>
+            <tr>
+                <th>FileType</th>
+                <td>{{ research_report.fileType }}</td>
+            </tr>
+            <tr>
+                <th>SubmittedAt</th>
+                <td>{{ research_report.submittedAt ? research_report.submittedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>SubmissionStatus</th>
+                <td>{{ research_report.submissionStatus }}</td>
+            </tr>
+            <tr>
+                <th>Remark</th>
+                <td>{{ research_report.remark }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ research_report.updatedAt ? research_report.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('research_report_index') }}">back to list</a>
+
+    <a href="{{ path('research_report_edit', {'id': research_report.id}) }}">edit</a>
+
+    {{ include('research_report/_delete_form.html.twig') }}
+{% endblock %}

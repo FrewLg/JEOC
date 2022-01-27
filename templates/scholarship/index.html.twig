@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scholarship index{% endblock %}
+
+{% block body %}
+    <h1>Scholarship index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Url</th>
+                <th>Created_at</th>
+                <th>Country</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for scholarship in scholarships %}
+            <tr>
+                <td>{{ scholarship.id }}</td>
+                <td>{{ scholarship.name }}</td>
+                <td>{{ scholarship.url }}</td>
+                <td>{{ scholarship.createdAt ? scholarship.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ scholarship.country }}</td>
+                <td>{{ scholarship.description }}</td>
+                <td>{{ scholarship.deadline ? scholarship.deadline|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('scholarship_show', {'id': scholarship.id}) }}">show</a>
+                    <a href="{{ path('scholarship_edit', {'id': scholarship.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('scholarship_new') }}">Create new</a>
+{% endblock %}

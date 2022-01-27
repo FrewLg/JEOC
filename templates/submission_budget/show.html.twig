@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SubmissionBudget{% endblock %}
+
+{% block body %}
+    <h1>SubmissionBudget</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ submission_budget.id }}</td>
+            </tr>
+            <tr>
+                <th>Cost</th>
+                <td>{{ submission_budget.cost }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ submission_budget.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Remark</th>
+                <td>{{ submission_budget.remark }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('submission_budget_index') }}">back to list</a>
+
+    <a href="{{ path('submission_budget_edit', {'id': submission_budget.id}) }}">edit</a>
+
+    {{ include('submission_budget/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %}Submission{% endblock %}
+  {% block container_title %}College{% endblock %} 
+{% block body %}
+  
+     <ul class='table table-striped'>
+        {% for thematic_area in thematic_areas %}
+          
+                <li class='table table-stripe'>{{ loop.index }}.  
+                 {{ thematic_area.name }} 
+                 {{ thematic_area.description }}</li>
+                
+            
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+       </ul>
+ <hr> 
+ 
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Guideline</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for guideline in guidelines %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ guideline.guideline }}</td>
+                 
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> 
+
+                          
+{% endblock %}

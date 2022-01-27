@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Call for proposal{% endblock %}
+ 
+{% block pagehead %}Call For Proposal {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Call For Proposal</li>  {% endblock %}
+{% block body %}
+   
+       <div class="card">
+                     
+                                
+                        <div class="card-body ">
+                                             <div class="social-feed-box p-4"> 
+                            <div class="float-right ">
+
+ 
+ Date:<u> {{ call_for_proposal.postDate ? call_for_proposal.postDate|date('Y-m-d H:i:s') : '' }}</u>
+ <br>
+                            </div>
+                            <div>
+                         {% if call_for_proposal.approved=='1'%}
+  <a href="{{ path('call_approve_undo', {'id': call_for_proposal.id }) }}
+  " class='btn btn-success btn-xs'> Unpublish </a> 
+  <a href="{{ path('call_research_report_phase', {'id': call_for_proposal.id }) }}
+  " class='btn btn-success btn-xs'> Report Setting </a> 
+
+                           {% else %}                         
+                          <a href="{{ path('call__approve', {'id': call_for_proposal.id }) }}" class='btn btn-warning btn-xs'> Approve and publish</a>                          
+                         {% endif %}
+
+                         {% if call_for_proposal.approved=='1'%}
+										<a href="{{ path('call_approve_undo', {'id': call_for_proposal.id }) }} " class='btn btn-success btn-xs'>
+											Unpublish
+										</a>
+
+
+									{% else %}
+										<a href="{{ path('call__approve', {'id': call_for_proposal.id }) }}" class='btn btn-warning btn-xs'>
+											Approve and publish</a>
+									{% endif %}
+
+										<a href="{{ path('callresponses', {'id': call_for_proposal.id }) }}" class='btn btn-info btn-xs'>
+
+											Responses</a>
+												<a href="{{ path('call_approved_result', {'uidentifier': call_for_proposal.uidentifier }) }}" class='btn btn-success btn-xs'>
+
+											Result</a>
+	<a href="{{ path('calsendbatch_email', {'uidentifier': call_for_proposal.uidentifier }) }}" class='btn btn-soft-info btn-xs' onsubmit="return confirm('Are you sure you want to send batch email?');">
+
+											Email shortlisted</a>
+                                            
+                            </div>
+                            <p>
+                            <div class="text-center  ">
+                           <br>
+                                <h5><b>
+{{ call_for_proposal.heading |raw}}</b>
+                                </h5>
+                            
+                            </div>
+                            	     
+                               <span class="label label text-default"> <b>{{ call_for_proposal.researchType}} </b> &nbsp;</span>
+                                <small> 
+	<span class="label label text-success">{{ call_for_proposal.views}} Views</span>
+	 {% for applicants in number_of_applicants %}
+	<span class="label label text-success">{{ applicants.Proposals}} Applicant{% if applicants.Proposals >1 %}s{% endif %} </span>
+		{% else %} 
+			<span class="label label text-success">
+			Be the first applicant for this call!</span>
+			
+	{% endfor %}</small>
+	<h6  style="text-align: justify;"><br>{{ call_for_proposal.subject|raw }}</h6>
+                             <h5 class='text-success'>Thematic areas <h5>
+                               <ol>
+							{% if call_for_proposal.college %}
+								{% for themes in call_for_proposal.college.thematicAreas %}
+
+									<li>
+										<h6>{{ themes.name }}</h6>
+									</li>
+
+								{% endfor %}
+							{% endif %}
+						</ol>
+ 
+ <h5 class='text-success ' >Please submit your proposal following this guideline:- <h5>
+<h6 style="text-align: justify;" > {{ call_for_proposal.guidelines|raw }} </6>
+                            </p>
+                           <ul>
+                          <li>
+                          Submission Deadline :
+                           {{ call_for_proposal.deadline ? call_for_proposal.deadline|date('Y-m-d H:i:s') : '' }}
+                          </li>
+                        
+                         <li>
+                          Commitment from other research: 
+                          </li>
+                          
+                          <li>
+Review process: starts at {{ call_for_proposal.reviewProcessEnd ? call_for_proposal.reviewProcessEnd|date('Y-m-d H:i:s') : '' }}
+and ends at
+ {{ call_for_proposal.reviewProcessEnd ? call_for_proposal.reviewProcessStart|date('Y-m-d H:i:s') : '' }}
+                          </li>
+                          <li>
+                          Reviewers decision will be communicated at
+ {{ call_for_proposal.reviewersDecisionWillBeCommunicatedAt ? call_for_proposal.reviewersDecisionWillBeCommunicatedAt|date('Y-m-d H:i:s') : '' }}
+                          </li>
+                           <li>
+                          Project starts on:
+ {{ call_for_proposal.ProjectStartsOn ? call_for_proposal.ProjectStartsOn|date('Y-m-d H:i:s') : '' }}
+</li> 
+</ul>
+                           <b>Principal contact addresses :</b>
+                           <br>
+                           <small>
+                            {% if call_for_proposal.college %}
+                                        {{ call_for_proposal.college.name|raw }}
+                           <h5 class='text-center text-success'> <b>
+                           {{ call_for_proposal.college.name }}</b>
+
+                           <h6>
+{% else %} Center
+{% endif%}
+  </small>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small text-right">  </div>
+                                </div>
+                            </div>
+                           
+
+
+                        </div>
+                    </div>
+                
+                </div>
+    
+{% endblock %}

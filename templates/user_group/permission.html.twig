@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block maintitle %}
+User Group Permission
+{% endblock %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item ">
+		<a href="{{path('user_group_index')}}">User Group</a>
+	</li>
+	<li class="breadcrumb-item active">Permission</li>
+{% endblock %}
+{% block styles %}
+
+	<link rel="stylesheet" href="{{asset('bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+{% endblock %}
+{% block body %}
+
+
+	<div class="card ">
+
+		<div class="card-header">
+			<h3 class="card-title">
+				{{ user_group.name }} User Group
+			</h3>
+
+			<div class="card-tools">
+				<a href="{{ path('user_group_index') }}" class="btn btn-primary btn-sm">back</a>
+
+			</div>
+			<!-- /.card-tools -->
+		</div>
+		<!-- /.card-header -->
+		<form method="POST">
+		<div class="card-body">
+
+
+			<div class="row">
+				<div class="col-12">
+					
+						
+						<div class="form-group">
+
+							<input hidden value="{{ user_group.id}}" name="usergrouppermission">
+							<select class="duallistbox" multiple="multiple" name="permission[]">
+								{% for permission in user_group.permissions %}
+									<option selected value="{{permission.id}}" title="{{permission.description}}">{{ permission.name }}</option>
+								{% endfor %}
+								{% for permission in permissions %}
+									<option value="{{permission.id}}" title="{{permission.description}}">{{ permission.name }}</option>
+								{% endfor %}
+
+
+							</select>
+						</div>
+						<!-- /.form-group -->
+					
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.card-body -->
+		<div class="card-footer">
+			<div class="float-right">
+				<a href="{{path('user_group_index')}}" class="btn btn-primary">Cancel</a>
+				<button class="btn btn-info  ">Save</button>
+
+
+			</div>
+		</div></form>
+	</div>
+	<!-- /.card -->
+
+{% endblock %}
+{% block script %}
+
+	<script src="{{asset('bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+	<script>
+		$(function () {
+$('.duallistbox').bootstrapDualListbox({
+	nonSelectedListLabel: 'List of Privilages',
+  selectedListLabel: 'Granted Privilages',
+  preserveSelectionOnMove: 'moved',
+  moveOnSelect: false,
+  moveSelectedLabel: "Grant Selected Privilages",
+  moveAllLabel: "Grant All Privilages ",
+  removeSelectedLabel: "Revoke Selected Privilages",
+  removeAllLabel: "Revoke All privilages",
+  selectorMinimalHeight: "600"
+  });
+})
+	</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Change Password{% endblock %}
+
+{% block body %}
+    <h1>Change Password</h1>
+
+  <form method="post" action="{{ path('change_password') }}" name='form'  >
+     <input type="password" name="password" placeholder='sa'>
+    <input type="password" name="plainPassword">
+    <button class="btn btn-success float-right">{{ button_label|default('Update password') }}</button>
+</form>
+
+ 
+  
+
+ 
+{% endblock %}

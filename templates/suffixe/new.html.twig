@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Suffixe{% endblock %}
+
+{% block body %}
+    <h1>Create new Suffixe</h1>
+
+    {{ include('suffixe/_form.html.twig') }}
+
+    <a href="{{ path('suffixe_index') }}">back to list</a>
+{% endblock %}

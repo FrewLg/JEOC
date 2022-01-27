@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New WorkUnit{% endblock %}
+
+{% block body %}
+    <h1>Create new WorkUnit</h1>
+
+    {{ include('work_unit/_form.html.twig') }}
+
+    <a href="{{ path('work_unit_index') }}">back to list</a>
+    
+    <script src="{{ asset('assets/javascript/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/javascript/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        $('textarea.ckeditor').ckeditor();
+    });
+</script>
+
+{% endblock %}

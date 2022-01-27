@@ -1,0 +1,250 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	User List
+{% endblock %}
+{% block stylesheets %}
+	<style>
+		td a {
+			color: blue;
+		}
+	</style>
+{% endblock %}
+{% block maintitle %}User List
+	<span class=" badge">
+		(Total :{{ users.getTotalItemCount }})</span>
+{% endblock %}
+
+{% block breadcrumb %}
+
+	<li class="breadcrumb-item active">
+		User List
+	</li>
+
+{% endblock %}
+
+{% block body %}
+
+	<div class="card  m-0">
+
+		<div class="card collapsed-card m-0">
+			<div class="card-header">
+
+
+				<form class="form-inline card-title" method="get">
+					<div class="input-group ">
+						<input class="form-control" autocomplete="off"  value="{{app.request.query.get('search')}}" name="search" type="search" placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class=" input-group-text btn btn-navbar  " type="submit">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+
+	<a href="{{path('user_new')}}" class="btn  btn-info float-right   ">
+						<i class="fas ">
+							<b>{% trans %}Register New{% endtrans %}</b>
+						</i>
+					</a>
+					
+			
+				<!-- /.card-tools -->
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body mb-0 pb-0">
+			
+			</div>
+			<!-- /.card-body -->
+		</div>
+
+		<div class="card-body m-0">
+			<div class="row m-0">
+
+                     <div class="table-responsive">
+
+				<table class="table table-hover  table-striped table-head-fixed">
+					<thead>
+						<tr>
+							<th>
+
+
+								<div class="icheck-primary d-inline">
+									<input type="checkbox" name="selected_users[]" class="select-all-checkbox" id="check-box" value="Check All">
+									<label for="check-box"></label>
+								</div>
+								{% set limit = app.request.get('limit')  %}
+								<select name="limit" class=" form-control-sm" id="limit">
+									<option id="10" {{limit == 10?"selected":""}}>10</option>
+									<option id="20" {{limit == 20?"selected":""}}>20</option>
+									<option id="25" {{limit == 25?"selected":""}}>25</option>
+									<option id="50" {{limit == 50?"selected":""}}>50</option>
+									<option id="100" {{limit == 100?"selected":""}}>100</option>
+								</select>
+
+							</th>
+							<th>{{ knp_pagination_sortable(users,  'Full Name' , 'u.firstName') }}</th>
+							<th>{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
+							<th>{{ knp_pagination_sortable(users, 'Username', 'u.username') }}</th>
+
+							<th>{{ knp_pagination_sortable(users, 'Status', 'u.isActive') }}</th>
+							<th>{{ knp_pagination_sortable(users, 'Created At', 'u.createdAt') }}</th>
+							<th>{{ knp_pagination_sortable(users, 'Last Login', 'u.lastLogin') }}</th>
+							{# <th>actions</th> #}
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for user in users %}
+							<tr>
+								<td>
+									<div class="icheck-primary d-inline">
+										<input type="checkbox" name="selected_users[]" class="select-user-checkbox" id="check-box-{{user.id}}" value="{{user.id}}">
+										<label for="check-box-{{user.id}}"></label>
+									</div>
+									{{ loop.index }}</td>
+								<td>
+									<a href="{{ path('user_show', {'id': user.id}) }}">
+										{{ user ?:user.email}}
+{{user.id}}
+
+</a>
+								</td>
+								<td>
+									{{ user.email  }}</td>
+
+								<td>
+								
+									{{ user.username  }}</td>
+
+								<td>
+									<span class="badge {{user.isActive ? " bg-success":" bg-danger"}} ">{{user.isActive ? "active":"In-active"}}</span>
+								</td>
+								<td>{{ user.registeredAt ? user.registeredAt|date('Y-m-d H:iA') : '' }}</td>
+								<td>{{ user.lastLoginAgo }}</td>
+								<td>{# <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-info btn-sm" title="show">
+									<i class="fa fa-eye"></i>
+</a> #}
+	<a href="{{ path('researcher', {'id': user.id}) }}" class="btn btn-primary  btn-sm" title="Profile">
+	   <i class="fa fa-user"></i> 
+                                                                        </a>
+									{# <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning btn-sm" title="edit">
+																			<i class="fa fa-pen"></i>
+									</a> #}
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+				</div>
+				<div class="float-right" id="custompag	inator">{{ knp_pagination_render(users) }}</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(function () { // Initialize Select2 Elements
+$('.select2').select2({theme: 'bootstrap4'});
+});
+	</script>
+	<script>
+
+		$('#limit').change(function (e) {
+
+var url = "{{ path('user_index',{limit:'itemNum'}) }}";
+var item = $('#limit').find(":selected").text();
+
+
+// window.location.href = url.replace('itemNum',item );
+
+e.preventDefault();
+$('#filteruserform').attr('action', url.replace('itemNum', item));
+
+$('#filteruserform').append($('<input hidden name="limit-sent" value="true"/> '));
+
+$('#filteruserform').submit();
+})
+
+$('#custompaginator .page-link').click(function (e) {
+
+e.preventDefault();
+$('#filteruserform').attr('action', $(this).attr('href'));
+$('#filteruserform').append($('<input hidden name="limit-sent" value="true"/> '));
+
+$('#filteruserform').submit();
+
+});
+
+
+$(function () {
+
+$(document).on('click', '.select-all-checkbox', function () {
+
+if ($(this).prop('checked') == true) {
+$('.select-user-checkbox').prop('checked', true);
+$(this).val('Uncheck All');
+} else {
+$('.select-user-checkbox').prop('checked', false);
+$(this).val('Check All');
+} checkAtleastOne()
+});
+
+$(document).on('click', '.select-user-checkbox', function () {
+
+if ($(this).prop('checked') == false) {
+$('.select-all-checkbox').prop('checked', false);
+
+}
+checkAtleastOne()
+
+});
+});
+
+function checkAtleastOne() {
+checked = false;
+$('.select-user-checkbox').each(function () {
+if ($(this).is(':checked')) {
+atLeastOneIsChecked = true;
+console.log(1);
+
+$('.take-action-form').removeClass("invisible");
+// Stop .each from processing any more items
+checked = true;
+return false;
+}
+});
+if (!checked) 
+$('.take-action-form').addClass("invisible");
+
+
+
+}
+
+$(document).on("click", ".take-action-submit-btn", function (e) {
+e.preventDefault();
+
+//console.log("data",$('.select-user-checkbox'))
+$('.take-action-form').append($('.select-user-checkbox'));
+
+{% if isFiltered %}
+$('#filteruserform').append($('.take-action'));
+$('#filteruserform').append($('.action-with-selected'));
+$('#filteruserform').submit();
+
+{% else %}
+		
+$(".take-action-form").submit();
+{% endif %}
+
+
+});
+	</script>
+{% endblock %}

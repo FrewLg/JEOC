@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Scholarship{% endblock %}
+
+{% block body %}
+    <h1>Edit Scholarship</h1>
+
+    {{ include('scholarship/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('scholarship_index') }}">back to list</a>
+
+    {{ include('scholarship/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Review Assignment
+{% endblock %}
+{% block container_title %}Review Assignment
+{% endblock %}
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-6 col-md-12 col-sm-12">
+			<div class="card">
+				<div class="card-header">
+					Edit Review Assignment
+				</div>
+
+				<div class="card-body">
+					{{ form_start(editform) }}
+					{{ form_widget(editform) }}
+
+					{# <div class="modal-footer"> #}
+					<button class="btn btn-soft-primary btn-lg">{{ button_label|default('Save changes') }}</button>
+
+					{# <button type="button" class="btn btn-soft-primary btn-sm">Save changes</button> #}
+					{# <button type="button" class="btn btn-soft-secondary btn-lg" data-bs-dismiss="modal">Close</button> #}
+
+
+					{{ form_end(editform) }}
+
+				</div>
+			</div>
+		</div>
+	</div>
+ {% endblock    %}

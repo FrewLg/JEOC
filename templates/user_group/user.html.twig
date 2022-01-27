@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Group
+{% endblock %}
+{% block maintitle %}
+User Group Users
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item ">
+		<a href="{{path('user_group_index')}}">User Group</a>
+	</li>
+	<li class="breadcrumb-item active">User list</li>
+{% endblock %}
+{% block styles %}
+
+	<link rel="stylesheet" href="{{asset('bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+{% endblock %}
+{% block body %}
+
+
+	<div class="card ">
+
+		<div class="card-header">
+			<h3 class="card-title">
+				{{ user_group.name }}
+			</h3>
+
+			<div class="card-tools">
+				<a href="{{ path('user_group_index') }}" class="btn btn-primary btn-sm">back</a>
+
+			</div>
+			<!-- /.card-tools -->
+		</div>
+					<form method="POST">
+
+		<!-- /.card-header -->
+		<div class="card-body">
+
+
+			<div class="row">
+				<div class="col-12">
+
+						<div class="form-group">
+							<input hidden value="{{ user_group.id}}" name="usergroupuser">
+							<select class="duallistbox" multiple="multiple" name="user[]">
+								{% for user in user_group.users %}
+									<option selected value="{{user.id}}" >{{ user.userInfo }}
+										 
+										-
+										{{ user.userInfo.id }}</option>
+								{% endfor %}
+								{% for user in users %}
+									<option value="{{user.id}}">{{ user.userInfo }}
+										 
+										-
+										{{ user.userInfo.id }}</option>
+								{% endfor %}
+
+
+							</select>
+						</div>
+						<!-- /.form-group -->
+					
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.card-body -->
+		<div class="card-footer float-right">
+			<div class="float-right">
+				<a href="{{path('user_group_index')}}" class="btn btn-primary">Cancel</a>
+				<button class="btn btn-info  ">Save</button>
+
+
+			</div>
+		</div>
+		</form>
+	</div>
+	<!-- /.card -->
+
+{% endblock %}
+{% block script %}
+
+	<script src="{{asset('bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+	<script>
+		$(function () {
+$('.duallistbox').bootstrapDualListbox({
+	nonSelectedListLabel: 'User List',
+  selectedListLabel: 'Users In The Group',
+  preserveSelectionOnMove: 'moved',
+  moveOnSelect: false,
+  moveSelectedLabel: "Add Selected Users to This Group",
+  moveAllLabel: "Add All Users to This Group ",
+  removeSelectedLabel: "Remove Selected Users From This Group",
+  removeAllLabel: "Remove All Users From This Group",
+  selectorMinimalHeight: "600"
+  });
+})
+	</script>
+{% endblock %}

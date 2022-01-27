@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New AcademicRank{% endblock %}
+
+{% block body %}
+    <h1>Create new AcademicRank</h1>
+
+    {{ include('academic_rank/_form.html.twig') }}
+
+    <a href="{{ path('academic_rank_index') }}">back to list</a>
+{% endblock %}

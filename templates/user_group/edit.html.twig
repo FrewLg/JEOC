@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Edit User Group
+{% endblock %}
+{% block maintitle %}Edit User Group
+{% endblock %}
+{% block breadcrumb %}
+
+
+	<li class="breadcrumb-item active">
+		User Group Edit</li>
+{% endblock %}
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+
+    {{ include('user_group/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-primary mx-2 float-left" href="{{ path('user_group_index') }}">back to list</a>
+
+    {{ include('user_group/_delete_form.html.twig') }}
+{% endblock %}

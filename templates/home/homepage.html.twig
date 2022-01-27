@@ -1,0 +1,200 @@
+{% extends 'homelayout.html.twig' %}
+{% block breadcrumb %}{% endblock %}
+{# {% block pagehead %}Home
+{% endblock %} #}
+{% block title %}Home
+{% endblock %}
+
+
+{% block body %}
+
+	{#% include 'page_includes/header_report.html.twig'%#}
+
+	<meta property="og:url" content="http://127.0.0.1:8000/call-for-proposals/45c6511210cb942387708990398a8bf9/details"/>
+	<meta property="og:type" content="JU"/>
+	<meta property="og:title" content="RMS Announcemen ts"/>
+	<meta property="og:description" content="Your description"/>
+	<meta property="og:image" content="http://127.0.0.1:8000/call-for-proposals/45c6511210cb942387708990398a8bf9/details"/>
+
+
+	<h4>
+		Recent call for proposals</h4>
+
+	{% for call_for_proposal in call_for_proposals %}
+
+		<article class="col-lg-11">
+
+			<small>
+				{{ call_for_proposal.postDate ? call_for_proposal.postDate|date('Y-m-d H:s') : '' }}
+			</small>
+			<h6 class="">
+
+				<a href="{{ path('call_for_proposal_show', {'uidentifier': call_for_proposal.uidentifier }) }}">
+
+
+					<p style="font-family:arial; text-align:justify;">
+						{{ call_for_proposal.subject|striptags|slice(0, 170)|raw }}</p>
+				</a>
+			</h6>
+
+			<small class='text-mued'>
+			Submission Deadline :
+			</small>
+
+
+			<small class='text-danger'>
+
+				{{ call_for_proposal.deadline ? call_for_proposal.deadline|date('Y-m-d h:i A') : '' }}
+
+			</small>
+			<br>
+			<br>
+			{# <a href="{{ path('call_for_proposal_show', {'uidentifier': call_for_proposal.uidentifier }) }}" class='btn btn-primary btn-sm'>Click to see details</a> #}
+
+		</article>
+
+
+	{% else %}
+
+		<td colspan="7">No calls made yet</td>
+
+	{% endfor %}
+
+<br>
+<br>
+	 
+			{% block pagination%}
+<div class="pagination-block">
+		<div class="navigation">
+			{{ knp_pagination_render(call_for_proposals) }}
+		</div>
+
+	</div>			{% endblock %} 
+
+
+	{% if  announcements|length > 0 %}
+		<h4>
+			Recent announcements</h4>
+
+		{% for call_for_proposal in announcements %}
+
+			<article class="col-lg-9 post ttm-blog-classic clearfix">
+
+
+				<div class="ttm-blog-classic-content">
+					<div class="ttm-post-entry-header">
+						<div class="post-meta">
+							<small class="ttm-meta-line ">
+
+								{{ call_for_proposal.posetedAt ? call_for_proposal.posetedAt|date('Y-m-d H:s') : '' }}
+
+							</small>
+						</div>
+
+
+						<a href="{{ path('announcement_show', {'id': call_for_proposal.id }) }}">
+							{{ call_for_proposal.subject |raw}}
+
+						</a>
+
+<p style="font-family:arial; text-align:justify;">
+						{# {{ call_for_proposal.body|striptags|slice(0, 170)|raw }} #}
+						</p>
+
+					</div>
+
+				</div>
+			</article>
+		{% endfor %}
+
+
+	{% endif %}
+
+
+	{# <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script> #}
+
+{% endblock %}
+
+
+{% block aside %}
+{% if is_granted('ROLE_USER') %}
+
+
+	{% else  %}
+
+		{# <div class="card    fadeInLeft animated    " style="visibility: visible; animation-name: fadeInLeft;"> #}
+		{# <div class="card-body  ">
+			<div class="  ">
+
+				<h4 class="">Sign in</h4>
+			</div>
+		</div>
+		<div
+			class="card-body p-0">
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div
+					class="tab-pane p-3 active" id="LogIn_Tab" role="tabpanel">
+					{# <div class="wow fadeInLeft animated p-3 active" style="visibility: visible; animation-name: fadeInLeft;"> 
+
+					<form method="post" class="form-group" action={{ path('app_login') }}>
+						{% if error is defined and error %}
+
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+
+						{% if app.user %}
+							<div class="mb-3">
+								You are logged in as
+								{{ app.user.username }},
+								<a href="{{ path('app_logout') }}">Logout</a>
+							</div>
+						{% endif %}
+
+						<!-- <h5 class="h5 mb-3 font-weight-normal">Please sign in here if you have an account</h5> -->
+						<label for="inputUsername" class="font-18 fw-semibold mb-2">Username</label>
+						<input type="text" value="" name="email" placeholder='' id="inputUsername" class="form-control" autocomplete="email" required autofocus>
+						<label for="inputPassword">Password</label>
+						<input type="password" name="password" id="inputPassword" placeholder='' class="form-control " autocomplete="current-password" required>
+
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+						<div class="form-group row my-3">
+							<div class="col-sm-12">
+								<div class="custom-control custom-switch switch-success">{# <input type="checkbox" class="custom-control-input" name='_remember_me' id="customSwitchSuccess"> 
+									{# <label class="form-label text-muted" for="customSwitchSuccess">Remember me</label> 
+								</div>
+							</div>
+							<!--end col-->
+							<div class="col-sm-12 ">
+								<a
+									href="{{ path('app_forgot_password_request')}}" class="text-muted font-13">
+									{# <i class="fa fa-lock"></i> 
+									Forgot password?</a>
+							</div>
+							<div class="col-12">
+								<button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Login
+									<i class="fa fa-lock "></i>
+								</button>
+							</div>
+							<div class="col-12 ">
+								<p></p>
+								<p>
+									If you are non-JU academic staff</p>
+								<a href="{{ path('app_register')}}" class="btn  btn-lg btn-block  w-100  btn-outline-primary ">Create account
+								</a>
+
+							</div>
+						</div>
+
+
+					</form>
+
+
+				</div>
+			</div>
+		</div> #}
+	</div>
+{% endif  %}{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Work Unit index{% endblock %}
+ {% block container_title %}Work units{% endblock %} 
+{% block body %} 
+    <table  class="table  table-striped" >
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th> 
+                <th>Prefix</th> 
+                <th>Identification code</th> 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for work_unit in work_units %}
+            <tr>
+                <td>{{ loop.index  }}</td>
+                <td>{{ work_unit.name }}</td>
+                <td>{{ work_unit.prefix }}</td> 
+                <td>{{ work_unit.identificationCode }}</td> 
+                <td> 
+                    <a href="{{ path('work_unit_show', {'prefix': work_unit.prefix}) }}" class='btn  btn-info btn-xs'>Details</a>
+                    <a href="{{ path('work_unit_edit', {'id': work_unit.id}) }}" class='btn btn-warning btn-xs'> Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('work_unit_new') }}">Create new</a>
+{% endblock %}

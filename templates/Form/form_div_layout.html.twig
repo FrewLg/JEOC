@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS</title>
+    <link href="{{ asset('corporate/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/css/plugins/dropzone/basic.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/css/plugins/dropzone/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('corporate/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('bundles/kmsfroalaeditor/froala_editor/css/froala_style.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('corporate/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+<link href="{{ asset('corporate/img/logo.png') }}" rel="icon">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <center>
+                        <img alt="image" class="" style='width:60px;height:75px;' 
+src="{{ asset('corporate/img/logo.png') }}"/>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"></center>
+                            <span class="block m-t-xs font-bold"> {% if is_granted('ROLE_USER') %} 
+                                          {{ app.user.username }} {% endif %}</p>
+
+                            </span>
+                            <span class="text-muted text-xs block"> {% if is_granted('ROLE_USER') %} {{ app.user.username }} {% endif %}   <b class="caret"></b></span>
+                </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li> 
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                          <img alt="image" class="" style='width:60px;height:75px;'
+src="{{ asset('corporate/img/logo.png') }}"/>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Submissions</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('submission_index') }}">All Researches</a></li>
+                                      </ul>
+                                      <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">My Researches</a></li>
+                                      </ul>
+                <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">My Reviews</a></li>
+                                      </ul>
+                </li>
+               <li>
+                    <a href="#"><i class="fa fa-bell"></i> <span class="nav-label">Announcements</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('call_for_proposal_index') }}">Call for papers</a></li>
+                                      </ul>
+                                      <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">My Researches</a></li>
+                                      </ul>
+                <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">My Reviews</a></li>
+                                      </ul>
+                </li>
+              
+           <li>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Work units</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('work_unit_index') }}">Colleges</a></li>
+                  
+                    </ul>
+                      <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('institutional_reviewers_board_index') }}">IRBs</a></li>
+                  
+                    </ul>
+                    
+                </li>
+               
+                <li>
+                    <a href="#"><i class="fa fa-user"></i> <span class="nav-label">User mangement</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('user_index') }}">Users</a></li>
+                                            <li><a href="{{ path('group_index') }}">Groups</a></li>
+                                            <li><a href="{{ path('permission_index') }}">Permission</a></li>
+                    </ul>
+                </li>
+              <li>
+                    <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('submission_index') }}">Call for papers</a></li>
+                                      </ul>
+                                      <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('editorial_decision_index') }}">Editorial decisions</a></li>
+                                      </ul>
+                <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">My Reviews</a></li>
+                                      </ul>
+                </li>
+                 <li>
+                    <a href="#"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('report_one') }}">Submission report</a></li>
+                                      </ul>
+                                      <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('report_two') }}">Publication</a></li>
+                                      </ul>
+                <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ path('myreviews') }}">Gender distibution</a></li>
+                                      </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message text-success"><strong class='text-success'>Research Database management System </strong></span>
+                </li>
+                <li>
+                    <span class="m-r-sm text-muted welcome-message text-success"><strong class='text-default'><a href='{{ path('homepage') }}' class='text-primary' >View site</a> </strong></span>
+                </li>
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="img/a7.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <small class="float-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="img/a4.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="float-right text-navy">5h ago</small>
+                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="img/profile.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="float-right">23h ago</small>
+                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html" class="dropdown-item">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="profile.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="float-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="grid_options.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html" class="dropdown-item">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+
+    <a href="{{ path('app_logout') }}"> <i class="fa fa-sign-out"></i> Log out </a>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>{% block body_title %}{% endblock %}</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('homepage') }}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>{% block beardcrumb_root_title %}{% endblock %}</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>{% block beardcrumb_title %}{% endblock %} </strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2"> 
+                </div>                
+            </div>
+        <div class="wrapper wrapper-content ">
+            <div class="row">
+                <div class="col-lg-12"> 
+                <div class="ibox ">    
+                  
+      {% for message in app.flashes('info') %} 
+    <div class="alert alert-info alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              {{ message }}  
+</div>                            
+{% endfor %}
+
+                   
+      {% for message in app.flashes('notice') %} 
+    <div class="alert alert-success alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              {{ message }}  
+</div>                            
+{% endfor %}
+   {% for message in app.flashes('danger') %} 
+    <div class="alert alert-danger alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              {{ message }}  
+</div>                            
+{% endfor %}
+   {% for message in app.flashes('success') %} 
+    <div class="alert alert-success alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              {{ message }} 
+</div>                            
+{% endfor %}
+   {% for message in app.flashes('warning') %} 
+    <div class="alert alert-warning alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              {{ message }}  
+</div>                            
+{% endfor %}
+  
+               </div>
+                                
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>       {% block container_title %}{% endblock %} 	
+                </h5>
+                        </div>
+                        <div class="ibox-content">
+                          
+                {% block body %}
+                {% endblock %}
+
+  </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="footer">
+                <div class="float-right">
+                    <strong>RDMS</strong> 
+                </div>
+                <div>
+                    <strong>Copyright</strong> <strong class='text-success'>RDMS</strong> Research Database management System  &copy; 2021
+                </div>
+            </div>
+
+        </div>
+        </div> 
+    <!-- Mainly scripts -->
+    <script src="{{ asset('corporate/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('corporate/js/popper.min.js') }}"></script>
+    <script src="{{ asset('corporate/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('corporate/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('corporate/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('corporate/js/inspinia.js') }}"></script>
+    <script src="{{ asset('corporate/js/plugins/summernote/summernote-bs4.js') }}"></script>
+    <!-- Jquery Validate -->
+    <script src="{{ asset('corporate/js/plugins/validate/jquery.validate.min.js') }}"></script>
+
+    {% block javascript  %}
+     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        {% endblock javascript  %} 
+    <script>
+        $(document).ready(function(){
+            $('.js-example-basic-single').select2();
+                  $("#form_thematic_area").select2()
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex)
+                    {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18)
+                    {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex)
+                    {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex)
+                {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                    {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3)
+                    {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                        errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },
+                        rules: {
+                            confirm: {
+                                equalTo: "#password"
+                            }
+                        }
+                    });
+       });
+    </script>
+    <script>
+        Dropzone.options.dropzoneForm = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+        };
+
+        $(document).ready(function(){
+ $('.footable').footable();
+            $('.summernote').summernote();
+            $('.footable2').footable();
+            var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+            var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+            var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+            var editor_two = CodeMirror.fromTextArea(document.getElementById("code4"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+
+            $('.custom-file-input').on('change', function() {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            });
+
+       });
+    </script>
+
+</body>
+
+</html>
+
+

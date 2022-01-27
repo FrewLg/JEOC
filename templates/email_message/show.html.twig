@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EmailMessage{% endblock %}
+
+{% block body %}
+    <h1>EmailMessage</h1>
+
+    <table class="table">
+        <tbody>
+              <tr>
+                <th>Subject</th>
+                <td>{{ email_message.subject }}</td>
+            </tr>
+            <tr>
+                <th>Email_key</th>
+                <td>{{ email_message.emailKey }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ email_message.body |raw}}</td>
+            </tr>
+         
+        </tbody>
+    </table>
+
+    <a href="{{ path('email_message_index') }}"  class='btn btn-soft-info btn-xs'>Back to list</a>
+
+    <a href="{{ path('email_message_edit', {'id': email_message.id}) }}"  class='btn btn-soft-primary btn-xs'>Edit</a>
+
+    {{ include('email_message/_delete_form.html.twig') }}
+{% endblock %}

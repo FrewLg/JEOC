@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Dataset{% endblock %}
+{% block body_title %}Dataset{% endblock %}
+{% block container_title %}Datasets{% endblock %} 
+{% block body %}   
+ <div class='container'>
+   
+   <h4 class='text-primary'>Dataset used:</h4> 
+   
+  {% for dataset in datasets %}
+	<strong class='text-info'>Messagemfrom director</strong><p>
+	 {{ datasets.id }}	
+ 
+                                {% endfor %}
+                                
+ 
+{% endblock%}  
+

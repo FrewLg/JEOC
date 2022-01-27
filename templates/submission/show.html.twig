@@ -1,0 +1,242 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submission
+{% endblock %}
+ {% block styles %}
+ 
+  <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endblock %}
+
+{% block container_title %}Submission review
+{% endblock %}
+{% block body %}
+	<div class="row">
+		<div class="col-lg-9">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<dl class="row mb-0">
+						<div class="col-sm-2 text-sm-right">
+							<dt>
+								{% if submission.sentAt %}
+									{{ submission.sentAt|date() }}
+								{% endif %}
+							</dt>
+						</div>
+						<div class="col-sm-10 text-sm-left">
+							<dd>
+								<div class="nowrap">
+									<div style="width: 100%;" class="text-success strong">
+										<strong>
+											{{ submission.prefix }}
+											{{ submission.Title }}:{{ submission.subTitle }}
+										</strong>
+									</div>
+									<a class="btn btn-xs btn-success" href="{{ path('research_sumary', {'uid': submission.uidentifier }) }}">
+										<i class="fa fa-adobe"></i>
+									</a>
+
+								</div>
+								<small>Project duration in
+									<strong></strong>
+									{% if submission.document    %}
+										<a href="{{ asset('/files/proposals/'~ submission.document ) }}" class="mb-2 btn btn-outline-success mr-2 float-right">
+											Download attachment
+											<i class="fa fa-download material-icons warning"></i>
+										</a>
+									{% else %}
+										<span class="label label-danger">
+											{% trans %}No attachement found{% endtrans %}
+										</span>
+									{% endif %}
+
+
+								</small>
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+			<div class="row m-t-sm">
+				<div class="col-lg-12">
+					<div class="panel blank-panel">
+						<div class="panel-heading">
+							<div class="panel-options">
+								<ul class="nav nav-tabs">
+									<li>
+										<a class="nav-link active" href="#tab-1" data-toggle="tab">Research detail</a>
+									</li>
+									<li>
+										<a class="nav-link" href="#tab-2" data-toggle="tab">Revision</a>
+									</li>
+									<li>
+										<a class="nav-link" href="#tab-3" data-toggle="tab">Discussion</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="panel-body">
+
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab-1">
+									<div class="row">
+										<div class="col-md-12">
+
+											<div class="ibox">
+												<div class="ibox-title">
+
+													<h5>Research details</h5>
+												</div>
+												<div class="ibox-content">
+
+
+													<div class="table-responsive">
+														<table class="table shoping-cart-table">
+
+															<tbody>
+																<tr>
+
+																	<td class="desc">
+																		<h3>
+																			<a href="#" class="text-navy">
+																				Abstract
+																			</a>
+																		</h3>
+																		<p class="medium">
+
+																			{{ submission.abstract }}
+																		</p>
+
+
+																		<div class="m-t-sm">
+																			<a href="#" class="text-muted">Keywords</a>
+
+																			<a href="#" class="text-muted">
+																				<i class="fa fa-trash"></i>
+																				dd</a>
+																		</div>
+																	</td>
+
+
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="tab-pane" id="tab-2">
+
+
+									{% for review in reviews %}
+
+										<table class="table shoping-cart-table">
+
+											<tbody>
+												<tr>
+
+													<td class="desc">
+														<h3>
+															<a href="#" class="text-navy">
+																Comment from reviewer
+															</a>
+														</h3>
+														<p class="small">
+
+															{{ review.comment }}
+														</p>
+														<dl class="small m-b-none">
+															<dt>Revised at
+																{{ review.dateReviewed ? review.dateReviewed|date('Y-m-d H') : '' }}
+															</dt>
+														</dl>
+
+														<div class="m-t-sm">
+
+															{% if review.attachment     %}
+																<a href="{{ asset('/files/proposals/review_files/'~ review.attachment ) }}" class="mb-2 outline-success mr-2 ">
+																	Download attachment
+																	<i class="fa fa-download material-icons warning"></i>
+																</a>
+															{% else %}
+																<span class="label label-danger">
+																	{% trans %}No attachement found{% endtrans %}
+																</span>
+															{% endif %}
+														</div>
+													</td>
+													<td width="65" nowrap="nowrap">
+														<h4 class='text-success'>
+															Round
+															{{ loop.index }}
+														</h4>
+													</td>
+												</tr>
+											</tbody>
+										{% else %}
+											<tr>
+												<td colspan="5">Revision not initiated</td>
+											</tr>
+										{% endfor %}
+									</table>
+									<hr>
+									<h3 class='text-success'>Comment</h3>
+									{{ form_start(form) }}
+									{{ form_widget(form) }}
+									<button class="btn">{{ button_label|default('Save') }}</button>
+									{{ form_end(form) }}
+
+								</div>
+								<div class="tab-pane" id="tab-3">
+
+									{{ submission.abstract }}
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="wrapper wrapper-content project-manager">
+				<h4>Abstract</h4>
+
+				<p class="small">
+					{{ submission.abstract }}
+				</p>
+				<h5>Keywords:</h5>
+				<ul class="tag-list" style="padding: 0">
+					Keywords
+				</ul>
+				<h5>Attachment files</h5>
+				<ul class="list-unstyled project-files">
+
+					<li>
+						<a href="">
+							<i class="fa fa-file"></i>
+							Contract_20_11_2014.docx</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   <script type="text/javascript">
+         $(function () {
+         $('.js-datepicker').datetimepicker();
+               });
+      </script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submission{% endblock %}
+ {% block container_title %}Researches {% endblock %} 
+{% block body %}
+<div class="row">
+            <div class="col-lg-12"> 
+            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li><a class="nav-link active show" href="#tab-1" data-toggle="tab">My Researches</a></li>
+                                            <li><a class="nav-link" href="#tab-2" data-toggle="tab">Researches I reviewed</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                <div class="tab-content">
+                                <div class="tab-pane " id="tab-2">
+                                    <div class="feed-activity-list">
+                                         {% for submission in submissions %}
+            {{ submission.id }}</td>
+                <td>{{ submission.title }}</td>
+                <td>{{ submission.subTitle }}</td>
+        
+                                        <div class="feed-element">
+                                            <a href="#" class="float-left">
+                                                <img alt="image" class="rounded-circle" src="img/a3.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="float-right"><a href="{{ path('submission_show', {'id': submission.id}) }}">show</a>
+                    <a href="{{ path('submission_edit', {'id': submission.id}) }}">edit</a>
+                    </small>
+                                                <strong>{{ submission.title }}</strong> {{ submission.title }} <strong>{{ submission.author }}</strong>. <br>
+                                                <small class="text-muted"> {% if submission.sentAt %} {{ submission.sentAt|date() }} {% endif %}</small>
+                                            </div>
+                                        </div>
+                                          {% else %}
+            <tr>
+                <td colspan="8"  ><span class='text-danger'>Not submitted yet!</span> <br>
+                <a href="{{ path('submission_new') }}"class='text-success' > Make new submission  Here   </a>
+                </td>
+            </tr>
+        {% endfor %}
+                                    </div>
+
+                                </div> 
+                                <div class="tab-pane active show" id="tab-1">
+                               <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+ 
+                <th>Date</th> 
+                <th>Status</th> 
+            </tr>
+        </thead>
+        <tbody>
+        {% for myreviews in myreviews %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ myreviews.title }}</td>
+                <td>{{ myreviews.author }}</td>
+               <td> {% if myreviews.sentAt %} {{ myreviews.sentAt|date() }} {% endif %}</td>
+                  <td>
+                                    <a href="{{ path('reviewsubmission', {'id': myreviews.id}) }}">Review</a>
+                    <a href="{{ path('submission_show', {'id': myreviews.id}) }}">show</a>
+                    <a href="{{ path('submission_edit', {'id': myreviews.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+                                </div>
+                                </div>
+
+                                </div>
+
+                                </div>
+                                </div>
+                            </div> 
+            </div>
+        </div>	
+    
+{% endblock %}

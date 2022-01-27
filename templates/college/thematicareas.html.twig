@@ -1,0 +1,60 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}College
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">{{college.name}}</h4>
+
+				</div>
+				<!--end card-header-->
+				<div class="card-body">
+				 
+				  
+
+					{% if college.thematicAreas |length>0%}
+
+						<h4>
+							Thematic Areas</h4>
+
+						<ol>
+							{% for thematic_area in college.thematicAreas %}
+								<li>{{ thematic_area.name }}</li>
+
+
+								{% else %}
+
+							{% endfor %}
+						</ol>
+					{% endif %}
+					<hr>
+	 
+				</div>
+			</div>
+		{% endblock %}
+		{% block asidetwo %}
+
+			Quick details</h5>
+		<hr>
+		<!--end card-header-->
+
+		<div class="col-lg-12">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i> <a href="{{path('college_detail',{'prefix':'jucavm'})}}">Call for proposals</a></li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i> <a href="{{path('college_detail',{'prefix':'jucavm'})}}">Thematic areas</a></li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i><a href="{{path('college_detail',{'prefix':'jucavm'})}}">Statistics</a>
+				</li>
+				<li class="list-group-item">
+					<i class="la la-angle-double-right text-info me-2"></i><a href="{{path('college_detail',{'prefix':'jucavm'})}}">IRB Members</a>
+				</li>
+			</ul>
+		</div>
+	{% endblock %}

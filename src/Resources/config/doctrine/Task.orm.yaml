@@ -1,0 +1,8 @@
+# src/Resources/config/doctrine/Task.orm.yaml
+App\Entity\Task:
+    type: entity
+    # ...
+    oneToMany:
+        tags:
+            targetEntity: App\Entity\Tag
+            cascade:      [persist]

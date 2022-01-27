@@ -1,0 +1,36 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}404
+{% endblock %}
+
+{% block body %}
+	<div class="error-page">
+		<h2 class="headline text-warning">
+			404</h2>
+
+		<div class="error-content">
+			<h3>
+				<i class="fas fa-exclamation-triangle text-warning"></i>
+				Oops! Page not found.</h3>
+
+			<p>
+				We could not find the page you were looking for.
+				            Meanwhile, you may
+				<a href="{{path('homepage')}}">return to Home</a>
+				or try using the search form.
+			</p>
+			<div class="margin-top-30">
+				<a href="javascript:history.go(-1)" class="btn btn-default">
+					<i class="fa fa-arrow-left"></i>
+					<span>Go Back</span>
+				</a>
+				<a href="{{path('homepage')}}" class="btn btn-primary">
+					<i class="fa fa-home"></i>
+					<span>Home</span>
+				</a>
+			</div>
+
+		</div>
+		<!-- /.error-content -->
+	</div>
+{% endblock %}

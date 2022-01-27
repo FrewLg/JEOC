@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}New Submission{% endblock %}
+{% block body_title %}Submission{% endblock %}
+{% block content_title %}Submission{% endblock %}
+{% block container_title %}Grant information{% endblock %}
+{% block body %}
+<link href="{{ asset('corporate/css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
+<div class="row">
+    <div class="col-lg-4">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class='float-right'><br> <button class="btn btn-info">{{ button_label|default('Add institution')
+                }}</button> </div>
+        <br>
+        <a href="{{ path('submission_secondstep', {'id': submission.id}) }}" class="btn btn-default">Back</a>
+        <br>
+        <div class='float-right'>
+            <br>
+            <a href="{{ path('submission_preview', {'id': submission.id}) }}" class="btn btn-success float-right">Save
+                and continue</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="col-lg-8">
+Budget deeatils
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for collaborating_institution in collaborating_institutions %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ collaborating_institution.name }}</td>
+                    <td>{{ collaborating_institution.description }}</td>
+                    <td>
+                        <a
+                            href="{{ path('collaborating_institution_show', {'id': collaborating_institution.id}) }}">show</a>
+                        <a
+                            href="{{ path('collaborating_institution_edit', {'id': collaborating_institution.id}) }}">edit</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock%}

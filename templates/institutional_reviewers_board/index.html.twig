@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InstitutionalReviewersBoard index{% endblock %}
+
+{% block body %}
+    <h1>InstitutionalReviewersBoard index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Affiliation</th>
+                                <th>Mebmers</th>
+ 
+            </tr>
+        </thead>
+        <tbody>
+        {% for institutional_reviewers_board in institutional_reviewers_boards %}
+            <tr>
+
+ 
+   <td>
+                {{ institutional_reviewers_board.affiliation }}
+                 </td>
+                                 <td>{{ institutional_reviewers_board.IRB_Members }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ 
+{% endblock %}

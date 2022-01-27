@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GuidelineForReviewer index{% endblock %}
+
+{% block body %}
+    <h1>GuidelineForReviewer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>The_guidelline</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guideline_for_reviewer in guideline_for_reviewers %}
+            <tr>
+                <td>{{ guideline_for_reviewer.id }}</td>
+                <td>{{ guideline_for_reviewer.name }}</td>
+                <td>{{ guideline_for_reviewer.theGuidelline }}</td>
+                <td>{{ guideline_for_reviewer.createdAt ? guideline_for_reviewer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('guideline_for_reviewer_show', {'id': guideline_for_reviewer.id}) }}">show</a>
+                    <a href="{{ path('guideline_for_reviewer_edit', {'id': guideline_for_reviewer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('guideline_for_reviewer_new') }}">Create new</a>
+{% endblock %}

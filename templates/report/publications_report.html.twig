@@ -1,0 +1,320 @@
+{% extends 'base.html.twig' %}
+  {% block container_title %}Publication report{% endblock %} 
+{% block title %}Publication report  {% endblock %}
+{% block body %}  
+        <div class="row">
+            <div class="col-lg-12"> 
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li><a class="nav-link active" href="#tab-2" data-bs-toggle="tab" data-toggle="tab">{% trans %}Tabulated report{% endtrans %}</a></li>
+                                            <li><a class="nav-link " href="#tab-1" data-bs-toggle="tab" data-toggle="tab">{% trans %}Report visualization{% endtrans %} </a></li>
+
+                                  <li><a class="nav-link" href="#tab-3"  data-bs-toggle="tab" data-toggle="tab">
+                                  {% trans %}Remarks and feedbacks{% endtrans %}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                <div class="tab-content">
+                                <div class="tab-pane " id="tab-1">
+                                     <div class="row">
+                <div class="col-md-12">
+
+
+                    <h3 class='text-success'>{% trans %}Visualized{% endtrans %}</h3>
+ 
+ [
+{% for   institutional_reviewers_board in institutional_reviewers_boards %} 
+ 
+                '{{ institutional_reviewers_board.Subbmission_type }}',
+
+{% endfor %} ],
+
+         datasets: [{
+            label: 'Number of publications',
+            data: 
+             [
+          
+          {% for   institutional_reviewers_board in institutional_reviewers_boards %} 
+ 
+                {{ institutional_reviewers_board.Proposals }},
+
+{% endfor %} ],
+
+  <div class="">
+      <!-- <canvas id="doughnut-chartcanvas-2" style="width: 100px; height: 100px"></canvas> -->
+ 
+<canvas id="myChart"  style="width: 10px; height: 10px"></canvas>
+     </div>
+  </div>
+
+  <div class="chart-container">
+    <br>
+
+    <div class="doughnut-chart-container">
+      <canvas id="doughnut-chartcanvas-2"  ></canvas>
+ 
+     </div>
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script>
+
+<script>
+
+$(function(){
+
+  //get the doughnut chart canvas
+   var ctx2 = $("#doughnut-chartcanvas-2");
+
+  //doughnut chart data
+   
+  //doughnut chart data
+  var data2 = {
+    labels: [
+{% for   institutional_reviewers_board in institutional_reviewers_boards %} 
+ 
+                '{{ institutional_reviewers_board.Subbmission_type }}',
+
+{% endfor %} ],
+
+     datasets: [
+      {
+        label: "TeamB Score",
+        data: 
+         [
+          
+
+         {% for institutional_reviewers_board in institutional_reviewers_boards %}
+           
+                 
+                {{ institutional_reviewers_board.Proposals }},
+
+
+ {% endfor %} ],
+
+        backgroundColor: [
+          "#FAEBD7",
+          "#DCDCDC",
+          "#E9967A",
+          "#F5DEB3",
+          "#9ACD32"
+        ],
+        borderColor: [
+          "#E9DAC6",
+          "#CBCBCB",
+          "#D88569",
+          "#E4CDA2",
+          "#89BC21"
+        ],
+        borderWidth: [1, 1, 1, 1, 1]
+      }
+    ]
+  };
+
+  //options
+  var options = {
+    responsive: true,
+    title: {
+      display: true,
+      position: "top",
+      text: "Feedbacks",
+      fontSize: 18,
+      fontColor: "#9ACD32"
+    },
+    legend: {
+      display: true,
+      position: "bottom",
+      labels: {
+        fontColor: "#333",
+        fontSize: 16
+      }
+    }
+  };
+
+  
+
+  //create Chart class object
+  var chart2 = new Chart(ctx2, {
+    type: "doughnut",
+    data: data2,
+    options: options
+  });
+});
+
+var ctx = document.getElementById('myChart').getContext('2d');
+
+ 
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:[
+{% for   institutional_reviewers_board in institutional_reviewers_boards %} 
+ 
+                '{{ institutional_reviewers_board.Subbmission_type }}',
+
+{% endfor %} ],
+
+         datasets: [{
+            label: 'Number of publications',
+            data: 
+             [
+          
+          {% for   institutional_reviewers_board in institutional_reviewers_boards %} 
+ 
+                {{ institutional_reviewers_board.Proposals }},
+
+{% endfor %} ],
+
+ 
+
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+ 
+
+
+var options = {
+    bezierCurve : false,
+    onAnimationComplete: done,  /// calls function done() {} at end
+
+  title: {
+      display: true,
+      position: "top",
+      text: "Feedbacksd",
+      fontSize: 18,
+      fontColor: "#9ACD32"
+    },
+    legend: {
+      display: true,
+      position: "bottom",
+      labels: {
+        fontColor: "#333",
+        fontSize: 16
+      }
+    }
+
+}; 
+
+//Download Chart Image
+document.getElementById("download").addEventListener('click', function(){
+  /*Get image of canvas element*/
+  var url_base64jp = document.getElementById("myChart").toDataURL("image/jpg");
+  /*get download button (tag: <a></a>) */
+  var a =  document.getElementById("download");
+  /*insert chart image url to download button (tag: <a></a>) */
+  a.href = url_base64jp;
+});
+
+
+$("#btn-download").click(function () {
+    
+    var canvas = $(".canvasjs-chart-canvas").get(0);
+    var dataURL = canvas.toDataURL('image/jpeg');
+    console.log(dataURL);
+
+    $("#btn-download").attr("href", dataURL);
+
+});
+
+
+</script>
+
+ 
+
+
+ <div id="div_chart" class="col-lg-2 col-sm-5 col-md-4" style='width:100px;'></div>
+ 
+        <script type="text/javascript" src="{{ asset('n/js/jsloader.js')}}"></script>
+       <script type="text/javascript">
+        {{ gc_draw(piechart, 'div_chart') }}
+        </script> 
+            </div>
+             </div>
+</div>
+<div class="tab-pane active" id="tab-2">
+<h3 class='text-success'>{% trans %}Tabulated report{% endtrans %}</h3>
+   <table class="table table-striped"> 
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{% trans %}Research category{% endtrans %}</th>
+                                <th>{% trans %}Publication count{% endtrans %}</th> 
+            </tr>
+        </thead>
+        <tbody>
+        {% for institutional_reviewers_board in institutional_reviewers_boards %}
+            <tr>
+                                  <td>{{ loop.index }}</td>
+   <td>
+                {{ institutional_reviewers_board.Subbmission_type }}
+                 </td>
+                                 <td>{{ institutional_reviewers_board.Proposals }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">{% trans %}No records found{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                  
+
+  
+                                </div> 
+                                <div class="tab-pane" id="tab-3">
+<h3 class='text-success'>{% trans %}Remarks{% endtrans %}</h3>
+                                </div>
+                                </div>
+
+                                </div>
+
+                                </div>
+                                </div>
+                            </div> 
+                        </div> 
+            <div class="col-lg-3">
+                <div class="wrapper wrapper-content project-manager">
+                
+                <h3 class='text-success'>{% trans %}Filter{% endtrans %}</h3>  
+                  
+                    <h5>{% trans %}Work units{% endtrans %}</h5>
+                </div>
+            </div>
+        </div> 
+         
+
+        
+{% endblock %}
+

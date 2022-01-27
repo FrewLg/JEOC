@@ -1,0 +1,6 @@
+App\Entity\BackupSetting:
+    proporties:
+       IpAddress:
+          -Ip: ~
+       RemoteMachineIp:
+          -Ip ~

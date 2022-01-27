@@ -1,0 +1,27 @@
+{% extends 'homelayout.html.twig' %}
+{% block title %} Scholarships{% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Scholarships</li>  {% endblock %} 
+ {% block pagehead %}Scholarship {% endblock %}
+
+{% block body %}
+ 
+  
+{% for Scholarship in Scholarships %}
+    <div class="row features-block">
+        <div class="col-lg-8 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+            <small>{% if Scholarship.createdAt %} {{ Scholarship.createdAt|date() }} {% endif %}
+            </small>
+            <h6 style="font-family:arial; text-align:justify;">
+            
+            <a href="{{ path('scholarship_show', {'id': Scholarship.id}) }}"  >{{ Scholarship.description |striptags|slice(0, 200)|raw }}</a>
+
+            </h6>
+            
+            
+        </div>
+    </div>
+        {% else %}
+                <td colspan="5">no records found</td>
+        {% endfor %}
+        
+{% endblock %}

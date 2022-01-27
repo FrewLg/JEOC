@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DirectorateOffice index{% endblock %}
+{% block container_title %}Directorate Offices{% endblock %}
+{% block body %}
+ 
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+ 
+ 
+ 
+ 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for directorate_office in directorate_offices %}
+            <tr>
+                <td>{{ directorate_office.id }}</td>
+                <td>{{ directorate_office.name }}</td>
+ 
+ 
+ 
+ 
+                <td>
+                    <a href="{{ path('directorate_office_show', {'id': directorate_office.id}) }}">show</a>
+                    <a href="{{ path('directorate_office_edit', {'id': directorate_office.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('directorate_office_new') }}">Create new</a>
+{% endblock %}

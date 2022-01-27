@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User {% endblock %}
+
+{% block container_title %}Users{% endblock %}
+ {% block pagehead %}  Users {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Users</li>  {% endblock %} 
+
+{% block body %}
+
+ 
+                     <div class="table-responsive">
+          
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Roles</th>
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class='btn btn-warning btn-xs btn-outlined'>{% trans %}Edit{% endtrans %}</a>
+                    <a href="{{ path('user_roles_edit', {'id': user.id}) }}" class='btn btn-success btn-xs btn-outlined'>{% trans %}Roles{% endtrans %}</a>
+                   <a href="{{ path('resercher_detail', {'id': user.id}) }}" class='btn btn-info btn-xs btn-outlined'>
+                               <i class="fa fa-user " title='Language' > </i> {% trans %}Profile{% endtrans %} </a>
+<a href="{{ path('researcher', {'id': user.id}) }}" class="btn btn-warning btn-sm" title="edit">
+					<i class="fa fa-user"></i>
+									</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   
+      </div>
+              
+{% endblock %}

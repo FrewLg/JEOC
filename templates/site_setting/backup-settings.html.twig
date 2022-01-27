@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+{% block title %}Backup management{% endblock %}
+{% block container_title %}Backup management{% endblock %}
+{% block pagehead %}Backup management {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active"> Backup management</li>  {% endblock %} 
+{% block body %}
+<div class="tabs-container">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li><a class="nav-link active show" data-bs-toggle="tab" href="#tab-list"> {% trans %}Manage backup Settings{% endtrans %} </a></li>
+                            <li><a class="nav-link" data-bs-toggle="tab" href="#tab-site-setting"> {% trans %}Backup Settings {% endtrans %}</a></li>
+                            <li><a class="nav-link" data-bs-toggle="tab" href="#tab-backup"> {% trans %}Backup History{% endtrans %} </a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" id="tab-list" class="tab-pane active show">
+ <div class="panel-body">
+                         <div class="ibox-content">
+                          <div class="social-feed-box p-4"> 
+ {{ form_start(BackupForm) }}
+    <div class="my-custom-classs-for-errors">
+    </div>
+      {{ form_widget(BackupForm) }}
+      </div>                   
+        <button class="btn btn-success">{{ button_label|default('Save settings') |trans}}</button>
+{{ form_end(BackupForm) }}
+                                </div>
+                            </div>
+</div>
+<div role="tabpanel" id="tab-backup" class="tab-pane">
+<div class="panel-body">
+ <div class="social-feed-box p-4"> 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{% trans %}Date{% endtrans %}</th>
+                <th>{% trans %}Status{% endtrans %}</th>
+                <th>{% trans %}Remote resource path{% endtrans %}</th>
+                <th>{% trans %}Remote IP{% endtrans %}</th>
+ 
+ 
+            </tr>
+        </thead>
+        <tbody>
+        {% for backuphistory in backuphistories %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{% if backuphistory.backupDate %} {{ backuphistory.backupDate|date() }} {% endif %} </td>
+                <td> 
+                
+                {% if backuphistory.successful==1 %}{% trans %}Successful{% endtrans %} {% else %}{% trans %}Failed{% endtrans %}{%  endif %}
+                </td>
+                <td>{{ backuphistory.resPath }}</td>
+                <td>{{ backuphistory.remoteIp }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+            {{ knp_pagination_render(backuphistories) }}
+        </div>
+              </div>
+                            </div>
+</div>
+<div role="tabpanel" id="tab-site-setting" class="tab-pane">
+                                <div class="panel-body">
+ <div class="social-feed-box p-4"> 
+  <table class="table table-striped">
+        <tbody>           
+             <tr>
+                <th>{% trans %}Email to{% endtrans %}</th>
+                <td>{{ backup_setting.emailto }}</td>
+            </tr>
+            <tr>
+                <th>Email from</th>
+                <td>{{ backup_setting.emailfrom }}</td>
+            </tr>
+             <tr>
+                <th>Email  cc</th>
+                <td>{{ backup_setting.emailtoCc }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Email subject{% endtrans %}</th>
+                <td>{{ backup_setting.emailSubject }}</td>
+            </tr>
+            <tr>
+                <th>Db user</th>
+                <td>{{ backup_setting.dbUser }}</td>
+            </tr>
+            <tr nowrap=nowrap>
+                <th nowrap=nowrap>Db password</th>
+                <td nowrap=nowrap>
+
+    <table class="table">
+      <tr>
+                <th style="width:100%; align:right;"> 
+                 <div id='cont' style="display:none; background-color:#898;  "  >{{ backup_setting.dbPassword }}  </div></th>
+ 
+             <td nowrap=nowrap>       
+                   <input type="button"  style="width:100%;  " value="Show password" id="bt" class='btn btn-success btn-sm' onclick="toggle(this)">
+                     
+           </td>
+            </tr>  </table>
+                </td>
+            </tr>
+            <tr>
+                <th>Remote destination directory</th>
+                <td>{{ backup_setting.RemoteAppDir }}</td>
+            </tr>
+            
+            <tr>
+                <th>Mysql host</th>
+                <td>{{ backup_setting.mysqlHost }}</td>
+            </tr>
+            
+            <tr>
+                <th>Remote machine ip</th>
+                <td>{{ backup_setting.remoteMachineIp }}</td>
+            </tr>
+          
+            
+             <tr>
+   <td colspan=2> 
+   <a href="{{ path('execbackup',{'id':backup_setting.id}) }}"  class="btn btn-success btn-block" >Execute backup operation </a> 
+   </td>
+    </tr>
+                    
+        </tbody>
+    </table>
+    </div>
+      </div>
+                            </div>
+                       </div>
+                    </div>
+              
+     
+     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+  
+        <script>
+    $(function () {
+   
+   
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    })
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+
+  })
+  
+ 
+    </script>
+    <script>
+    function toggle(ele) {
+        var cont = document.getElementById('cont');
+        if (cont.style.display == 'block') {
+            cont.style.display = 'none';
+
+            document.getElementById(ele.id).value = 'Show password';
+        }
+        else {
+            cont.style.display = 'block';
+            document.getElementById(ele.id).value = 'Hide password';
+        }
+    }
+</script>
+{% endblock %}

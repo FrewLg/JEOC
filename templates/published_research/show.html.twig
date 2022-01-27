@@ -1,0 +1,697 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile
+{% endblock %}
+{% block container_title %}Profile  
+{% endblock %}
+{% block header_contenttwo %}Profile
+{% endblock %}
+
+
+{% macro displayContent(researches) %}
+ 
+	<div class="col-md-4">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Title</label>
+			{{form_widget(researches.title)}}
+
+		</div>
+	</div>
+	 
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Allotted budget</label>
+			{{form_widget(researches.allotted_budget)}}
+
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Year</label>
+			{{form_widget(researches.year)}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+ 			{{form_widget(researches.successfully_completed )}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-1">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">irb clearance</label>
+			{{form_widget(researches.irb_clearance )}}
+
+		</div>
+	</div> 
+	
+	<div class="col-md-1">
+		<div class="form-group">
+
+			<button type="button" class=" btn btn-danger btn-sm close  remove-collection-widget mt-4   bgc-h-danger-l2 radius-round ">
+				<span aria-hidden="true">×</span>
+
+			</button>
+		</div>
+	</div>
+{% endmacro %}
+
+{% block body %}
+
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body p-0"></div>
+				<!--end card-body-->
+				<div class="card-body">
+					<div class="dastone-profile">
+						<div class="row">
+							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+								<div class="dastone-profile-main">
+									<div class="dastone-profile-main-pic">
+									                                 {% if app.user.userInfo and app.user.userInfo.image %}
+
+										<img src="{{ asset('files/profile_pictures/'~app.user.userInfo.image ) }}" alt="" class="rounded-circle" height="110">
+										  {% else %}
+                               <img src="{{ asset('/img/defaultuser.png') }}" class="rounded-circle circle-border  " alt="profile"  style="width:110px; height:110px;">
+                                    {% endif %}
+										<span class="dastone-profile_main-pic-change">
+											<i class="fas fa-camera"></i>
+										</span>
+									</div>
+									<div class="dastone-profile_user-detail">
+										<h5 class="dastone-user-name">{{ user}}</h5>
+										<p class="mb-0 dastone-user-name-post">
+											{% if userInfo.affiliation is defined %}
+
+												{{ userInfo.affiliation }}
+												{% else %}
+											{% endif %}
+											{{ user.userInfo.college }}
+										</p>
+									</div>
+								</div>
+							</div>
+							<!--end col-->
+
+							<div class="col-lg-4 ms-auto align-self-center">
+								<ul class="list-unstyled personal-detail mb-0">
+									<li class="">
+										<i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i>
+										<b>
+											phone
+										</b>
+										:
+										{{ user.userInfo.phoneNumber }}</li>
+									<li class="mt-2">
+										<i class="ti ti-email text-secondary font-16 align-middle me-2"></i>
+										<b>
+											Email
+										</b>
+										:
+										{{ user.email }}</li>
+									<li class="mt-2">
+										<i class="ti ti-world text-secondary font-16 align-middle me-2"></i>
+										<b>
+											Website
+										</b>
+										:
+										<a href="" class="font-14 text-primary">
+											{% if userInfo.affiliation is defined %}
+
+												{{ userInfo.affiliation }}
+												{% else %}
+											{% endif %}
+										</a>
+									</li>
+								</ul>
+
+							</div>
+							<!--end col-->
+							<div class="col-lg-4 align-self-center">
+								<div class="row">
+									<div class="col-auto text-end border-end">
+										<button type="button" class="btn btn-soft-primary btn-icon-circle btn-icon-circle-sm mb-2">
+											<i class="fab fa-facebook-f"></i>
+										</button>
+										<p class="mb-0 fw-semibold">Publications</p>
+										<h4 class="m-0 fw-bold">25k
+											<span class="text-muted font-12 fw-normal">Proceedings</span>
+										</h4>
+									</div>
+									<!--end col-->
+									<div class="col-auto">
+										<button type="button" class="btn btn-soft-info btn-icon-circle btn-icon-circle-sm mb-2">
+											<i class="fab fa-twitter"></i>
+										</button>
+										<p class="mb-0 fw-semibold">Publications</p>
+										<h4 class="m-0 fw-bold">58k
+											<span class="text-muted font-12 fw-normal">Proceedings</span>
+										</h4>
+									</div>
+									<!--end col-->
+								</div>
+								<!--end row-->
+							</div>
+							<!--end col-->
+						</div>
+						<!--end row-->
+					</div>
+					<!--end f_profile-->
+				</div>
+				<!--end card-body-->
+			</div>
+			<!--end card-->
+		</div>
+		<!--end col-->
+	</div>
+	<div class="pb-4">
+		<ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link " id="Profile_Project_tab" data-bs-toggle="pill" href="#Profile_Project">Project</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="Profile_Post_tab" data-bs-toggle="pill" href="#Profile_Post">Coferences</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="portfolio_detail_tab" data-bs-toggle="pill" href="#Profile_Portfolio">Project Membership</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" id="settings_detail_tab" data-bs-toggle="pill" href="#Profile_Settings">Edit Profile</a>
+			</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade " id="Profile_Project" role="tabpanel" aria-labelledby="Profile_Project_tab">
+					<div class="row mb-4">
+						<div class="col">
+							<form>
+								<div class="input-group">
+									<input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Search">
+									<button type="button" class="btn btn-primary">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+						<!--end col-->
+						<div class="col-auto">
+							<button type="button" class="btn btn-primary">
+								<i class="fas fa-filter"></i>
+							</button>
+						</div>
+						<!--end col-->
+					</div>
+					<!--end row-->
+					<div class="row">
+						<div class="col-3">
+							<div class="card">
+								<div class="card-body ">
+									<div class="text-center">
+										<img src="profile_files/project2.jpg" alt="" class="rounded-circle d-block mx-auto mt-2" height="70">
+										<h4 class="m-0 fw-semibold text-dark font-16 mt-3">Body Care Care</h4>
+										<p class="text-muted  mb-0 font-13">
+											<span class="text-dark">Client :
+											</span>Hyman M. Cross</p>
+									</div>
+									<div class="row mt-4 d-flex align-items-center">
+										<div class="col">
+											<h5 class="font-22 m-0 fw-bold">$26,100</h5>
+											<p class="mb-0 text-muted">Total Budget</p>
+										</div>
+										<div class="col-auto">
+											<a href="#" class="btn btn-sm btn-outline-secondary  px-4">More Details</a>
+										</div>
+									</div>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!--end col-->
+						<div class="col-3">
+							<div class="card">
+								<div class="card-body ">
+									<div class="text-center">
+										<img src="profile_files/project4.jpg" alt="" class="rounded-circle d-block mx-auto mt-2" height="70">
+										<h4 class="m-0 fw-semibold text-dark font-16 mt-3">Book My World</h4>
+										<p class="text-muted  mb-0 font-13">
+											<span class="text-dark">Client :
+											</span>Johnson M. delly</p>
+									</div>
+									<div class="row mt-4 d-flex align-items-center">
+										<div class="col">
+											<h5 class="font-22 m-0 fw-bold">$71,100</h5>
+											<p class="mb-0 text-muted">Total Budget</p>
+										</div>
+										<div class="col-auto">
+											<a href="#" class="btn btn-sm btn-outline-secondary  px-4">More Details</a>
+										</div>
+									</div>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+					</div>
+				</div>
+				<!--end tab-pane-->
+				<div class="tab-pane fade" id="Profile_Post" role="tabpanel" aria-labelledby="Profile_Post_tab">
+					<div class="row">
+						<div class="col-lg-9">
+							<div class="row">
+								 
+								<!--end col-->
+								<div class="col-lg-6">
+									<div class="card">
+										<div class="card-body  report-card">
+											 
+										</div>
+										<!--end card-body-->
+									</div>
+									<!--end card-->
+								</div>
+								<!--end col-->
+							</div>
+							<!--end row-->
+
+
+							<!--end card-->
+						</div>
+						<!--end col-->
+						<div class="col-lg-3">
+							<div class="card">
+								<div class="card-header">
+										 
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+									<ul class="list-group custom-list-group mb-n3">
+										<li class="list-group-item align-items-center d-flex justify-content-between">
+											<div class="media">
+												<img src="profile_files/img-2.jpg" class="me-3 align-self-center rounded" alt="..." height="40">
+												<div class="media-body align-self-center">
+													<a href="#" class="m-0 d-block fw-semibold font-13">Dastyle - Admin Dashboard</a>
+													<a href="#" class="font-12 text-primary">analytic-index.html</a>
+												</div>
+												<!--end media body-->
+											</div>
+											<div class="align-self-center">
+												<span class="text-muted mb-n2">20 June</span>
+											</div>
+										</li>
+										<li class="list-group-item align-items-center d-flex justify-content-between">
+											<div class="media">
+												<img src="profile_files/img-1.jpg" class="me-3 align-self-center rounded" alt="..." height="40">
+												<div class="media-body align-self-center">
+													<a href="#" class="m-0 d-block fw-semibold font-13">Metrica Simple- Admin Dashboard</a>
+													<a href="#" class="font-12 text-primary">sales-index.html</a>
+												</div>
+												<!--end media body-->
+											</div>
+											<div class="align-self-center">
+												<span class="text-muted mb-n2">18 june</span>
+											</div>
+										</li>
+										<li class="list-group-item align-items-center d-flex justify-content-between">
+											<div class="media">
+												<img src="profile_files/img-4.jpg" class="me-3 align-self-center rounded" alt="..." height="40">
+												<div class="media-body align-self-center">
+													<a href="#" class="m-0 d-block fw-semibold font-13">Crovex - Admin Dashboard</a>
+													<a href="#" class="font-12 text-primary">helpdesk-index.html</a>
+												</div>
+												<!--end media body-->
+											</div>
+											<div class="align-self-center">
+												<span class="text-muted mb-n2">15 june</span>
+											</div>
+										</li>
+										<li class="list-group-item align-items-center d-flex justify-content-between">
+											<div class="media">
+												<img src="profile_files/img-5.jpg" class="me-3 align-self-center rounded" alt="..." height="40">
+												<div class="media-body align-self-center">
+													<a href="#" class="m-0 d-block fw-semibold font-13">Annex - Admin Dashboard</a>
+													<a href="#" class="font-12 text-primary">calendar.html</a>
+												</div>
+												<!--end media body-->
+											</div>
+											<div class="align-self-center">
+												<span class="text-muted mb-n2">12 june</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<!--end card-body-->
+							</div>
+
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+										<div class="col">
+											<h4 class="card-title">Social Profile</h4>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+									<div class="button-list btn-social-icon">
+										<button type="button" class="btn btn-soft-primary btn-icon-circle">
+											<i class="fab fa-facebook-f"></i>
+										</button>
+
+										<button type="button" class="btn btn-soft-info btn-icon-circle ms-2">
+											<i class="fab fa-twitter"></i>
+										</button>
+
+										<button type="button" class="btn btn-soft-pink btn-icon-circle  ms-2">
+											<i class="fab fa-dribbble"></i>
+										</button>
+										<button type="button" class="btn btn-soft-info btn-icon-circle  ms-2">
+											<i class="fab fa-linkedin-in"></i>
+										</button>
+										<button type="button" class="btn btn-soft-danger btn-icon-circle  ms-2">
+											<i class="fab fa-google-plus-g"></i>
+										</button>
+									</div>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!--end col-->
+					</div>
+					<!--end row-->
+				</div>
+				<div class="tab-pane fade" id="Profile_Portfolio" role="tabpanel" aria-labelledby="portfolio_detail_tab">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="ribbon4 rib4-primary">
+										<span class="ribbon4-band ribbon4-band-primary text-white text-center">50% off</span>
+									</div>
+									<!--end ribbon-->
+									<div class="row">
+										<div class="col-auto">
+											<img src="profile_files/dastyle.jpg" alt="user" class="align-self-center mb-3 mb-lg-0" height="150">
+										</div>
+										<!--end col-->
+										<div class="col align-self-center">
+											<p class="font-18 fw-semibold mb-2">Dastyle - Admin &amp; Dashboard Template</p>
+											<p class="text-muted">Dastyle is a Bootstrap 4 admin dashboard, 
+																																                                                                It is fully responsive and included awesome 
+																																                                                                features to help build web applications fast and easy.
+											</p>
+											<a href="#" class="btn btn-soft-primary btn-sm">Live Priview</a>
+											<a href="#" class="btn btn-soft-primary btn-sm">Download Now</a>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!--end col-->
+					 
+						<!--end col-->
+					</div>
+				 
+				 
+					<!--end row-->
+				</div>
+				<div class="tab-pane fade active show" id="Profile_Settings" role="tabpanel" aria-labelledby="settings_detail_tab">
+					<div class="row">
+						<div class="col-lg-12   col-xl-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+										<div class="col">
+											<h4 class="card-title">Personal Information</h4>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+  
+	
+ 
+  <div class="row">
+	<div class="col-sm-12">
+
+		{{ form_start(submissionform) }}
+
+		{{form_errors(submissionform)}}
+
+		<div class="row">
+			{# <div class="col-12"> #}
+			<div class="col-md-1">
+				<div class="form-group">
+
+					{{ form_label(submissionform.suffix  ) }}
+					{{ form_widget(submissionform.suffix  ) }}
+				</div>
+			</div>
+
+			<div class="col-md-2">
+				<div class="form-group">
+
+					{{ form_label(submissionform.first_name  ) }}
+					{{ form_widget(submissionform.first_name  ) }}
+				</div>
+			</div>
+
+
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.midle_name  ) }}
+					{{ form_widget(submissionform.midle_name  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.last_name  ) }}
+					{{ form_widget(submissionform.last_name  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.gender  ) }}
+					{{ form_widget(submissionform.gender  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.alternative_email  ) }}
+					{{ form_widget(submissionform.alternative_email  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.phone_number  ) }}
+					{{ form_widget(submissionform.phone_number  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.affiliation  ) }}
+					{{ form_widget(submissionform.affiliation  ) }}
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					{{ form_label(submissionform.bio  ) }}
+					{{ form_widget(submissionform.bio  ) }}
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					{{ form_label(submissionform.image  ) }}
+					{{ form_widget(submissionform.image  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.college  ) }}
+					{{ form_widget(submissionform.college  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.department  ) }}
+					{{ form_widget(submissionform.department  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.education_level  ) }}
+					{{ form_widget(submissionform.education_level  ) }}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{{ form_label(submissionform.academic_rank  ) }}
+					{{ form_widget(submissionform.academic_rank  ) }}
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+	<br>
+	If previously granted Mega project from the institute (at list in past 4 years)
+	<br>
+</div>
+
+<button type="button" class="btn btn-primary add-another-collection-widget btn btn-sm btn-bd-primary float-right " data-list-selector="#contact-fields-list">
+	<span aria-hidden="true">+</span>
+	Add research Titles
+</button>
+<ul id="contact-fields-list" class="m-t-5" data-prototype="{{_self.displayContent(submissionform.researches.vars.prototype)|e }}" data-widget-tags="{{ '<div class="row "></div>'|e }}" data-widget-counter="{{ submissionform.researches|length }}">
+	{% for coAuthor in submissionform.researches %}
+		<div class="row ">
+			{{ _self.displayContent(coAuthor) }}
+		</div>
+	{% endfor %}
+</ul>
+<button class="btn btn-primary">{{ button_label|default('Save Profile') }}</button>
+{{ form_end(submissionform) }}
+
+	</div>
+</div>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 								</div>
+							</div>
+						</div>
+				 
+					</div>
+					<!--end row-->
+				</div>
+				<!--end tab-pane-->
+			</div> 
+{% endblock %}
+
+  
+{% block script %}
+	<script src="{{ asset('plugins/jquery-steps/jquery.steps.min.js')}}"></script>
+	<script src="{{ asset('plugins/select2/select2.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>{# <script src="{{ asset('assets/pages/jquery.form-wizard.init.js')}}"></script> #}<script>
+		jQuery(document).ready(function () {
+
+$(document).on('click', '.remove-collection-widget', function (e) {
+$(this).closest('.row').fadeOut().remove();
+
+
+});
+$(document).on('click', '.add-another-collection-widget', function (e) {
+var list = jQuery(jQuery(this).attr('data-list-selector'));
+
+var counter = list.data('widget-counter') || list.children().length;
+var newWidget = list.attr('data-prototype');
+newWidget = newWidget.replace(/__name__/g, counter);
+counter++;
+list.data('widget-counter', counter);
+var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+newElem.appendTo(list);
+$(".select").select2("destroy").select2();
+});
+});
+
+
+var form = $("#form-horizontal");
+
+
+$("#form-horizontal").steps({
+headerTag: "h3",
+bodyTag: "fieldset",
+transitionEffect: "slideLeft",
+onStepChanging: function (event, currentIndex, newIndex) { // Allways allow previous action even if the current form is not valid!
+if (currentIndex > newIndex) {
+return true;
+}
+
+
+// Needed in some cases if the user went back (clean up)
+if (currentIndex < newIndex) { // To remove error styles
+form.find(".body:eq(" + newIndex + ") label.error").remove();
+form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+}
+
+form.validate().settings.ignore = ":disabled,:hidden";
+return form.valid();
+},
+onStepChanged: function (event, currentIndex, priorIndex) {
+ 
+},
+onFinishing: function (event, currentIndex) {
+form.validate().settings.ignore = ":disabled";
+return form.valid();
+},
+onFinished: function (event, currentIndex) {
+$("#submission_step").val(10)
+form.submit();
+}
+}).validate({
+errorPlacement: function errorPlacement(error, element) {
+element.after(error);
+},
+rules: {
+"submission[title]": {
+required: true,
+minlength: 5
+},
+"submission[agree_to_the_terms]": {
+required: true
+}
+
+},
+messages: {
+"submission[agree_to_the_terms]": {
+required: "You need to agree with the Terms and Conditions before you continue."
+
+}
+}
+});
+ $.fn.steps.setStep = function (step) {
+var currentIndex = $(this).steps('getCurrentIndex');
+for (var i = 0; i < Math.abs(step - currentIndex); i++) {
+if (step > currentIndex) {
+$(this).steps('next');
+} else {
+$(this).steps('previous');
+}
+}
+}; 
+ 
+$input.appendTo($('ul[aria-label=Pagination]'));
+	</script>
+	<script>
+	$(function () {
+$(".select2").select2();
+ 
+
+
+})
+	</script>
+{% endblock %}
+ 

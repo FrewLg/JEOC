@@ -1,0 +1,42 @@
+{% extends 'frontendlayout.html.twig' %}
+
+{% block title %}SiteSetting{% endblock %}
+
+{% block body %}
+    <h1>SiteSetting</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ site_setting.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ site_setting.name }}</td>
+            </tr>
+            <tr>
+                <th>Prefix</th>
+                <td>{{ site_setting.prefix }}</td>
+            </tr>
+            <tr>
+                <th>Contact_address</th>
+                <td>{{ site_setting.contactAddress }}</td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>{{ site_setting.about }}</td>
+            </tr>
+            <tr>
+                <th>Privacy_statement</th>
+                <td>{{ site_setting.privacyStatement }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('site_setting_index') }}">back to list</a>
+
+    <a href="{{ path('site_setting_edit', {'id': site_setting.id}) }}">edit</a>
+
+    {{ include('site_setting/_delete_form.html.twig') }}
+{% endblock %}

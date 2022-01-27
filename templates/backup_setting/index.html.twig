@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BackupSetting index{% endblock %}
+
+{% block body %}
+    <h1>BackupSetting index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Emailto</th>
+                <th>Emailfrom</th>
+                <th>Email_subject</th>
+                <th>Db_user</th>
+                <th>Db_password</th>
+                <th>Destination_dir</th>
+                <th>Logfile_name</th>
+                <th>Mysql_host</th>
+                <th>Source_dir</th>
+                <th>Remote_machine_ip</th>
+                <th>Emailto_cc</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for backup_setting in backup_settings %}
+            <tr>
+                <td>{{ backup_setting.id }}</td>
+                <td>{{ backup_setting.emailto }}</td>
+                <td>{{ backup_setting.emailfrom }}</td>
+                <td>{{ backup_setting.emailSubject }}</td>
+                <td>{{ backup_setting.dbUser }}</td>
+                <td>{{ backup_setting.dbPassword }}</td>
+                <td>{{ backup_setting.destinationDir }}</td>
+                <td>{{ backup_setting.logfileName }}</td>
+                <td>{{ backup_setting.mysqlHost }}</td>
+                <td>{{ backup_setting.sourceDir }}</td>
+                <td>{{ backup_setting.remoteMachineIp }}</td>
+                <td>{{ backup_setting.emailtoCc }}</td>
+                <td>
+                    <a href="{{ path('backup_setting_show', {'id': backup_setting.id}) }}">show</a>
+                    <a href="{{ path('backup_setting_edit', {'id': backup_setting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('backup_setting_new') }}">Create new</a>
+{% endblock %}

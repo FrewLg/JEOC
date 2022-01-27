@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SIte settings{% endblock %}
+{% block container_title %}Site settings{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-9">
+
+         
+        <div class="row m-t-sm">
+            <div class="col-lg-12">
+                <div class="panel blank-panel">
+                    <div class="panel-heading">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <li><a class="nav-link active" href="#tab-1" data-toggle="tab">Metadata</a></li>
+                                <li><a class="nav-link" href="#Revision" data-toggle="tab">Revision</a></li>
+                             <li><a class="nav-link" href="#copyedit" data-toggle="tab">Copy edit</a></li>
+                            
+ 
+                             
+             <li><a class="nav-link" href="#research" data-toggle="tab">Research</a></li>
+                       
+              <li><a class="nav-link" href="#terminal-report" data-toggle="tab">Terminal report</a></li>
+                         <li><a class="nav-link" href="#publication" data-toggle="tab">Publication</a></li>
+                                                               
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+
+                                                <h5>Research details</h5>
+                                            </div>
+                                            <div class="ibox-content">
+
+
+                                                <div class="table-responsive">
+                                                    <table class="table shoping-cart-table">
+
+                                                        <tbody>
+                                                            <tr>
+
+                                                                <td class="desc">
+                                                                    <h3>
+                                                                        <a href="#" class="text-navy">
+                                                                            Abstract
+                                                                        </a>
+                                                                    </h3>
+                                                                    <p class="medium">
+
+daad
+                                                                    </p>
+
+
+                                                                    <div class="m-t-sm">
+                                                                        <a href="#" class="text-muted">Keywords</a>
+
+                                                                        <a href="#" class="text-muted"><i
+                                                                                class="fa fa-trash"></i> dd</a>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="Revision">
+
+
+                                
+                               cxxxx
+                                <hr>
+ 
+ 
+                          
+                            
+                                <h3 class='text-success'>Comment</h3>
+                              
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <button class="btn">{{ button_label|default('Save') }}</button>
+                                {{ form_end(form) }}
+                                
+ 
+                            </div>
+                            <div class="tab-pane" id="copyedit">
+
+ 
+                            </div>
+                            
+                             <div class="tab-pane" id="research">
+
+x
+                            </div>
+                            
+                               <div class="tab-pane" id="terminal-report">
+
+ 
+                            </div>
+                               <div class="tab-pane" id="publication">
+
+ 
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+
+        <div class="wrapper wrapper-content project-manager">
+
+            
+            <h4 class='text-success'>Editorial decision</h4>
+            <ul class='btn btn-outline  '>
+                 xz
+
+            </ul>
+            <h4 class='text-success'>Abstract</h4>
+            <p class="small">
+ 
+            </p>
+            <h5 class='text-success'>Thematic area:</h5>
+            <ul class="tag-list" style="padding: 0">
+ 
+            </ul>
+           
+
+        </div>
+
+    </div>
+
+</div>
+
+
+ 
+
+{% endblock %}

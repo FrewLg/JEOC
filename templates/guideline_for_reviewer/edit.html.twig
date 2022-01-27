@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit GuidelineForReviewer{% endblock %}
+
+{% block body %}
+    <h1>Edit GuidelineForReviewer</h1>
+
+    {{ include('guideline_for_reviewer/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('guideline_for_reviewer_index') }}">back to list</a>
+
+    {{ include('guideline_for_reviewer/_delete_form.html.twig') }}
+{% endblock %}

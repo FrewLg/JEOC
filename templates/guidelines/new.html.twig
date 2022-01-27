@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Guidelines{% endblock %}
+
+{% block body %}
+    <h1>Create new Guidelines</h1>
+
+    {{ include('guidelines/_form.html.twig') }}
+
+    <a href="{{ path('guidelines_index') }}">back to list</a>
+{% endblock %}

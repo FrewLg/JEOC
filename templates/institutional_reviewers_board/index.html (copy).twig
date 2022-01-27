@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InstitutionalReviewersBoard index{% endblock %}
+
+{% block body %}
+    <h1>InstitutionalReviewersBoard index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Specialization</th>
+                <th>Affiliation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for institutional_reviewers_board in institutional_reviewers_boards %}
+            <tr>
+                <td>{{ institutional_reviewers_board.id }}</td>
+                <td>{{ institutional_reviewers_board.specialization }}</td>
+                <td>{{ institutional_reviewers_board.affiliation }}</td>
+                <td>
+                    <a href="{{ path('institutional_reviewers_board_show', {'id': institutional_reviewers_board.id}) }}">show</a>
+                    <a href="{{ path('institutional_reviewers_board_edit', {'id': institutional_reviewers_board.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('institutional_reviewers_board_new') }}">Create new</a>
+{% endblock %}

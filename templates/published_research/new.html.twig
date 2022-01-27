@@ -1,0 +1,314 @@
+ {% extends 'base.html.twig' %}
+{% block title %}Submission
+{% endblock %}
+{% block body_title %}Submission
+{% endblock %}
+{% block container_title %}New submission
+{% endblock %}
+
+
+{% block pagehead %}New submission
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">New submission</li>
+{% endblock %} 
+
+{% macro displayContent(researches) %}
+ 
+	<div class="col-md-4">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Title</label>
+			{{form_widget(researches.title)}}
+
+		</div>
+	</div>
+	 
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Allotted budget</label>
+			{{form_widget(researches.allotted_budget)}}
+
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">Year</label>
+			{{form_widget(researches.year)}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-2">
+		<div class="form-group select-wizard">
+ 			{{form_widget(researches.successfully_completed )}}
+
+		</div>
+	</div> 
+
+	<div class="col-md-1">
+		<div class="form-group select-wizard">
+			<label class="bmd-label-floating">irb clearance</label>
+			{{form_widget(researches.irb_clearance )}}
+
+		</div>
+	</div> 
+	
+	<div class="col-md-1">
+		<div class="form-group">
+
+			<button type="button" class=" btn btn-danger btn-sm close  remove-collection-widget mt-4   bgc-h-danger-l2 radius-round ">
+				<span aria-hidden="true">×</span>
+
+			</button>
+		</div>
+	</div>
+{% endmacro %}
+{% block body %}
+		<div class="card">
+			   
+			<div class="card-body">
+	<h5 class="font-18 m-0 fw-bold">Your profile </h5>
+		 <hr>
+
+
+
+ 
+
+
+<div class="row">
+	<div class="col-sm-12">
+
+				{{ form_start(submissionform) }}
+			 
+								{{form_errors(submissionform)}}
+					  
+						<div class="row">
+							{# <div class="col-12"> #}
+ <div class="col-md-1">
+		<div class="form-group">
+
+		{{ form_label(submissionform.suffix  ) }}
+				{{ form_widget(submissionform.suffix  ) }}
+		</div>
+	</div>
+				
+				 <div class="col-md-2">
+		<div class="form-group">
+
+	{{ form_label(submissionform.first_name  ) }}
+				{{ form_widget(submissionform.first_name  ) }}
+		</div>
+	</div>
+			
+				
+					 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.midle_name  ) }} 
+				{{ form_widget(submissionform.midle_name  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.last_name  ) }} 
+				{{ form_widget(submissionform.last_name  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.gender  ) }}  
+				{{ form_widget(submissionform.gender  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-2">
+		<div class="form-group">
+ 	{{ form_label(submissionform.alternative_email  ) }} 
+				{{ form_widget(submissionform.alternative_email  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.phone_number  ) }} 
+				{{ form_widget(submissionform.phone_number  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.affiliation  ) }}
+				{{ form_widget(submissionform.affiliation  ) }}
+		</div>
+	</div>
+					 <div class="col-md-3">
+		<div class="form-group">
+ {{ form_label(submissionform.bio  ) }} 
+				{{ form_widget(submissionform.bio  ) }} 
+		</div>
+	</div>
+					 <div class="col-md-4">
+		<div class="form-group">
+ {{ form_label(submissionform.image  ) }} 
+				{{ form_widget(submissionform.image  ) }} 
+		</div>
+	</div>
+				 <div class="col-md-2">
+		<div class="form-group">
+ 	{{ form_label(submissionform.college  ) }} 
+ 				{{ form_widget(submissionform.college  ) }} 
+		</div>
+	</div>	 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.department  ) }} 
+				{{ form_widget(submissionform.department  ) }} 
+		</div>
+	</div>	 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.education_level  ) }} 
+				{{ form_widget(submissionform.education_level  ) }} 
+		</div>
+	</div>	 <div class="col-md-2">
+		<div class="form-group">
+ {{ form_label(submissionform.academic_rank  ) }} 
+				{{ form_widget(submissionform.academic_rank  ) }} 
+		</div>
+	</div>
+	</div>
+ <div class="col-12">
+								<br>
+                                If previously granted Mega project from the institute (at list in past 4 years)
+<br>
+</div>
+			 
+								<button type="button" class="btn btn-primary add-another-collection-widget btn btn-sm btn-bd-primary float-right " data-list-selector="#contact-fields-list">
+									<span aria-hidden="true">+</span>
+									Add research Titles
+								</button>
+								<ul id="contact-fields-list" class="m-t-5" data-prototype="{{_self.displayContent(submissionform.researches.vars.prototype)|e }}" data-widget-tags="{{ '<div class="row "></div>'|e }}" data-widget-counter="{{ submissionform.researches|length }}">
+									{% for coAuthor in submissionform.researches %}
+										<div class="row ">
+											{{ _self.displayContent(coAuthor) }}
+										</div>
+									{% endfor %}
+								</ul>
+
+	 </div>
+	 </div>
+					 
+					<!--end fieldset-->
+    <button class="btn btn-primary" >{{ button_label|default('Save Profile') }}</button>
+ 
+ {{ form_end(submissionform) }}  
+							</div>
+							</div>
+						
+
+				<!--end form-->
+			</div>
+			<!--end card-body-->
+		</div>
+		<!--end card-->
+	</div><!--end col--></div>
+	{% endblock%}
+{% block script %}
+	<script src="{{ asset('plugins/jquery-steps/jquery.steps.min.js')}}"></script>
+	<script src="{{ asset('plugins/select2/select2.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>{# <script src="{{ asset('assets/pages/jquery.form-wizard.init.js')}}"></script> #}<script>
+		jQuery(document).ready(function () {
+
+$(document).on('click', '.remove-collection-widget', function (e) {
+$(this).closest('.row').fadeOut().remove();
+
+
+});
+$(document).on('click', '.add-another-collection-widget', function (e) {
+var list = jQuery(jQuery(this).attr('data-list-selector'));
+
+var counter = list.data('widget-counter') || list.children().length;
+var newWidget = list.attr('data-prototype');
+newWidget = newWidget.replace(/__name__/g, counter);
+counter++;
+list.data('widget-counter', counter);
+var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+newElem.appendTo(list);
+$(".select").select2("destroy").select2();
+});
+});
+
+
+var form = $("#form-horizontal");
+
+
+$("#form-horizontal").steps({
+headerTag: "h3",
+bodyTag: "fieldset",
+transitionEffect: "slideLeft",
+onStepChanging: function (event, currentIndex, newIndex) { // Allways allow previous action even if the current form is not valid!
+if (currentIndex > newIndex) {
+return true;
+}
+
+
+// Needed in some cases if the user went back (clean up)
+if (currentIndex < newIndex) { // To remove error styles
+form.find(".body:eq(" + newIndex + ") label.error").remove();
+form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+}
+
+form.validate().settings.ignore = ":disabled,:hidden";
+return form.valid();
+},
+onStepChanged: function (event, currentIndex, priorIndex) {
+ 
+},
+onFinishing: function (event, currentIndex) {
+form.validate().settings.ignore = ":disabled";
+return form.valid();
+},
+onFinished: function (event, currentIndex) {
+$("#submission_step").val(10)
+form.submit();
+}
+}).validate({
+errorPlacement: function errorPlacement(error, element) {
+element.after(error);
+},
+rules: {
+"submission[title]": {
+required: true,
+minlength: 5
+},
+"submission[agree_to_the_terms]": {
+required: true
+}
+
+},
+messages: {
+"submission[agree_to_the_terms]": {
+required: "You need to agree with the Terms and Conditions before you continue."
+
+}
+}
+});
+ $.fn.steps.setStep = function (step) {
+var currentIndex = $(this).steps('getCurrentIndex');
+for (var i = 0; i < Math.abs(step - currentIndex); i++) {
+if (step > currentIndex) {
+$(this).steps('next');
+} else {
+$(this).steps('previous');
+}
+}
+}; 
+ 
+$input.appendTo($('ul[aria-label=Pagination]'));
+	</script>
+	<script>
+	$(function () {
+$(".select2").select2();
+ 
+
+
+})
+	</script>
+{% endblock %}
+ 

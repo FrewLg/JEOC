@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Call for proposal{% endblock %}
+ 
+ {% block styles %}
+ 
+  <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endblock %}
+{% block pagehead %}Call For Proposal {% endblock %}
+{% block breadcrumb %} <li class="breadcrumb-item active">Call For Proposal</li>  {% endblock %}
+{% block body %}
+   
+       <div class="card">
+                     
+                                
+                        <div class="card-body ">
+                                             <div class="social-feed-box p-4"> 
+                            <div class="float-right ">
+
+ 
+ 
+                            </div>
+                            <div>
+  <a href="{{ path('all_calls') }}
+  " class='btn btn-success btn-xs'> Back </a> 
+                         
+
+                            </div>
+                         
+                  
+                           
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                   		{{ form_start(form,{"attr":{"onsubmit":"return confirm('are you sure?')"}}) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success btn-lg float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+                                </div>
+                                <div class="col-md-6">
+								      <!-- Timelime example  -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- The time line -->
+            <div class="timeline">
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-red">{{research_report_phase.startDate|date('Y-m-d')}}</span>
+              </div>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <div>
+                <i class="fas fa-clock bg-green"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> {{research_report_phase.startDate|date('Y-m-d')}}</span>
+                  <h3 class="timeline-header"><a href="#">Start Date ({{research_report_phase.startDate|date('Y-m-d')}})</a> </h3>
+
+                  <div class="timeline-body">
+                  {# First Report should be submitted with in this days #}
+                  </div>
+                  <div class="timeline-footer">
+                    {# <a class="btn btn-primary btn-sm">Change</a> #}
+                     </div>
+                </div>
+              </div>
+		
+    
+              <!-- END timeline item -->
+			  {% for key,phase in research_report_phase.phases %}
+				  
+
+				
+              <!-- timeline item -->
+              <div>
+                <i class="fas fa-clock bg-blue"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> {{research_report_phase.phases[key]|date('Y-m-d')}}</span>
+                  <h3 class="timeline-header"><a href="#">{{"Phase "~key}} ({{research_report_phase.phases[key]|date('Y-m-d')}})</a> </h3>
+
+                  <div class="timeline-body">
+                  {# {{" Phase "~key}} Report should be submitted with in {{research_report_phase.maximumDuration}}  days #}
+                  </div>
+                  <div class="timeline-footer">
+                    {# <a class="btn btn-primary btn-sm">Read more</a> #}
+                     </div>
+                </div>
+              </div>
+              <!-- END timeline item -->
+            
+			  {% endfor %}
+              <!-- timeline item -->
+              <div>
+                <i class="fas fa-clock bg-red"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> <b> {{research_report_phase.endDate?research_report_phase.endDate|date('Y-m-d'):""}}</b></span>
+                  <h3 class="timeline-header no-border"><a href="#">Terminal Report({{research_report_phase.endDate?research_report_phase.endDate|date('Y-m-d'):""}})</a></h3>
+                 <div class="timeline-body">
+                 {# Terminal report should be submitted before end     #}
+                    </div>
+                  <div class="timeline-footer">
+                    {# <a class="btn btn-primary btn-sm">Read more</a> #}
+                     </div>
+				</div>
+              </div>
+              <!-- END timeline item -->
+           
+               <div class="time-label">
+                <span class="bg-red">{{research_report_phase.endDate|date('Y-m-d')}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+      <!-- /.timeline -->
+
+                                </div>
+                            </div>
+                           
+
+
+                        </div>
+                    </div>
+                
+                </div>
+    
+{% endblock %}
+{% block script %}
+	<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   <script type="text/javascript">
+         $(function () {
+         $('.js-datepicker').datetimepicker();
+               });
+      </script>
+{% endblock %}

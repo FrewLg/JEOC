@@ -1,0 +1,67 @@
+{% extends 'homelayout.html.twig' %}
+
+ 
+{% block title %}Register
+{% endblock %}
+    {% block pagetitle %}Register{% endblock %}
+
+{% block aside %}
+
+ <h4>Create account </h4>
+For non-JU staff only
+<hr>
+	{% for flashError in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+	{% endfor %}
+
+	
+{{ form_start(registrationForm) }}
+						
+							{{ form_row(registrationForm.username, {
+            label: 'Username'
+        }) }}
+		
+			<div class="form-group">
+                            
+								{{form_row(registrationForm.email,{"attr":{"class":"form-control"}})}}
+							</div>
+
+							{{ form_row(registrationForm.password, {
+            label: 'Password'
+        }) }}
+							{{ form_row(registrationForm.agreeTerms) }}
+
+							<button type="submit" class="btn btn-info btn-block">Register</button>
+							{{ form_end(registrationForm) }}
+<hr>
+ Already have a UAS  account? <br><a href='{{ path('app_login')}}' class="btn btn-success btn-block" > Login  </a>
+
+</div>
+
+
+		 
+	 
+	 
+
+ 
+{% endblock %}
+{% block scripts %}
+<script>
+    
+{% if  is_external  %}
+    $('#pills-home').addClass("active show");
+    $('#pills-home-tab').addClass("active");
+      $('#pills-profile').removeClass("active show");
+    $('#pills-profile-tab').removeClass("active");
+{% else %}
+
+    $('#pills-home').removeClass("active show");
+    $('#pills-home-tab').removeClass("active");
+    $('#pills-profile').addClass("active show");
+    $('#pills-profile-tab').addClass("active");
+    
+{% endif %}
+</script>
+    
+{% endblock %}
+ 

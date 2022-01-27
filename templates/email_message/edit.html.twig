@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Email Message{% endblock %}
+{% block container_title %}Edit Email Message{% endblock %}
+{% block body %}
+ 
+
+    {{ include('email_message/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('email_message_index') }}"  class='btn btn-soft-info btn-xs'>back to list</a>
+
+    {{ include('email_message/_delete_form.html.twig') }}
+{% endblock %}

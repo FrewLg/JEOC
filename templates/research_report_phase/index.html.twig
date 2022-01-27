@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResearchReportPhase index{% endblock %}
+
+{% block body %}
+    <h1>ResearchReportPhase index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumberOfPhases</th>
+                <th>MaximumDuration</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for research_report_phase in research_report_phases %}
+            <tr>
+                <td>{{ research_report_phase.id }}</td>
+                <td>{{ research_report_phase.numberOfPhases }}</td>
+                <td>{{ research_report_phase.maximumDuration }}</td>
+                <td>{{ research_report_phase.startDate ? research_report_phase.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ research_report_phase.endDate ? research_report_phase.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ research_report_phase.status }}</td>
+                <td>{{ research_report_phase.createdAt ? research_report_phase.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ research_report_phase.updatedAt ? research_report_phase.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('research_report_phase_show', {'id': research_report_phase.id}) }}">show</a>
+                    <a href="{{ path('research_report_phase_edit', {'id': research_report_phase.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('research_report_phase_new') }}">Create new</a>
+{% endblock %}

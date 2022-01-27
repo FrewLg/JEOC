@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+{% block title %}Submission
+{% endblock %}
+{% block container_title %}Submissions
+{% endblock %}
+{% block body %}
+	<!-- testFilter.html.twig -->
+
+
+	<div class="row">
+		<div class="col-lg-10">
+
+			<div class="card ">
+				<div class="card-header container">
+					{{ info |raw}}(Total:-{{submissions.getTotalItemCount}})
+				</div>
+
+				<div class="card-body container ">
+
+{{form_start(filterform,{"attr":{"class":"form-inline"}})}} 
+<div class=" well well">
+
+
+{{form_row(filterform.status)}}
+ 
+{# </div> #}
+<div class="col-2 ">
+<button type="submit" class="btn btn-info">Filter</button>
+<button type="submit" name='export' class=" btn btn-info">Export</button>
+
+</div>
+</div>
+{{ form_end(filterform) }}
+					<div class="table-responsive">
+
+
+
+
+						<table class="table  table-bordered  table-responsive">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Title</th>
+									<th>Researcher(PI)</th>
+									<th>Submission Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for submission in submissions %}
+									<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+										<td>{{ loop.index  }}</td>
+										<td>{{ submission.title }}</td>
+										<td>
+										{{ submission.author }}
+										{# 
+											 {{ submission.midle_name }}
+											 {{ submission.last_name }}  #}
+										</td>
+										<td>
+											{% if submission.sentAt %}
+												{{ submission.sentAt|date('d-m-y h:s a') }}
+											{% endif %}
+										</td>
+										<td nowrap="nowrap">
+											 
+											 
+
+													<a href="{{ path('submission_show', {'id': submission.id}) }}" class='btn btn-info btn-xs '>Details</a>
+												 
+											 
+										</td>
+									</tr>
+
+								{% else %}
+									<tr>
+										<td colspan="8">no records found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+
+					</div>
+					<div class="navigation">
+						{{ knp_pagination_render(submissions) }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2">
+			<div class="card ">
+				<div class="card-header  ">
+					<b>Quick Filter</b>
+				</div>
+
+				<div class="card-body container ">
+					<div class="row ">
+
+    {{ include('dashboard/quick_filter.html.twig') }}
+						
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock %}  
+{% block script %}
+<script>
+$('#form_status').addClass('row');
+$('.form-check').addClass('col-2');
+
+$('[type="checkbox"]').change(function(){
+
+    if(this.checked && $(':checked').length == 2){
+        $('[type="checkbox"]').not(':checked').prop('disabled',true);
+    }
+	else
+        $('[type="checkbox"]').not(':checked').prop('disabled',false);
+	
+});
+
+</script>
+{% endblock %}

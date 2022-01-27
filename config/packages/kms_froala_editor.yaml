@@ -1,0 +1,29 @@
+twig:
+    form_themes:
+        - '@KMSFroalaEditor/Form/froala_widget.html.twig'
+
+kms_froala_editor:
+    language: en
+    toolbarInline: true
+    tableColors: [ "#FFFFFF", "#FF0000" ]
+    saveParams: { "id" : "myEditorField" }
+    serialNumber: "XXXX-XXXX-XXXX"
+
+    # Disable CodeMirror inclusion.
+    includeCodeMirror: false
+
+    # Disable Font Awesome inclusion.
+    includeFontAwesome: false
+
+    # Disable all bundle javascripts inclusion (not concerning CodeMirror).
+    # Usage: if you are using Grunt or other and you want to include yourself all scripts. 
+    includeJS: false
+
+    # Disable all bundle CSS inclusion (not concerning Font Awesome nor CodeMirror).
+    # Usage: if you are using Grunt or other and you want to include yourself all stylesheets. 
+    includeCSS: false
+    heightMax: 400
+    attribution: false
+    profiles:
+        profile_1:
+            heightMax: 500

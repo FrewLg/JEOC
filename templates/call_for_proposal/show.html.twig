@@ -1,0 +1,173 @@
+{% extends 'homelayout.html.twig' %}
+
+{% block title %}Call for proposal
+{% endblock %}
+
+{% block pagehead %}Call For Proposal
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Call For Proposal</li>
+{% endblock %}
+{% block body %}
+
+<div class='col col-12'>
+	<div class="card-body content-area    " style="font-family:arial; text-align:justify;">
+		<div class="widget-area sidebar-right">
+			<div class="float-right ">
+
+
+				Date: 
+					{{ call_for_proposal.postDate ? call_for_proposal.postDate|date('Y-M-d h:i:s') : '' }}
+				<br>
+				{# <small class='text-mued'>
+			  Deadline :
+			</small>
+
+
+			<small class='text-danger'>
+
+				{{ call_for_proposal.deadline ? call_for_proposal.deadline|date('Y-m-d h:i A') : '' }}
+
+			</small> #}
+			</div>
+			<p>
+				<div class="text-center  ">
+					<br>
+					<h5 style="font-family:arial; text-align:justify;">
+						<b>
+							{{ call_for_proposal.subject |raw}}</b>
+					</h5>
+
+				</div>
+
+				<span class="badge  badge-success  ribbon4 rib4-primary p-1"  >
+					<b>{{ call_for_proposal.researchType}} </b>
+					&nbsp;</span>
+				<small>
+<h4> Time Remaining:        <p id="demo" class='text-success'>Time  remaining</p></h4><hr>
+
+				{# <span class="label label text-success">{{ call_for_proposal.views}}
+					Views</span>
+				{% for applicants in number_of_applicants %}
+					<span class="label label text-success">{{ applicants.Proposals}}
+						Applicant
+						{% if applicants.Proposals >1 %}s
+						{% endif %}
+					</span>
+				{% else %}
+					<span class="label label text-success">
+						Be the first applicant for this call!</span>
+
+				{% endfor %} #}
+				</small>
+				<h6 style="font-family:arial; text-align:justify;"> 
+				<p class='text-default'>{{ call_for_proposal.heading|raw }}</h6></p>
+				<h5 class='text-primary'>Thematic areas:</h5>
+	 <h6 style="font-family:arial; text-align:justify;" >
+						<ol >
+							{% if call_for_proposal.college %}
+								{% for themes in call_for_proposal.college.thematicAreas %}
+
+									<li>
+								<p>	{{ themes.name }} 
+									</li>
+
+								{% endfor %}
+							{% endif %}
+						</ol>
+						</h6>
+						<h5 class='text-primary '>Please submit your proposal following this guideline:-</h5>
+							 <h6 style="font-family:arial; text-align:justify;"> 
+									<p class="mt-4">{{ call_for_proposal.guidelines|raw }}</p>
+								</h6>
+							</p>
+						<h5 class='text-primary '>	Important Dates:</h5>
+							<ul class="cul-list checkmark-heavy list-green">
+								<li>
+									Submission Deadline :
+									{{ call_for_proposal.deadline ? call_for_proposal.deadline|date('Y-m-d H:i:s') : '' }}
+								</li> 
+								<li>
+									Review process: starts at
+			{{ call_for_proposal.reviewProcessStart ? call_for_proposal.reviewProcessStart|date('Y-m-d H:i:s') : '' }}
+									and ends at
+			{{ call_for_proposal.reviewProcessEnd ? call_for_proposal.reviewProcessEnd|date('Y-m-d H:i:s') : '' }}
+								</li>
+								<li>
+									Reviewers decision will be communicated starting
+									{{ call_for_proposal.reviewersDecisionWillBeCommunicatedAt ? call_for_proposal.reviewersDecisionWillBeCommunicatedAt|date('Y-m-d H:i:s') : '' }}
+								</li>
+								<li>
+									Project starts on:
+									{{ call_for_proposal.ProjectStartsOn ? call_for_proposal.ProjectStartsOn|date('Y-m-d H:i:s') : '' }}
+								</li>
+
+							</ul>
+								<h5 class='text-primary'>
+						<br>Principal contact addresses :</h6>
+							{% if call_for_proposal.college %}
+								<small>
+									<br>
+
+									{{ call_for_proposal.college.principalContact|raw }}
+								</small>
+								<h5 class='text-center text-success'>
+									<b>{{ call_for_proposal.college.name }}</b>
+								</h5>
+							{% else %}
+								{{ call_for_proposal.approvedBy.userInfo.firstName}}
+								<hr>
+							{% endif %}
+							<div class="row">
+								<div class="col-md-6">
+
+									<a href="{{ path('submission_firststepold', {'uidentifier': call_for_proposal.uidentifier}) }}" class='btn btn-primary btn-xs'>Submit proposal</a>
+
+								</div>
+								<div class="col-md-6">
+									<div class="small text-right"></div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+</div>
+
+
+<script>
+    // Set the date we're counting down to
+
+    // var countDownDate = new Date("Jan 5, 2020 15:37:25").getTime();
+    var countDownDate = new Date("{% if call_for_proposal.deadline %}
+{{ call_for_proposal.deadline|date('M d, y h:i ') }}{% endif %}").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "<span class='text-danger'>Call  expired</span>";
+        }
+    }, 1000);
+</script>
+
+				{% endblock %}
+				{% block aside %}{% endblock %}

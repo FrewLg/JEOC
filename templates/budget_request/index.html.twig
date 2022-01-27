@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BudgetRequest index{% endblock %}
+
+{% block body %}
+    <h1>BudgetRequest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for budget_request in budget_requests %}
+            <tr>
+                <td>{{ budget_request.id }}</td>
+                <td>{{ budget_request.name }}</td>
+                <td>{{ budget_request.description }}</td>
+                <td>
+                    <a href="{{ path('budget_request_show', {'id': budget_request.id}) }}">show</a>
+                    <a href="{{ path('budget_request_edit', {'id': budget_request.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('send_mail') }}">Send mail</a>
+
+    <a href="{{ path('budget_request_new') }}">Create new</a>
+{% endblock %}

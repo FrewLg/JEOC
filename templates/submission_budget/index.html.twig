@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SubmissionBudget index{% endblock %}
+
+{% block body %}
+    <h1>SubmissionBudget index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cost</th>
+                <th>Quantity</th>
+                <th>Remark</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for submission_budget in submission_budgets %}
+            <tr>
+                <td>{{ submission_budget.id }}</td>
+                <td>{{ submission_budget.cost }}</td>
+                <td>{{ submission_budget.quantity }}</td>
+                <td>{{ submission_budget.remark }}</td>
+                <td>
+                    <a href="{{ path('submission_budget_show', {'id': submission_budget.id}) }}">show</a>
+                    <a href="{{ path('submission_budget_edit', {'id': submission_budget.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('submission_budget_new') }}">Create new</a>
+{% endblock %}

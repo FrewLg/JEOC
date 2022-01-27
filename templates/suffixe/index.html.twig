@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suffixe index{% endblock %}
+
+{% block body %}
+    <h1>Suffixe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for suffixe in suffixes %}
+            <tr>
+                <td>{{ suffixe.id }}</td>
+                <td>{{ suffixe.name }}</td>
+                <td>{{ suffixe.description }}</td>
+                <td>
+                    <a href="{{ path('suffixe_show', {'id': suffixe.id}) }}">show</a>
+                    <a href="{{ path('suffixe_edit', {'id': suffixe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('suffixe_new') }}">Create new</a>
+{% endblock %}

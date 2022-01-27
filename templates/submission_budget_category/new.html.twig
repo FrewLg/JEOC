@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SubmissionBudgetCategory{% endblock %}
+
+{% block body %}
+    <h1>Create new SubmissionBudgetCategory</h1>
+
+    {{ include('submission_budget_category/_form.html.twig') }}
+
+    <a href="{{ path('submission_budget_category_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submission
+{% endblock %}
+{% block container_title %}Researches
+{% endblock %}
+{% block body %}
+	<div class="row">
+		<div class="pb-4">
+			<ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="Profile_Project_tab" data-bs-toggle="pill" href="pages-profile.html#Profile_Project">My research submission as PI</a>
+				</li>
+				{# <li class="nav-item">
+									<a class="nav-link   " id="Profile_Post_tab" data-bs-toggle="pill" href="pages-profile.html#Profile_Post">Researches I am assigned to</a>
+								</li> #}
+
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="tab-content" id="pills-tabContent">
+					<div class="tab-pane fade active show" id="Profile_Project" role="tabpanel" aria-labelledby="Profile_Project_tab">
+		 
+							<div class="row"> 
+							{% for submission in submissions %}
+
+
+								 
+
+
+
+
+
+
+<div class="card">
+								<div class="card-body">
+									{# <div class="ribbon2 rib2-primary">
+										<span class="ribbon4-band ribbon4-band-primary text-white text-center">New </span>
+									</div> #}
+									<!--end ribbon-->
+									<div class="row">
+										<div class="col-auto">
+											{# <img src="profile_files/dastyle.jpg" alt="user" class="align-self-center mb-3 mb-lg-0" height="150"> #}
+										</div>
+										<!--end col-->
+										<div class="col align-self-center">
+										
+										<a href="{{ path('submission_status', {'id': submission.id}) }}" class="font-18 fw-semibold mb-2">
+										{{ submission.title }}:
+										{{ submission.subTitle }}</a>
+											<p class="font-13 fw-semibold mb-2"> Thematic area :
+												{{
+                                                    submission.thematicArea |raw}}</p>
+										
+										<small class="text- ">
+										{% if submission.sentAt %}
+											{{
+                                                submission.sentAt|date() }}
+										{% endif %}
+									</small> 		
+										<p>
+										<a href="{{ path('submission_status', {'id': submission.id}) }}" class="btn btn-soft-primary btn-sm">Show details</a>
+											{# <a href="#" class="btn btn-soft-primary btn-sm">Appproval</a> #}
+										
+										{# <a class="btn btn-xs btn-primary" data-bs-toggle="collapse" href="#expand{{ submission.id }}" role="button" aria-expanded="false" aria-controls="expand{{ submission.id }}">
+											<i class="fa fa-chevron-right"></i>
+										</a> #}
+									</p>
+									<div class="collapse" id="expand{{ submission.id }}">
+										<div class="card card-body">
+
+
+											{{ include('submission/_delete_form.html.twig') }}
+
+											{# <a class="btn btn-xs btn-warning"  href="{{ path('submission_edit',{'id': submission.id}) }}"  > Delete </a>  #}
+
+
+										</div>
+									</div>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-body-->
+							</div>
+
+
+
+
+
+
+
+
+
+
+						{% else %}
+							<tr>
+								<td colspan="8">
+									<span class='text-danger'>You have not made a submission with PI role
+									  yet!</span>
+									<br> 
+
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!--end row-->
+
+
+		</div>
+
+	</div>
+{% endblock %}

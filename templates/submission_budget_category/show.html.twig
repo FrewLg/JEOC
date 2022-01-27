@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SubmissionBudgetCategory{% endblock %}
+
+{% block body %}
+    <h1>SubmissionBudgetCategory</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ submission_budget_category.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ submission_budget_category.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('submission_budget_category_index') }}">back to list</a>
+
+    <a href="{{ path('submission_budget_category_edit', {'id': submission_budget_category.id}) }}">edit</a>
+
+    {{ include('submission_budget_category/_delete_form.html.twig') }}
+{% endblock %}

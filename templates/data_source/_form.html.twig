@@ -1,0 +1,189 @@
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
+ 
+	<div class="row">
+		<div class="col-lg-12">
+
+
+			<div class="table-responsive">
+    <table class="table dataTables-example table-striped table-bordered table-responsive table-hover " id="example">
+
+				{# <table class="table  table-bordered table-striped table-responsive"> #}
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Title</th>
+							<th>Researcher(PI)</th>
+							<th>Co-PIs</th>
+							<th>Affiliation of PI</th>
+							<th>Submission Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for submission in submissions %}
+							<tr {% if submission.complete=='completed' %} class='text-' {% elseif submission.complete==''%} class='text-danger' {% endif %}>
+          <td class="sorting_1">{{ loop.index }}</td>
+								 
+								<td>{{ submission.title }}</td>
+								<td>{{ submission.author.userInfo }}
+                                
+                                <span class='badge bg-success'>
+												+({{ submission.coAuthors|length   }})
+											</span>
+                                </td>
+
+								<td>
+									<ol>
+										{% for copi in submission.coAuthors %}
+
+											<li>
+												{{copi.Researcher.userInfo}}
+											</li>
+
+
+										{% else %}
+
+											 
+												<span class='text-danger'>No Co-PI found</span>
+											 
+
+										{% endfor %}
+									</ol>
+
+								</td><td>
+
+<br>{{ submission.author.userInfo.college }},<br>Department of 
+{{ submission.author.userInfo.department }}
+</td>
+								<td>
+									{% if submission.sentAt %}
+										{{ submission.sentAt|date() }}
+									{% endif %}
+								</td>
+
+							</tr>
+
+
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+            <div class="navigation">
+		{{ knp_pagination_render(submissions) }}
+	</div>
+		</div>
+	</div>
+
+
+<script src="{{ asset('corporate/js/jquery-3.1.1.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript">
+ 
+  $(document).ready(function () {
+    var e = document.getElementById("form_program");
+    var value = e.options[e.selectedIndex].value;
+    var applicants = "  of ";
+    if (value = 0) {
+      var program = '  of all  ';
+    }
+    else {
+      var program = e.options[e.selectedIndex].text;
+    }
+    $("#form_program").select2()
+
+    var table = $('#example').DataTable({
+      pageLength: 10,
+      // responsive: true,
+      // stateSave: true,
+      // "scrollY": "200px",
+      "search": true,
+      "paging": true,
+      autoWidth: true,
+
+      // dom: 'Bfrtip',
+
+
+      dom: '<"html5buttons"B>lTfgitp',
+      columnDefs: [
+        {
+          targets: 1,
+          className: 'noVis'
+        }
+      ],
+      buttons: [
+        {
+          extend: 'colvis',
+          columns: ':not(.noVis)'
+        }
+      ],
+
+      buttons: [
+        {
+          extend: 'copy'
+          , title: applicants + '' + program,
+
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+          }
+
+        },
+        {
+          extend: 'csv'
+          , title: applicants + '' + program,
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+          },
+          title: applicants + '' + program
+        },
+        {
+          extend: 'pdfHtml5', orientation: 'landscape', exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            modifier: {
+              orientation: 'landscape'
+            },
+
+          },
+          title: applicants + '' + program
+        },
+
+        {
+          extend: 'print',
+          customize: function (win) {
+            $(win.document.body).addClass('white-bg');
+            $(win.document.body).css('font-size', '8px');
+
+            $(win.document.body).find('table')
+              .addClass('compact')
+              .css('font-size', 'inherit');
+          }
+        }
+      ]
+
+    });
+
+    $('a.toggle-vis').on('click', function (e) {
+      e.preventDefault();
+
+      // Get the column API object
+      var column = table.column($(this).attr('data-column'));
+
+      // Toggle the visibility
+      column.visible(!column.visible());
+    });
+  });
+
+</script> 

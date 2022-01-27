@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DirectorateOffice{% endblock %}
+
+{% block body %}
+    <h1>Edit DirectorateOffice</h1>
+
+    {{ include('directorate_office/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('directorate_office_index') }}">back to list</a>
+
+    {{ include('directorate_office/_delete_form.html.twig') }}
+{% endblock %}

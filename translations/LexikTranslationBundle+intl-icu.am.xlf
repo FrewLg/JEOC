@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="am" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="gSLRsNB" resname="translations.page_title">
+        <source>translations.page_title</source>
+        <target>__translations.page_title</target>
+      </trans-unit>
+      <trans-unit id="KvWRGp0" resname="translations.show_hide_columns">
+        <source>translations.show_hide_columns</source>
+        <target>__translations.show_hide_columns</target>
+      </trans-unit>
+      <trans-unit id="k1dPZAD" resname="translations.toggle_all_columns">
+        <source>translations.toggle_all_columns</source>
+        <target>__translations.toggle_all_columns</target>
+      </trans-unit>
+      <trans-unit id="clO06N9" resname="translations.invalidate_cache">
+        <source>translations.invalidate_cache</source>
+        <target>__translations.invalidate_cache</target>
+      </trans-unit>
+      <trans-unit id="T8n0cEL" resname="translations.all_translations">
+        <source>translations.all_translations</source>
+        <target>__translations.all_translations</target>
+      </trans-unit>
+      <trans-unit id="zhbJ.yx" resname="translations.profiler">
+        <source>translations.profiler</source>
+        <target>__translations.profiler</target>
+      </trans-unit>
+      <trans-unit id="TXybuk5" resname="translations.data_source">
+        <source>translations.data_source</source>
+        <target>__translations.data_source</target>
+      </trans-unit>
+      <trans-unit id="SOXmOCN" resname="translations.latest_profiles">
+        <source>translations.latest_profiles</source>
+        <target>__translations.latest_profiles</target>
+      </trans-unit>
+      <trans-unit id="Bmpkmgf" resname="translations.profile">
+        <source>translations.profile</source>
+        <target>__translations.profile</target>
+      </trans-unit>
+      <trans-unit id="NEo9rdR" resname="translations.save_row">
+        <source>translations.save_row</source>
+        <target>__translations.save_row</target>
+      </trans-unit>
+      <trans-unit id="dbkPRlm" resname="translations.domain">
+        <source>translations.domain</source>
+        <target>__translations.domain</target>
+      </trans-unit>
+      <trans-unit id="PtpHg4W" resname="translations.key">
+        <source>translations.key</source>
+        <target>__translations.key</target>
+      </trans-unit>
+      <trans-unit id="2AgtAoE" resname="translations.save">
+        <source>translations.save</source>
+        <target>__translations.save</target>
+      </trans-unit>
+      <trans-unit id="0VdZg0W" resname="translations.successfully_updated">
+        <source>translations.successfully_updated</source>
+        <target>__translations.successfully_updated</target>
+      </trans-unit>
+      <trans-unit id="8MBELUr" resname="translations.update_failed">
+        <source>translations.update_failed</source>
+        <target>__translations.update_failed</target>
+      </trans-unit>
+      <trans-unit id="b2EAS0A" resname="translations.successfully_deleted">
+        <source>translations.successfully_deleted</source>
+        <target>__translations.successfully_deleted</target>
+      </trans-unit>
+      <trans-unit id="5_vcSWW" resname="translations.delete_failed">
+        <source>translations.delete_failed</source>
+        <target>__translations.delete_failed</target>
+      </trans-unit>
+      <trans-unit id="7EPY53m" resname="translations.no_translations">
+        <source>translations.no_translations</source>
+        <target>__translations.no_translations</target>
+      </trans-unit>
+      <trans-unit id="1auRPr7" resname="translations.new_translation">
+        <source>translations.new_translation</source>
+        <target>__translations.new_translation</target>
+      </trans-unit>
+      <trans-unit id="4HtHKLZ" resname="overview.page_title">
+        <source>overview.page_title</source>
+        <target>__overview.page_title</target>
+      </trans-unit>
+      <trans-unit id="TGdHAP8" resname="translations.add_translation">
+        <source>translations.add_translation</source>
+        <target>__translations.add_translation</target>
+      </trans-unit>
+      <trans-unit id="f3boxpe" resname="translations.back_to_list">
+        <source>translations.back_to_list</source>
+        <target>__translations.back_to_list</target>
+      </trans-unit>
+      <trans-unit id="Mqbgm4z" resname="overview.msg_latest_translation">
+        <source>overview.msg_latest_translation</source>
+        <target>__overview.msg_latest_translation</target>
+      </trans-unit>
+      <trans-unit id="zF4DlY1" resname="overview.no_stats">
+        <source>overview.no_stats</source>
+        <target>__overview.no_stats</target>
+      </trans-unit>
+      <trans-unit id=".kg0gMK" resname="overview.domain">
+        <source>overview.domain</source>
+        <target>__overview.domain</target>
+      </trans-unit>
+      <trans-unit id="zxMYKV5" resname="overview.show_grid">
+        <source>overview.show_grid</source>
+        <target>__overview.show_grid</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

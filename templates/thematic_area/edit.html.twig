@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ThematicArea{% endblock %}
+
+{% block body %}
+    <h1>Edit ThematicArea</h1>
+
+    {{ include('thematic_area/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('thematic_area_index') }}">back to list</a>
+
+    {{ include('thematic_area/_delete_form.html.twig') }}
+{% endblock %}

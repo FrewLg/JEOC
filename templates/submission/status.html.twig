@@ -1,0 +1,842 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submission
+{% endblock %}
+ {% block styles %}
+ 
+  <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endblock %}
+
+{% block container_title %}Submission details
+{% endblock %}
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-9">
+
+			<h4>Project progress
+			</h4>
+
+			{{ include('submission/progress.html.twig') }}
+			<br>
+			<div class="row m-t-sm">
+				<div class="col-lg-12">
+					<div class="panel blank-panel">
+						<div class="panel-heading">
+							<div class="panel-options">
+								<ul class="nav nav-pills nav-justified">
+									<li>
+										<a class="nav-link active" href="#tab-1" data-bs-toggle="tab">Metadata</a>
+									</li>
+									<li>
+										<a class="nav-link" href="#Revision" data-bs-toggle="tab">Revision</a>
+									</li>
+									
+									{% if submission.copyedit is  not empty %}
+										<li>
+											<a class="nav-link" href="#copyedit" data-bs-toggle="tab">Progress report</a>
+										</li>
+
+									{% endif %}
+								
+										<li>
+											<a class="nav-link" href="#progress-report" data-bs-toggle="tab">Progress report</a>
+										</li>
+								
+
+
+									{% if submission.copyedit is  not empty %}
+										<li>
+											<a class="nav-link" href="#research" data-bs-toggle="tab">Research</a>
+										</li>
+									{% endif %}
+									{% if submission.terminalreport is  not  empty %}
+										<li>
+											<a class="nav-link" href="#terminal-report" data-bs-toggle="tab">Publication</a>
+										</li>
+									{% endif %}
+									{% if submission.published is  not empty %}
+										<li>
+											<a class="nav-link" href="#publication" data-bs-toggle="tab">Publication</a>
+										</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-body">
+
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab-1">
+								<div class="row">
+									<div class="col-md-12">
+
+										<div class="ibox">
+
+											<div class="ibox-content">
+
+
+												<div class="row">
+
+
+													<h4 class='text-primary m-3'>
+														Research details</h4>
+
+
+													<div class="accordion" id="accordionExample">
+														<div class="accordion-item active">
+															<h5 class="accordion-header m-0" id="headingOne">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+																	Executive summary/ Abstract
+																</button>
+															</h5>
+															<div id="collapseOne" class="accordion-collapse collapse active" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body active">
+																	<h3>
+																		<a href="#" class="text-navy">
+																			Executive summary
+																		</a>
+																	</h3>
+																	<p class="medium">
+
+																		{{ submission.abstract |raw}}
+																	</p>
+																	<div class="m-t-sm">
+																		<a href="#" class="text-muted">Keywords:
+																		</a>
+																		{{ submission.keywords}}
+																	</div>
+
+
+																</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingTwo">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+																	Backgrouund And Rationale
+																</button>
+															</h5>
+															<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">
+
+																	{{ submission.BackgroundAndRationale |raw}}
+
+																</div>
+															</div>
+														</div>
+
+
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="Objectives">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoo" aria-expanded="false" aria-controls="collapseTwoo">
+																	Objectives
+																</button>
+															</h5>
+															<div id="collapseTwoo" class="accordion-collapse collapse" aria-labelledby="Objectives" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">
+
+																	<h5 class="font-20 fw-bold d-block mt-2">General objective:</h5>
+																	<p>
+																		{{ submission.GeneralObjective }}
+																	</p>
+																	<h5 class="font-20 fw-bold d-block mt-2">Specific Objectives:</h5>
+
+																	<ul class="list-unstyled mb-0 row">
+																		{% for objective in submission.specificObjectives %}
+																			<li class="col-12 my-1 p-1 list-unstyled">
+
+																				{{ loop.index }}
+																				{{ objective.objective}}
+
+
+																			</li>
+																		{% endfor %}
+
+																	</ul>
+
+																</div>
+															</div>
+														</div>
+
+
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingSpn">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOther" aria-expanded="false" aria-controls="collapseOther">
+																	Methodology
+																</button>
+															</h5>
+															<div id="collapseOther" class="accordion-collapse collapse" aria-labelledby="headingSpn" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">
+
+																	{{ submission.methodology |raw}}
+
+																</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingLastTwo">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collepaselast" aria-expanded="false" aria-controls="collepaselast">
+																	Action plan
+																</button>
+															</h5>
+															<div id="collepaselast" class="accordion-collapse collapse" aria-labelledby="headingLastTwo" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">
+																	<div class="table table-responsive">
+																		{{  submission.actionplan |raw }}
+																	</div>
+																	<h5 class='text-'>Budget breakdown</h5>
+																	<table class="table table-bordered">
+																		<thead>
+																			<tr>
+																				<th>#</th>
+																				<th>Expense category</th>
+																				<th>Description
+																				</th>
+																				<th>Cost
+																				</th>
+																				<th>Quantity
+																				</th>
+
+
+																				<th>Total
+																				</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			{% set total = 0 %}
+
+
+																			{% for expense in expenses %}
+																				<tr>
+																					<td>{{ loop.index }}</td>
+																					<td>{{ expense.category }}</td>
+																					<td>{{ expense.description }}</td>
+
+																					<td>{{ expense.cost }}</td>
+																					<td>{{ expense.quantity }}</td>
+																					<td>
+																						{{ expense.cost * expense.quantity }}
+																					</td>
+																					{% set total = total + (expense.cost * expense.quantity)  %}
+																				</tr>
+
+
+																			{% else %}
+																				<tr>
+																					<td colspan="4">no records found</td>
+																				</tr>
+																			{% endfor %}
+																			<tr class="bg-black text-white">
+																				<td colspan="3" class="border-0 font-14">
+																					<b>Grand Total</b>
+																				</td>
+																				{# <td class="border-0 font-14"></td> #}
+																				<td colspan="3" class="border-0 font-14">
+																					<b>{{ total }}
+																						ETB</b>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>{#{% endif %}#}<div class="table-responsive">
+																		{% if submission.researchTimeTables|length >0 %}
+
+																			<h4>Time table :
+																			</h4>
+
+																			<table class="table table-bordered">
+
+																				<thead>
+																					<tr class="bg-gray-dark">
+																						<th>Task</th>
+
+																						<th>Date Start</th>
+
+																						<th>Date End</th>
+																						<th>Remark</th>
+																					</tr>
+																				</thead>
+																				<tbody>
+																					{% for schedule in submission.researchTimeTables %}
+																						<tr>
+																							<td>{{ schedule.task }}</td>
+																							<td>
+																								{{ schedule.DateStart|date('d M Y ') }}
+																							</td>
+																							<td>
+																								{{ schedule.DateEnd|date('d M Y') }}
+																							</td>
+																							<td>{{ schedule.remark }}</td>
+
+
+																						</tr>
+																						{% else %}
+
+																					{% endfor %}
+
+
+																				</tbody>
+																			</table>
+																			{% else %}
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingLastFTwo">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collepaselastsyn" aria-expanded="false" aria-controls="collepaselastsyn">References</button>
+															</h5>
+															<div id="collepaselastsyn" class="accordion-collapse collapse" aria-labelledby="headingLastFTwo" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">{{ submission.Reference |raw}}</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingLastFThree">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ResearchOutcome" aria-expanded="false" aria-controls="ResearchOutcome">Research  Outcome</button>
+															</h5>
+															<div id="ResearchOutcome" class="accordion-collapse collapse" aria-labelledby="headingLastFThree" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">{{ submission.ResearchOutcome |raw}}</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h5 class="accordion-header m-0" id="headingLastFThree">
+																<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#members" aria-expanded="false" aria-controls="members">Research members</button>
+															</h5>
+															<div id="members" class="accordion-collapse collapse" aria-labelledby="headingLastFThree" data-bs-parent="#accordionExample" style="">
+																<div class="accordion-body">
+
+
+																	<h4 class='text-'>Research team({{  submission.coAuthors|length +1}})</h4>
+
+
+																	<div class="row">
+
+																		<div class="col-lg-4">
+																			<div class="card">
+																				<div class="card-body">
+																					<div
+																						class="text-center">
+																						{# <img class="me-3 rounded-circle thumb-xl" src="assets/images/users/user-4.jpg" alt=""> #}
+
+																						{% if submission.author.userInfo.image   %}
+																							<img src="{{ asset('files/profile_pictures/'~ submission.author.userInfo.image ) }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+																						{% else %}
+																							<img src="{{ asset('/img/defaultuser.png') }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+																						{% endif %}
+
+																						<div class="">
+																							<h5 class="mb-0">
+																								{{ submission.author.userInfo}}</h5>
+																							<small class="text-muted">
+																								{{ submission.author.userInfo.college}}</small>
+
+																						</div>
+																						<p class="text-muted px-2">
+																							{{ submission.author.userInfo.department}}
+																						</p>
+
+																						<p class="text-muted mb-2">{{ submission.author.userInfo.academicRank }}</p>
+																						<div class="mb-3">
+																							<span class='me-3  text-success'>Principal Investigtor</span>
+																						</div>
+																						<a href='{{path('researcher',{'id':submission.author.id})}}' class="btn btn-sm btn-soft-primary">
+																							More Detail</a>
+																					</div>
+																				</div>
+																				<!--end card-body-->
+																			</div>
+																			<!--end card-->
+																		</div>
+
+																		{% for co_author in  submission.coAuthors %}
+																			<div class="col-lg-4">
+
+																				<div class="card">
+
+																					<div class="card-body text-center">
+
+
+																						{% if co_author.researcher.userInfo.image   %}
+																							<img src="{{ asset('files/profile_pictures/'~ co_author.researcher.userInfo.image ) }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+																						{% else %}
+																							<img src="{{ asset('/img/defaultuser.png') }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+																						{% endif %}
+
+																						<h5 class="fw-bold mt-3 mb-1">{{ co_author.researcher.userInfo}}
+																							<sapn class="text-muted mb-0">({{ co_author.researcher.userInfo.educationLevel }})</span>
+																						</h5>
+																						<p class="text-muted mb-0">{{ co_author.researcher.userInfo.college }}</p>
+																						<p class="text-muted mb-0">{{ co_author.researcher.userInfo.department }}</p>
+																						<p class="text-muted mb-0">{{ co_author.researcher.userInfo.academicRank }}</p>
+																						<div class="mb-3">
+																							<a href="#" class="me-3 text-warning">
+																								{{ co_author.role }}</a>
+
+																						</div>
+
+																						<a href='{{path('researcher',{'id':co_author.researcher.id})}}' class="btn btn-sm btn-soft-primary">More details</a>
+
+																					</div>
+																				</div>
+																			</div>
+																		{% endfor %}
+
+																	</div>
+
+
+																</div>
+
+
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="tab-pane" id="Revision">
+								<h3>
+									<a href="#" class="text-navy">
+										Comments from editors
+									</a>
+								</h3>
+								{% for review in comments %}
+
+									<table class="table shoping-cart-table">
+
+										<tbody>
+											<tr>
+												<td class="desc">
+
+													<p class="small">
+
+														{{ review.comment |raw}}
+													</p>
+													<dl class="small m-b-none">
+														<dt>Revised at:
+															{{ review.AllowedAt ?
+                                                        review.AllowedAt|date('M d  ,   h:s a') : '' }}
+														</dt>
+													</dl>
+
+													<div class="m-t-sm">
+
+														{% if review.attachment %}
+															<a href="{{ asset('/files/proposals/review_files/'~ review.attachment ) }}" class="btn btn-info btn-xs float-right">
+																Download evaluation  report
+																<i class="fa fa-download material-icons warning"></i>
+															</a>
+															{% else %}
+
+														{% endif %}
+													</div>
+												</td>
+												<td width="65" nowrap="nowrap">
+													<h4 class='text-'>
+
+
+														{% if review.ReviewedBy.isReviewer %}
+															<span class="badge badge-boxed  badge-outline-primary">
+																External reviewer</span>
+														{% else %}
+															<span class="badge badge-boxed  badge-outline-success">
+																Internal reviewer
+															</span>
+															{% if review.fromDirector %}
+																<span class="badge badge-boxed  badge-outline-success">
+																	Research co-ordinator
+																</span>
+															{% endif %}
+														{% endif %}
+
+													</h4>
+
+
+													<h4 class='text-'>
+														{% if   review.remark==1 %}
+															<span class="text-danger">
+																Declined</span>
+
+														{% elseif   review.remark==2 %}
+															<span class="text-warning">
+																Accepted with major revision</span>
+														{% elseif   review.remark==3 %}
+															<span class="text-warning">
+																Accepted with minor revision
+															</span>
+														{% elseif   review.remark==4 %}
+
+															<span class="text-success">
+																Accepted
+															</span>
+														{% endif   %}
+
+													</h4>
+
+													<hr></td>
+											</tr>
+										</tbody>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					{% else %}
+						Revision not sent
+
+					{% endfor %}
+					{% if submission.copyedit is  not empty %}
+						<hr>
+
+						<h5 class="font-18 m-0 fw-bold">Your revision
+						</h5>
+
+						{{ form_start(form) }}
+						{{ form_widget(form) }}
+						<button class="btn btn-primary">{{ button_label|default('Submit Review') }}</button>
+						{{ form_end(form) }}
+					{% endif %}<hr>
+					{% if submission.copyedit is  not empty %}
+						<h3 class='text-success'>Comment</h3>
+						{{ form_start(form) }}
+						{{ form_widget(form) }}
+						<button class="btn">{{ button_label|default('Save') }}</button>
+						{{ form_end(form) }}
+					{% endif %}
+				</div>
+				<div class="tab-pane" id="copyedit">{{ submission.abstract|raw }}</div>
+				{% include "submission/tabs/report.html.twig" %}
+				<div class="tab-pane" id="terminal-report">
+					<strong class='text-success'>Final report datails</strong>
+					<p>
+						{% if submission.published==''%}
+							{% for publicationstatus in publicationstatus %}
+								<strong class='text-info'>Messagemfrom director</strong>
+								<p>
+									{{ publicationstatus.id}}</p>
+								{{publicationstatus.submission.id}}
+								<a href="{{ path('publication_datasets', {'id':publicationstatus.id}) }}">
+									Dataset</a>
+
+								<div id="TheModal" class="modal" tabindex="-1" role="dialog">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">{% trans %}Dataset attachment{% endtrans %}</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body" id="showEditRequestContent">
+												sd
+											</div>
+											<div class="modal-footer text-success text-left">
+												{%block modal_footer%}
+												{% endblock%}
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal inmodal fade" id="modal{{publicationstatus.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">
+													<span aria-hidden="true">&times;</span>
+													<span class="sr-only">Close</span>
+												</button>
+												<h4 class="modal-title">Modal title</h4>
+												<small class="font-bold">S.</small>
+											</div>
+											<div class="modal-body">
+												<strong>Lorem
+												</strong>
+
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary">Save changes</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-target="#modal{{publicationstatus.id}}">
+									Show Dataset
+								</button>
+
+								<a title="Show" class="btn btn-success  btn-xs" data-bs-toggle="modal" data-target="#TheModal" id="showRequestDetail4{{publicationstatus.id}}">
+									<i class="glyphicon glyphicon-stat text-success">Datasets</i>
+								</a>
+								<
+								<script src="{{ asset('ui/js/jquery.min.js') }}"></script>
+								<script>
+									$(document).ready(function () {
+
+$("#showRequestDetail4                                {{ publicationstatus.id }}").click(function () {
+$.ajax({
+url: "{{ path('publication_datasets', {'id':publicationstatus.id}) }}",
+success: function (result) {
+$("#showEditRequestContent").html(result);
+
+},
+error: function (xhr, status, error) {
+$("#showEditRequestContent").html("Problem");
+
+}
+});
+});
+});
+								</script>
+
+							{% endfor %}
+							<p>
+								{% include 'submission_includes/finalreport_form.html.twig' %}{% endif%}
+							</p>
+						</div>
+						<div class="tab-pane" id="publication">
+
+							{{ submission.subtitle }}</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="col-lg-3">
+	<div class="card team-card">
+		<div class="card-body">
+			<div class="float-end">
+				<div
+					class="dropdown d-inline-block">{# <a class="dropdown-toggle arrow-none" id="dLabel1" data-bs-toggle="dropdown" href="teams{{submission.id}}#" role="button" aria-haspopup="false" aria-expanded="false">
+																																																										<i class="las la-ellipsis-v font-24 text-muted"></i>
+																																																									</a>
+																																																									<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel1">
+																																																										<a class="dropdown-item" href="teams{{submission.id}}#">Open Project</a>
+																																																										<a class="dropdown-item" href="teams{{submission.id}}#">Edit Card</a>
+																																																										<a class="dropdown-item" href="teams{{submission.id}}#">Delete</a>
+																																																									</div> #}
+				</div>
+			</div>
+			<div class="media align-items-center">
+
+				{% if submission.author.userInfo and submission.author.userInfo.image %}
+
+
+					<img src="{{ asset('files/profile_pictures/'~submission.author.userInfo.image ) }}" alt="" class="rounded-circle user-img">
+				{% else %}
+
+					<img src="{{ asset('/img/defaultuser.png') }}" alt="" class="rounded-circle user-img">
+
+
+				{% endif %}
+
+
+				<div class="online-circle">
+					<i class="fa fa-circle text-success"></i>
+				</div>
+				<div class="media-body ms-3 align-self-center">
+					<h4 class="team-leader m-0">{{submission.author.userInfo}}</h4>
+					<p class="text-muted font-12 mb-0">Research PI</p>
+				</div>
+			</div>
+			<h4 class="m-0 mt-4 font-14 font-weight-semibold">{{submission.CallForProposal.ResearchType}}
+				Team</h4>
+			<p class="text-muted mb-0">
+				{{submission.title}}</p>
+
+			<div class="mt-4 d-flex justify-content-between">
+				<div class="img-group">
+
+
+					<a class="user-avatar user-avatar-group" href="#">
+						<img src="{{ asset('files/profile_pictures/'~submission.author.userInfo.image ) }}" alt="user" class="rounded-circle thumb-xxs">
+					</a>
+
+					{% for member in submission.coAuthors %}
+
+
+						{% if member.researcher.userInfo and member.researcher.userInfo.image %}
+
+							<a class="user-avatar user-avatar-group" href="#">
+								<img src="{{ asset('files/profile_pictures/'~member.researcher.userInfo.image ) }}" alt="user" class="rounded-circle thumb-xxs">
+							</a>
+
+
+							{# <img src="{{ asset('files/profile_pictures/'~app.user.userInfo.image ) }}" alt="" class="rounded-circle" style="width:110px; height:110px;"> #}
+						{% else %}
+							<a class="user-avatar user-avatar-group" href="#">
+								<img src="{{ asset('/img/defaultuser.png') }}" alt="user" class="rounded-circle thumb-xxs">
+							</a>
+						{% endif %}
+
+						{% else %}No Co-PI has been involved
+					{% endfor %}
+
+
+					<a href="#{{submission.id}}" class="avatar-box thumb-xxs align-self-center">
+						<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+							+{{ submission.coAuthors|length   }}
+						</span>
+					</a>
+				</div>
+
+			</div>
+			<hr class="hr-dashed my-4">
+
+		</div>
+		<!--end card-body-->
+	</div>
+
+	<div class="card">
+		<div class="card-body ">
+			<h4 class="font-18 m-0 fw-bold">Attachments:</h4><br>
+			{% for submissionattachment in submission.submissionAttachements %}
+				<a href="{{ asset('/uploads/submission/'~ submissionattachment.file ) }}" class="btn btn-info btn-xs float-right">{{submissionattachment.name}}
+					<i class="fa fa-download material-icons warning"></i>
+				</a>
+			{% else %}
+				<span class="label label-danger">{% trans %}No attachement found{% endtrans %}</span>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body ">
+			<h5 class="font-18 m-0 fw-bold">Submission Status</h5>
+			<div class="row mt-4 d-flex align-items-center">
+				{% if review_assignments|length >0 %}
+					<p class="btn btn-info btn-xs float-right">Sent to review</p>
+					{% else %}
+				{% endif %}
+				<a class="badge bg-primary" href="{{ path('research_sumary', {'uid': submission.uidentifier }) }}">PDF<i class="fa fa-download"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body ">
+			<h4 class="font-18 m-0 fw-bold">Co-PI confirmation:</h4><br>
+			{% for member in submission.coAuthors %}
+				{{loop.index}}{{member.researcher.userInfo}}
+				{% if member.confirmed=='1' %}
+					<i class="fa fa-check text-success"></i>
+				{% elseif member.confirmed==''    %}
+					<i class="fa fa-times-circle text-danger"></i>
+					{# {% elseif member.confirmed=='0'    %}  <i class="fa fa-close text-danger"></i>      #}
+				{% else  %}
+					<i class="fa fa-close text-danger"></i>
+				{% endif %}<br>{% else %}No Co-PI has been involved
+			{% endfor %}
+		</div>
+	</div>
+</div></div>{% endblock %}
+
+{% block script %}
+	<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+  <script type="text/javascript">
+
+var isvalid=false;
+  {% set phase = submission.callForProposal.researchReportPhase %}
+
+var startDate="{{phase.startDate|date('Y-m-d H:i:s')}}";
+var endDate="{{phase.endDate|date('Y-m-d H:i:s')}}";
+var minimumDays={{phase.maximumDuration}};
+
+         $(function () {
+         $('.js-datepicker').datetimepicker({timepicker:false,
+		   onChangeDateTime:function(dp,input){
+
+if(dp!=null){
+			   const current_input_field_id = input.attr("id");
+const parts = current_input_field_id.split('_');
+const value =parts.pop();
+const base_part =parts.join("_")
+console.log(base_part,"base part");
+if(value==1){
+
+var previous_input_value= $("#"+current_input_field_id).val();
+
+
+if(new Date($("#"+current_input_field_id).val()) <= new Date(startDate))
+{
+
+invalid(input)
+console.log("some error");
+}
+else{
+valid(input)
+}
+var previous_input_value = new Date(previous_input_value);
+}
+
+else if(value>1){
+var previous_input_value= $("#"+base_part+"_"+(value-1)).val();
+
+var previous_input_value = new Date(previous_input_value);
+
+var previous_input_value = previous_input_value.setDate(previous_input_value.getDate() + minimumDays);
+
+
+console.log(dp,new Date(previous_input_value),"dfgh");
+if(input.attr('data-last')=="last"){
+	console.log('last')
+if((new Date(dp) >= new Date(previous_input_value)) && (new Date(dp) <= new Date(endDate)))
+{
+valid(input)
+}else{
+invalid(input)
+
+}
+
+}
+else if(new Date(dp) <= new Date(previous_input_value))
+{
+invalid(input)
+console.log("error");
+}else{
+valid(input)
+
+}
+
+}
+   console.log(dp);
+   console.log();
+  }
+  toggleSubmit();
+  },}
+  )
+		                });
+
+function valid(input){
+isvalid=true;
+input.removeClass("is-invalid").addClass('is-valid');
+}
+function invalid(input){
+isvalid=false;
+input.removeClass("is-valid").addClass('is-invalid');
+}
+
+function toggleSubmit(){
+if(isvalid==true){
+$('.schedule-submit-button').prop('disabled', false);
+}
+else{
+
+$('.schedule-submit-button').prop('disabled', true);
+}
+}
+
+  </script>
+{% endblock %}

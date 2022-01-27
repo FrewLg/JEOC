@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reviewers
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-header">
+
+			<h4>{{info}}
+				 ({{all}})</h4>
+	<a href="{{ path('alexternalreviewers') }}" class='btn btn-info  btn-xs btn-block'>
+	External  Reviewers
+
+</a>
+<a href="{{ path('alexternal_rev') }}"  class="btn btn-soft-success btn-sm">Export
+									<i class="fa fa-download material-icons  "></i>
+</a>
+
+<a href="{{ path('allreviewers') }}" class='btn btn-info  btn-xs btn-block'>
+	 Internal Reviewers
+
+</a>
+
+	
+
+<a href="{{ path('internal_rev') }}"  class="btn btn-soft-success btn-sm">Export
+									<i class="fa fa-download material-icons  "></i>
+</a>
+
+
+		</div>
+		<div class="card-body ">
+
+			<br>
+			<div class="row">
+
+				{% for co_author  in review_assignments %}
+					<div class="col-lg-2 col-md-12 col-sm-12">
+						<div class="card">
+							<div class="card-body text-center">
+								{% if co_author.image   %}
+									<img src="{{ asset('files/profile_pictures/'~ co_author.image ) }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+								{% else %}
+									<img src="{{ asset('/img/defaultuser.png') }}" class="d-block mx-auto rounded-circle thumb-md" alt="profile">
+								{% endif %}
+
+								<h5 class="fw-bold mt-3 mb-1">
+									<sapn class="text-muted mb-0">
+										{{co_author.first_name}}
+										{{co_author.midle_name}}
+
+										{{co_author.last_name}}
+									</span>
+								</h5>
+
+
+								<p class="text-muted mb-0">
+									Number of Assignment:
+									<a href="{{path('his_assignment',{'id':co_author.id})}}" class="avatar-box thumb-xxs align-self-center">
+										<span class="avatar-title bg-soft-info rounded-circle font-13 font-weight-normal">
+											{{co_author.review_assignment}}
+										</span>
+									</a>
+								</p>
+								<div class="mb-3">
+									{% if co_author.is_reviewer %}
+										<a href="#" class="me-3 text-warning">External Reviewer</a>
+									{% else %}
+										<a href="#" class="me-3 text-success">Internal Reviewer</a>
+
+									{% endif %}
+
+								</div>
+
+								<a href='{{path('researcher',{'id':co_author.id})}}' class="btn btn-sm btn-soft-primary">About Reviewer</a>
+								<a href='{{path('his_assignment',{'id':co_author.id})}}' class="btn btn-sm btn-soft-info">Invitations</a>
+
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<hr>
+				<div class="navigation">
+					 
+					{{ knp_pagination_render(review_assignments) }}
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+ {% endblock %}

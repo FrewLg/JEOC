@@ -1,0 +1,754 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block pagehead %}Dashboard
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-9">
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-3">
+					<div class="card report-card">
+						<div class="card-body">
+							<div class="row d-flex justify-content-center">
+								<div class="col">
+									<p class="text-dark mb-0 fw-semibold">Calls</p>
+									<h3 class="m-0">{{allcalls|length}}</h3>
+									<p class="mb-0 text-truncate text-muted">
+										<span class="text-success">
+
+											{{submissions|length}}
+										</span>
+										Response</p>
+								</div>
+								<div class="col-auto align-self-center">
+									<div class="report-main-icon bg-light-alt">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-self-center text-muted icon-sm">
+											<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+											<circle cx="9" cy="7" r="4"></circle>
+											<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+											<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end card-body-->
+					</div>
+					<!--end card-->
+				</div>
+				<!--end col-->
+				<div class="col-md-6 col-lg-3">
+					<div class="card report-card">
+						<div class="card-body">
+							<div class="row d-flex justify-content-center">
+								<div class="col">
+									<p class="text-dark mb-0 fw-semibold">Involvements</p>
+									<h3 class="m-0">{{ submissions|length}}
+										PIs</h3>
+									<p class="mb-0 text-truncate text-muted">
+										<span class="text-success">
+											{{copis|length}}
+											Co-PIs</span>
+									</p>
+								</div>
+								<div class="col-auto align-self-center">
+									<div class="report-main-icon bg-light-alt">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock align-self-center text-muted icon-sm">
+											<circle cx="12" cy="12" r="10"></circle>
+											<polyline points="12 6 12 12 16 14"></polyline>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end card-body-->
+					</div>
+					<!--end card-->
+				</div>
+				<!--end col-->
+				<div class="col-md-6 col-lg-3">
+					<div class="card report-card">
+						<div class="card-body">
+							<div class="row d-flex justify-content-center">
+								<div class="col">
+									<p class="text-dark mb-0 fw-semibold">Reviewers</p>
+									<h3 class="m-0">{{ all +  allext}}</h3>
+									<p class="mb-0 text-truncate text-muted">
+										<span class="text-warning">
+											Ex{{allext}}</span>
+										<span class="text-info">
+											In{{all}}</span>
+
+									</p>
+								</div>
+								<div class="col-auto align-self-center">
+									<div class="report-main-icon bg-light-alt">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity align-self-center text-muted icon-sm">
+											<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end card-body-->
+					</div>
+					<!--end card-->
+				</div>
+				<!--end col-->
+				<div class="col-md-6 col-lg-3">
+					<div class="card report-card">
+						<div class="card-body">
+							<div class="row d-flex justify-content-center">
+								<div class="col">
+									<p class="text-dark mb-0 fw-semibold">Gender
+									</p>
+									<h3 class="m-0">{{ submissions|length}}</h3>
+									<p class="mb-0 text-truncate text-muted">
+										<span class="text-success">
+
+											{% for theanswer in gender_distribution %}
+												{{theanswer.Gender|striptags|slice(0, 1)|raw}}{{ theanswer.Proposals }}
+												<span class="text-danger">
+												{% endfor %}
+
+ 											</span>
+										</span>
+									</p>
+								</div>
+								<div class="col-auto align-self-center">
+									<div class="report-main-icon bg-light-alt">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase align-self-center text-muted icon-sm">
+											<rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+											<path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+										</svg>   
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end card-body-->
+					</div>
+					<!--end card-->
+				</div>
+				<!--end col-->
+			</div>
+			<!--end row-->
+
+
+			<div class="card">
+				<div class="card-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h4 class="card-title">Proposals destribution by thematic areas
+								<button id="btn-theme" class="btn btn-soft-success btn-sm">
+									<i class="fa fa-download material-icons  "></i>
+								</h4>
+							</div>
+							<!--end col-->
+						{# ds #}
+							<!--end col-->
+						</div>
+					</div>
+					<!--end card-header-->
+					<div class="card-body">
+						<div class="" style="position: relative;">
+							<div id="ana_dash_1" class="apex-charts" style="min-height: 335px;"></div>
+							<canvas id="bar-chart" width="400" height="200"></canvas>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col col-6">
+						<div class="card">
+							<div class="card-header">
+								<div class="row align-items-center">
+									<div class="col">
+										<h4 class="card-title">Review decisions distribution
+											<button id="btn-revdec-bar" class="btn btn-soft-success btn-sm">
+												<i class="fa fa-download material-icons  "></i>
+											</h4>
+										</div>
+										<!--end col-->
+									{# ds #}
+										<!--end col-->
+									</div>
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+									<canvas id="bar-chart2" width="100%" height="50%"></canvas>
+
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col col-6">
+
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+
+										<h4 class="card-title">
+											Gender distibution of proposal submission
+
+											<button id="btn-gender" class="btn btn-soft-success btn-sm">
+												<i class="fa fa-download material-icons  "></i>
+											</h4>
+
+										</div>
+										<!--end row-->
+									</div>
+									<!--end card-header-->
+									<div class="card-body">
+
+										<canvas id="doughnut-chart3" width="50" height="25"></canvas>
+
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--end col-->
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-header">
+								<div class="row align-items-center">
+
+									<h4 class="card-title">
+										<b>Call for proposals
+										</b>
+									</h4>
+
+								</div>
+								<!--end row-->
+							</div>
+							<!--end card-header-->
+							<div class="card-body">
+
+								<div class="table-responsive mt-2">
+									<table class="table border-dashed mb-0">
+										<thead>
+											<tr>
+												<th>Calls</th>
+												<th>Responses</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for call_for_proposal in allcalls %}
+
+												<tr>
+													<td>
+
+														<a href="{{ path('callresponses', {'id': call_for_proposal.id }) }}" class='btn btn-soft-info btn-xs'>
+
+															{{ call_for_proposal.postDate ? call_for_proposal.postDate|date('m-Y ') : '' }}
+														</a>
+													</td>
+													<td>
+
+														<a href="#" class="avatar-box thumb-xxs align-self-center">
+															<span class="avatar-title bg-soft-success rounded-circle font-13 font-weight-normal">
+																{{ call_for_proposal.submissions is defined? call_for_proposal.submissions|length :0}}
+															</span>
+
+														</a>
+
+													</td>
+												</tr>
+											{% endfor %}
+
+										</tbody>
+									</table>
+									<div class="navigation">
+										{{ knp_pagination_render(allcalls) }}
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<div class="row align-items-center">
+
+									<h4 class="card-title">
+										<b>Call Responses by themes
+										</b>
+										<button id="btn-call" class="btn btn-soft-success btn-sm">
+											<i class="fa fa-download material-icons  "></i>
+										</h4>
+
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+									<canvas id="doughnut-chart1" width="100" height="100"></canvas>
+
+
+								</div>
+
+							</div>
+
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+
+										<h4 class="card-title">
+											<b>Review decision
+											</b>
+											<button id="decisions" class="btn btn-soft-success btn-sm">
+												<i class="fa fa-download material-icons  "></i>
+											</button>
+										</h4>
+
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+									<canvas id="doughnut-chart2" width="100" height="100"></canvas>
+
+
+								</div>
+
+							</div>
+
+
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+										<div class="col">
+											<h4 class="card-title">Researchers involvement</h4>
+										</div>
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+									<div class="table-responsive mt-2">
+										<table class="table border-dashed mb-0">
+
+											<tbody>
+
+												<tr>
+													<td>
+														PIs
+													</td>
+													<td>
+														<a href="#" class="avatar-box thumb-xxs align-self-center">
+															<span class="avatar-title bg-soft-success rounded-circle font-13 font-weight-normal">
+																{{ submissions|length}}
+															</span>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Co-Authorships
+													</td>
+													<td>
+														<a href="#" class="avatar-box thumb-xxs align-self-center">
+															<span class="avatar-title bg-soft-success rounded-circle font-13 font-weight-normal">
+																{{ copis|length}}
+															</span>
+														</a>
+
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+
+									</div>
+									<!--end /div-->
+								</div>
+								<!--end card-body-->
+							</div>
+
+							<div class="card">
+								<div class="card-header">
+									<div class="row align-items-center">
+										<div class="col">
+											<h4 class="card-title">Reviewers assignments
+												<button id="btn-download" class="btn btn-soft-success btn-sm">
+													<i class="fa fa-download material-icons  "></i>
+												</button>
+											</h4>
+										</div>
+									</div>
+									<!--end row-->
+								</div>
+								<!--end card-header-->
+								<div class="card-body">
+
+									<div class="table-responsive mt-2">
+
+										<canvas id="doughnut-reviewer" width="100" height="50"></canvas>
+
+									</div>
+									<!--end /div-->
+								</div>
+								<!--end card-body-->
+							</div>
+
+							<!--end card-->
+						</div>
+
+						<!--end col-->
+					</div>
+					<script src="{{ asset('plugins/chartjs/chart.min.js')}}"></script>
+					{# <script src="{{ asset('assets/pages/jquery.chartjs.init.js')}}"></script> #}
+
+
+					<script type="text/javascript">
+
+						const myBarChart = new Chart(document.getElementById("bar-chart"), {
+type: 'bar',
+data: {
+labels: [{% for theanswer in bythemes %}'{{ (theanswer.name|raw |length > 25 ? theanswer.name |raw |slice(0,  25) ~ '..' : theanswer.name |raw ) }}',{% endfor %}],
+datasets: [
+{
+
+
+backgroundColor: [
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f"
+],
+data: [{% for theanswer in bythemes %}'{{ theanswer.submissions|length }}',{% endfor %}]
+}
+]
+},
+options: {
+scales: {
+yAxes: [
+{
+ticks: {
+beginAtZero: true
+}
+}
+]
+},
+legend: {
+display: false
+},
+title: {
+display: true,
+text: 'Proposals  destribution by thematic areas'
+}
+}
+});
+
+
+const myDonChart = new Chart(document.getElementById("doughnut-chart1"), {
+type: 'doughnut',
+data: {
+labels: [{% for theanswer in bythemes %}'{{ (theanswer.name|raw |length > 25 ? theanswer.name |raw |slice(0,  25) ~ '..' : theanswer.name |raw ) }}',{% endfor %}],
+datasets: [
+{
+label: "  completion status",
+backgroundColor: [
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f"
+],
+data: [{% for theanswer in bythemes %}'{{ theanswer.submissions|length }}',{% endfor %}]
+}
+]
+},
+options: {
+legend: {
+display: false
+},
+title: {
+display: true,
+text: "Responses "
+}
+}
+});
+
+const myDon2Chart = new Chart(document.getElementById("doughnut-chart2"), {
+type: 'doughnut',
+data: {
+labels: [{% for theanswer in desision %}
+
+
+{% if  theanswer.decision==1 %}
+											 'Declined'
+											{% elseif  theanswer.decision==2 %}
+										 
+											'Accepted with major revision '
+											{% elseif   theanswer.decision==3 %}
+ 
+	'Accepted with minor revision'  
+											{% elseif  theanswer.decision==4 %}
+ 
+	'Accepted'   
+										 
+									{% endif   %}
+,{% endfor %}],
+datasets: [
+{
+label: "  completion status",
+backgroundColor: [
+"#3e95cd",
+"#8e5ea2",
+"#c45850",
+"#3cba9f",
+"#c45850",
+"#3e95cd",
+"#8e5ea2",
+"#3cba9f",
+"#e8c3b9"
+],
+data: [{% for theanswer in desision %}'{{ theanswer.proposals }}',{% endfor %}]
+}
+]
+},
+options: {
+legend: {
+display: false
+},
+title: {
+display: true,
+text: "Review Decision "
+}
+}
+});
+
+
+const myChart = new Chart(document.getElementById("doughnut-chart3"), {
+type: 'doughnut',
+data: {
+labels: [{% for theanswer in gender_distribution %}'{{ (theanswer.Gender|raw |length > 25 ? theanswer.Gender |raw |slice(0,  25) ~ '..' : theanswer.Gender |raw ) }}',{% endfor %}],
+datasets: [
+{
+label: "  Gender distribution",
+backgroundColor: [
+
+"#3cba9f", "#e8c3b9", "#c45850", "#3e95cd",
+],
+data: [{% for theanswer in gender_distribution %}'{{ theanswer.Proposals }}',{% endfor %}]
+}
+]
+},
+options: {
+legend: {
+display: true
+},
+title: {
+display: true,
+text: "Responses by Gender "
+}
+}
+});
+
+
+const myBar2Chart = new Chart(document.getElementById("bar-chart2"), {
+type: 'bar',
+data: {
+labels: [{% for theanswer in desision %}
+
+{% if  theanswer.decision==1 %}
+											 'Declined'
+											{% elseif  theanswer.decision==2 %}
+										 
+											'Accepted with major revision '
+											{% elseif   theanswer.decision==3 %}
+ 
+	'Accepted with minor revision'  
+											{% elseif  theanswer.decision==4 %}
+ 
+	'Accepted'   
+										 
+									{% endif   %}
+
+
+,{% endfor %}],
+datasets: [
+{
+
+
+backgroundColor: [
+
+"#3e95cd",
+"#8e5ea2",
+"#c45850",
+"#3cba9f",
+"#c45850",
+],
+data: [{% for theanswer in desision %}'{{ theanswer.proposals }}',{% endfor %}]
+}
+]
+},
+
+
+options: {
+scales: {
+yAxes: [
+{
+ticks: {
+beginAtZero: true
+}
+}
+]
+},
+legend: {
+display: false
+},
+title: {
+display: true,
+text: 'Review decisions distribution'
+}
+}
+});
+
+
+const myDonRChart = new Chart(document.getElementById("doughnut-reviewer"), {
+type: 'doughnut',
+data: {
+labels: [
+"Internal reviewer", "External reviewer"
+],
+datasets: [
+{
+label: "  Reviewer distribution",
+backgroundColor: [
+
+"#3cba9f", "#c45850", "#3e95cd",
+],
+data: [{{ all }}, {{ allext }}]
+}
+]
+},
+options: {
+legend: {
+display: false
+},
+title: {
+display: true,
+text: " Reviewer distribution "
+}
+}
+});
+
+// Get the chart's base64 image string
+var image = myBarChart.toBase64Image();
+console.log(image);
+
+document.getElementById('btn-theme').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myBarChart.toBase64Image();
+a.download = 'theme.png';
+a.click();
+}
+
+
+// Get the chart's base64 image string
+var image = myBar2Chart.toBase64Image();
+console.log(image);
+
+document.getElementById('btn-revdec-bar').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myBar2Chart.toBase64Image();
+a.download = 'review-decision.png';
+a.click();
+}
+
+
+// Get the chart's base64 image string
+var image = myChart.toBase64Image();
+console.log(image);
+
+document.getElementById('btn-gender').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myChart.toBase64Image();
+a.download = 'gender-distribution.png';
+a.click();
+}
+
+
+// Get the chart's base64 image string
+var image = myDonRChart.toBase64Image();
+console.log(image);
+
+document.getElementById('btn-download').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myDonRChart.toBase64Image();
+a.download = 'reviewer-dist.png';
+a.click();
+}
+
+// Get the chart's base64 image string
+var image = myDon2Chart.toBase64Image();
+console.log(image);
+
+document.getElementById('decisions').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myDon2Chart.toBase64Image();
+a.download = 'reviewer decision ditribution.png';
+a.click();
+}
+
+
+// Get the chart's base64 image string
+var image = myDonChart.toBase64Image();
+console.log(image);
+
+document.getElementById('btn-call').onclick = function () { // Trigger the download
+var a = document.createElement('a');
+a.href = myDonChart.toBase64Image();
+a.download = 'call response-s.png';
+a.click();
+}
+					</script>
+
+
+				{% endblock %}
+				{% block javascript %}{% endblock %}

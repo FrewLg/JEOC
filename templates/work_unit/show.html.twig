@@ -1,0 +1,238 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submission{% endblock %}
+  {% block container_title %}Work unit directorate office: {{ work_unit.name}}{% endblock %} 
+{% block body %}
+<div class="row">
+            <div class="col-lg-9">
+                
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">College</h4>
+                                    <p class="text-muted mb-0"> details</p>
+                                </div><!--end card-header-->
+                                <div class="card-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-pills nav-justified" role="tablist">
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="tab#home-1" role="tab" aria-selected="false">Details</a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-bs-toggle="tab" href="tab#profile-1" role="tab" aria-selected="false">Themaice areas</a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link  " data-bs-toggle="tab" href="tab#settings-1" role="tab" aria-selected="true">Guidelines</a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link  " data-bs-toggle="tab" href="tab#manage-1" role="tab" aria-selected="true">Edit</a>
+                                        </li>
+                                    </ul>
+    
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                                           <div class="table-responsive">
+                                <table class="table shoping-cart-table">
+
+                                    <tbody>
+                                    <tr>  
+                                        <td class="desc">
+                                            <h3>
+                                            <a href="#" class="text-navy">
+ {{ work_unit.name }}
+                                            </a>
+                                            </h3>
+                                            <p class="medium">
+                                             {{ work_unit.description |raw}}
+                                            </p> 
+                                               <p class="medium">
+            <h4 class='text:success'> Principal Contact:</h4>
+                                                {{ work_unit.PrincipalContact |raw }}
+                                                        <h4 class='text:success'> Description:</h4>
+                                              {{ work_unit.description |raw}}
+                                            </p> 
+                                           <h4 class='text-success'> Identification  Code</h4>                                            
+                                            {{ work_unit.identificationCode }}
+                                            <p>
+                                          <h4 class='text-success'> Objective</h4>
+                                           {{ work_unit.Objective }}
+                                        
+                                          <h4 class='text-success'> Institutional Reviewers Board </h4>
+    
+<div class='profiles'>
+    <table class='table table-striped text-left'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Specialization</th>
+                <th>Affiliation</th>
+ 
+            </tr>
+        </thead>
+        <tbody>
+        {% for institutional_reviewers_board in institutional_reviewers_boards %}
+            <tr style="text-align:left">
+                <td>{{ institutional_reviewers_board.id }}</td>
+                <td  style="text-align:left">{{ institutional_reviewers_board.specialization }}</td>
+                <td style="text-align:left" nowrap=nowrap>{{ institutional_reviewers_board.affiliation }}</td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ </div>
+                                                  
+                                          <h4 class='text-success'> Mission</h4>
+                                           {{ work_unit.mission|raw }}
+                                            <div class="m-t-sm">
+                                                <a href="#" class="text-muted">Created at</a> 
+                                            </div>
+                                        </td> 
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>  
+                                            <p class="text-muted mb-0">
+                                                Raw denim you probably haven't heard of them jean shorts Austin.
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane p-3" id="profile-1" role="tabpanel">
+                                               <table class="table table-striped"> 
+<thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+ 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for thematic_area in thematic_areas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ thematic_area.name }}</td>
+ 
+                <td nowrap=nowrap>
+                    <a href="{{ path('thematic_area_show', {'id': thematic_area.id}) }}">show</a>
+                    <a href="{{ path('thematic_area_edit', {'id': thematic_area.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+          </tbody>
+    </table>
+ <hr>
+<h3 class='text-success'>New Thematic area</h3>
+ {{ form_start(thematicAreaform) }}
+    {{ form_widget(thematicAreaform) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(thematicAreaform) }}
+                                        </div>
+                                        <div class="tab-pane p-3  " id="settings-1" role="tabpanel">
+                                                <h4 class='text-success'> Guideline For Authors   </h4>
+
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Guideline body</th>
+ 
+ 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guideline in guidelines %}
+            <tr>
+                <td>{{ guideline.id }}</td>
+                <td>{{ guideline.guideline }}</td>
+               <td>
+                    <a href="{{ path('guidelines_show', {'id': guideline.id}) }}">show</a>
+                    <a href="{{ path('guidelines_edit', {'id': guideline.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                                              <h4 class='text-success'> New Guideline For Authors   </h4>
+ {{ form_start(guidelineform) }}
+    {{ form_widget(guidelineform) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(guidelineform) }}
+
+                                          <h4 class='text-success'> Guideline For reviewers   </h4>
+                                          <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>The guidellines body </th>
+                 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guideline_for_reviewer in guideline_for_reviewers %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ guideline_for_reviewer.name }}</td>
+                <td>{{ guideline_for_reviewer.theGuidelline }}</td>
+ 
+                <td>
+                    <a href="{{ path('guideline_for_reviewer_show', {'id': guideline_for_reviewer.id}) }}">show</a>
+                    <a href="{{ path('guideline_for_reviewer_edit', {'id': guideline_for_reviewer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                                          <h4 class='text-success'>New  Guideline For reviewers   </h4>
+{{ form_start(formguidelineforReviewer) }}
+    {{ form_widget(formguidelineforReviewer) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(formguidelineforReviewer) }}
+                              
+                                        </div>
+                                        <div class="tab-pane p-3  " id="manage-1" role="tabpanel">
+                                             
+    {{ include('work_unit/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+    {{ include('work_unit/_delete_form.html.twig') }}
+                                        </div>
+                                    </div>    
+                                </div><!--end card-body-->
+                            </div><!--end card-->
+                        </div>
+ 
+  
+            <div class="col-lg-3">
+                <div class="wrapper wrapper-content project-manager">
+                    <h4>Guidelines</h4>
+ 
+                   
+                    <h5>IRBs</h5>
+                    <ul class="list-unstyled project-files">
+                         
+ dd
+                    </ul>
+                    
+                </div>
+            </div>
+        </div> 
+{% endblock %}

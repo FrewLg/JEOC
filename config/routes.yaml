@@ -1,0 +1,28 @@
+app_logout:
+    path: /logout
+    methods: GET
+
+# config/routes.yaml
+index:
+    path: /
+    controller: 'App\Controller\DefaultController::index'
+kms_froala_editor:
+    resource: '@KMSFroalaEditorBundle/Resources/config/routing.yml'
+    prefix:   /froalaeditor
+
+#switch-locales:
+ #   path:       /{_locale}/contact
+  #  controller: App\Controller\CallForProposalController::allcalss
+   # requirements:
+    #    _locale: en|am|or|fr
+# lexik_translation_edition:
+#     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
+#     prefix:   /my-prefix
+    
+# toggle_locale:
+#     path:     /{_locale}/
+#     defaults: { _controller: "App:Controller:Default:lang" }
+#   #  controller: 'App\Controller\DefaultController::lang'
+#     requirements:
+#         _locale: en|am|or
+

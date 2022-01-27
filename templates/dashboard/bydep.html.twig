@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Department
+{% endblock %}
+{% block body %}
+	<table class="table">
+		<tbody>
+			{% for college in sub_by_departments %}
+				<tr class='text-info ' style='background-color:#303e67;color:#fff'>
+					<td>
+						<h5 class='text-info '>{{ loop.index }}
+						</h5>
+					</td>
+				</tr>
+				 
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

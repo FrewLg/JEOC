@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PublishedResearch index{% endblock %}
+
+{% block body %}
+ 	<h5 class="font-18 m-0 fw-bold">Published Researches  </h5>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr class="font-14 m-0 fw-bold" >
+                <th>#</th>
+                <th>Title</th>
+                <th>Allotted budget</th>
+                <th>Researcher  </th>
+                <th>Year</th>
+                 <th>Successfully completed</th>
+                {# <th>Irb clearance</th> #}
+             </tr>
+        </thead>
+        <tbody>
+        {% for published_research in published_researches %}
+            <tr>
+                <td>{{ loop.index}}</td>
+                <td>{{ published_research.title }}</td>
+                <td>{{ published_research.allottedBudget }}</td>
+                <td>{{ published_research.userInfo }}</td>
+                <td>{{ published_research.year   }}</td>
+                {# <td>{{ published_research.finalReport }}</td> #}
+                 <td>{{ published_research.successfullyCompleted ? 'Yes' : 'No' }}</td>
+                {# <td>{{ published_research.irbClearance }}</td> #}
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+{% endblock %}

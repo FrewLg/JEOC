@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}New Submission{% endblock %}
+{% block body_title %}Submission{% endblock %}
+{% block content_title %}Submission{% endblock %}
+{% block container_title %}Grant information{% endblock %}
+{% block body %}
+<link href="{{ asset('corporate/css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
+<div class="row">
+    <div class="col-lg-4">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class='float-right'><br> <button class="btn btn-info">{{ button_label|default('Add institution')
+                }}</button> </div>
+        <br>
+        <a href="{{ path('submission_secondstep', {'id': submission.id}) }}" class="btn btn-default">Back</a>
+        <br>
+        <div class='float-right'>
+            <br>
+            <a href="{{ path('submission_preview', {'id': submission.id}) }}" class="btn btn-success float-right">Save
+                and continue</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="col-lg-8">
+Grant details
+         
+    </div>
+    {% endblock%}
