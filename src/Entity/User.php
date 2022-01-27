@@ -52,34 +52,6 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Proposal::class, mappedBy="author")
-     */
-    private $proposals;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Submission::class, mappedBy="author")
-     */
-    private $submissions; 
-  
- /**
-     * @ORM\ManyToOne(targetEntity=Review::class, inversedBy="reviewed_by")
-     */
-    private $reviews;
-    /**
-     * @ORM\OneToMany(targetEntity=InstitutionalReviewersBoard::class, mappedBy="reviewer")
-     */
-    private $institutionalReviewersBoards;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ReviewAssignment::class, mappedBy="reviewer")
-     */
-    private $reviewAssignments;
-
-    /**
-     * @ORM\OneToMany(targetEntity=InstitutionalReviewersBoard::class, mappedBy="name")
-     */
-    private $i_r_b_member;
 
     
    /**
@@ -97,15 +69,6 @@ class User implements UserInterface
     private $permissions;
 
   
-    /**
-     * @ORM\OneToMany(targetEntity=EditorialDecision::class, mappedBy="edited_by")
-     */
-    private $editorialDecisions;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CallForProposal::class, mappedBy="approved_by")
-     */
-    private $callForProposals;
 
     /**
      * @ORM\OneToMany(targetEntity=Subscription::class, mappedBy="user")
@@ -143,10 +106,6 @@ class User implements UserInterface
      */
     private $userInfo;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CoAuthor::class, mappedBy="researcher")
-     */
-    private $coAuthors;
 
     /**
      * @ORM\OneToMany(targetEntity=UserFeedback::class, mappedBy="user", orphanRemoval=true)
@@ -177,19 +136,10 @@ class User implements UserInterface
         $this->isActive =1;
         $this->registeredAt=new \DateTime('now');
         $this->userGroup = new ArrayCollection();
-        $this->proposals = new ArrayCollection(); 
-        $this->institutionalReviewersBoards = new ArrayCollection();
-        $this->reviewAssignments = new ArrayCollection();
-        $this->i_r_b_member = new ArrayCollection();
         $this->directorateOfficeUsers = new ArrayCollection();
         $this->permissions = new ArrayCollection();
-        $this->editorialDecisions = new ArrayCollection();
-        $this->submissions = new ArrayCollection();
-        
-        $this->callForProposals = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->announcements = new ArrayCollection();
-        $this->coAuthors = new ArrayCollection();
         $this->userFeedback = new ArrayCollection();
         $this->trainingParticipants = new ArrayCollection();
      }
@@ -453,166 +403,8 @@ class User implements UserInterface
  
    
 
-    /**
-     * @return Collection|InstitutionalReviewersBoard[]
-     */
-    public function getInstitutionalReviewersBoards(): Collection
-    {
-        return $this->institutionalReviewersBoards;
-    }
 
-    public function addInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if (!$this->institutionalReviewersBoards->contains($institutionalReviewersBoard)) {
-            $this->institutionalReviewersBoards[] = $institutionalReviewersBoard;
-            $institutionalReviewersBoard->setReviewer($this);
-        }
 
-        return $this;
-    }
-
-    public function removeInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if ($this->institutionalReviewersBoards->removeElement($institutionalReviewersBoard)) {
-            // set the owning side to null (unless already changed)
-            if ($institutionalReviewersBoard->getReviewer() === $this) {
-                $institutionalReviewersBoard->setReviewer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ReviewAssignment[]
-     */
-    public function getReviewAssignments(): Collection
-    {
-        return $this->reviewAssignments;
-    }
-
-    public function addReviewAssignment(ReviewAssignment $reviewAssignment): self
-    {
-        if (!$this->reviewAssignments->contains($reviewAssignment)) {
-            $this->reviewAssignments[] = $reviewAssignment;
-            $reviewAssignment->setReviewer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReviewAssignment(ReviewAssignment $reviewAssignment): self
-    {
-        if ($this->reviewAssignments->removeElement($reviewAssignment)) {
-            // set the owning side to null (unless already changed)
-            if ($reviewAssignment->getReviewer() === $this) {
-                $reviewAssignment->setReviewer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|InstitutionalReviewersBoard[]
-     */
-    public function getIRBMember(): Collection
-    {
-        return $this->i_r_b_member;
-    }
-
-    public function addIRBMember(InstitutionalReviewersBoard $iRBMember): self
-    {
-        if (!$this->i_r_b_member->contains($iRBMember)) {
-            $this->i_r_b_member[] = $iRBMember;
-            $iRBMember->setName($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIRBMember(InstitutionalReviewersBoard $iRBMember): self
-    {
-        if ($this->i_r_b_member->removeElement($iRBMember)) {
-            // set the owning side to null (unless already changed)
-            if ($iRBMember->getName() === $this) {
-                $iRBMember->setName(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|EditorialDecision[]
-     */
-    public function getEditorialDecisions(): Collection
-    {
-        return $this->editorialDecisions;
-    }
-    
-
-      /**
-     * @return Collection|Submission[]
-     */
-    public function getSubmissions(): Collection
-    {
-        return $this->submissions;
-    }
-     
-    
-
-    public function addEditorialDecision(EditorialDecision $editorialDecision): self
-    {
-        if (!$this->editorialDecisions->contains($editorialDecision)) {
-            $this->editorialDecisions[] = $editorialDecision;
-            $editorialDecision->setEditedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEditorialDecision(EditorialDecision $editorialDecision): self
-    {
-        if ($this->editorialDecisions->removeElement($editorialDecision)) {
-            // set the owning side to null (unless already changed)
-            if ($editorialDecision->getEditedBy() === $this) {
-                $editorialDecision->setEditedBy(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CallForProposal[]
-     */
-    public function getCallForProposals(): Collection
-    {
-        return $this->callForProposals;
-    }
-
-    public function addCallForProposal(CallForProposal $callForProposal): self
-    {
-        if (!$this->callForProposals->contains($callForProposal)) {
-            $this->callForProposals[] = $callForProposal;
-            $callForProposal->setApprovedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCallForProposal(CallForProposal $callForProposal): self
-    {
-        if ($this->callForProposals->removeElement($callForProposal)) {
-            // set the owning side to null (unless already changed)
-            if ($callForProposal->getApprovedBy() === $this) {
-                $callForProposal->setApprovedBy(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Subscription[]
@@ -645,36 +437,6 @@ class User implements UserInterface
     }
     
     
-    /**
-     * @return Collection|Review[]
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $review): self
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews[] = $review;
-            $review->setReviewedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): self
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getReviewedBy() === $this) {
-                $review->setReviewedBy(null);
-            }
-        }
-
-        return $this;
-    }
-
 
     /**
      * @return Collection|Announcement[]
@@ -735,6 +497,7 @@ class User implements UserInterface
     }
 
     public function setIsSuperAdmin(bool $isSuperAdmin): self
+
     {
         $this->isSuperAdmin = $isSuperAdmin;
 
@@ -794,35 +557,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|CoAuthor[]
-     */
-    public function getCoAuthors(): Collection
-    {
-        return $this->coAuthors;
-    }
-
-    public function addCoAuthor(CoAuthor $coAuthor): self
-    {
-        if (!$this->coAuthors->contains($coAuthor)) {
-            $this->coAuthors[] = $coAuthor;
-            $coAuthor->setResearcher($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCoAuthor(CoAuthor $coAuthor): self
-    {
-        if ($this->coAuthors->removeElement($coAuthor)) {
-            // set the owning side to null (unless already changed)
-            if ($coAuthor->getResearcher() === $this) {
-                $coAuthor->setResearcher(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|UserFeedback[]

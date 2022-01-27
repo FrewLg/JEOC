@@ -122,13 +122,7 @@ class UserInfo
      */
     private $academic_rank;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PublishedResearch::class, mappedBy="userInfo" , cascade={"persist", "remove"} , orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=true) 
-     * 
-     *
-     */
-    private $researches;
+   
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -159,8 +153,7 @@ class UserInfo
     public function __construct()
     {
   
-        // $this->PublishedResearches = new ArrayCollection(); 
-        $this->researches = new ArrayCollection();
+         $this->researches = new ArrayCollection();
     }
  
     public function getMidleName(): ?string
@@ -364,36 +357,7 @@ class UserInfo
 
         return $this;
     }
-
-    /**
-     * @return Collection|PublishedResearch[]
-     */
-    public function getResearches(): Collection
-    {
-        return $this->researches;
-    }
-
-    public function addResearch(PublishedResearch $research): self
-    {
-        if (!$this->researches->contains($research)) {
-            $this->researches[] = $research;
-            $research->setUserInfo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResearch(PublishedResearch $research): self
-    {
-        if ($this->researches->removeElement($research)) {
-            // set the owning side to null (unless already changed)
-            if ($research->getUserInfo() === $this) {
-                $research->setUserInfo(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     public function getAlternativeEmail(): ?string
     {

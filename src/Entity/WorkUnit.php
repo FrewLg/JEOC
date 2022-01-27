@@ -49,45 +49,18 @@ class WorkUnit
      */
     private $objective;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Submission::class, mappedBy="workunit")
-     */
-    private $submissions;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Guidelines::class, mappedBy="work_unit")
-     */
-    private $guidelines;
-
- 
-    /**
-     * @ORM\OneToMany(targetEntity=ThematicArea::class, mappedBy="work_unit")
-     */
-    private $thematicAreas;
+     
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prefix;
  
-    /**
-     * @ORM\OneToMany(targetEntity=InstitutionalReviewersBoard::class, mappedBy="workunit")
-     */
-    private $institutionalReviewersBoards;
-
-    /**
-     * @ORM\OneToMany(targetEntity=GuidelineForReviewer::class, mappedBy="workunit")
-     */
-    private $guidelineForReviewers;
+     
 
     public function __construct()
     {
-        $this->submissions = new ArrayCollection();
-        $this->guidelines = new ArrayCollection();
-        $this->callForProposals = new ArrayCollection();
-        $this->thematicAreas = new ArrayCollection();
-        $this->institutionalReviewersBoards = new ArrayCollection();
-        $this->guidelineForReviewers = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -172,98 +145,7 @@ class WorkUnit
 
         return $this;
     }
-
-    /**
-     * @return Collection|Submission[]
-     */
-    public function getSubmissions(): Collection
-    {
-        return $this->submissions;
-    }
-
-    public function addSubmission(Submission $submission): self
-    {
-        if (!$this->submissions->contains($submission)) {
-            $this->submissions[] = $submission;
-            $submission->setWorkunit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubmission(Submission $submission): self
-    {
-        if ($this->submissions->removeElement($submission)) {
-            // set the owning side to null (unless already changed)
-            if ($submission->getWorkunit() === $this) {
-                $submission->setWorkunit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Guidelines[]
-     */
-    public function getGuidelines(): Collection
-    {
-        return $this->guidelines;
-    }
-
-    public function addGuideline(Guidelines $guideline): self
-    {
-        if (!$this->guidelines->contains($guideline)) {
-            $this->guidelines[] = $guideline;
-            $guideline->setWorkUnit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGuideline(Guidelines $guideline): self
-    {
-        if ($this->guidelines->removeElement($guideline)) {
-            // set the owning side to null (unless already changed)
-            if ($guideline->getWorkUnit() === $this) {
-                $guideline->setWorkUnit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    
-    /**
-     * @return Collection|ThematicArea[]
-     */
-    public function getThematicAreas(): Collection
-    {
-        return $this->thematicAreas;
-    }
-
-    public function addThematicArea(ThematicArea $thematicArea): self
-    {
-        if (!$this->thematicAreas->contains($thematicArea)) {
-            $this->thematicAreas[] = $thematicArea;
-            $thematicArea->setWorkUnit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeThematicArea(ThematicArea $thematicArea): self
-    {
-        if ($this->thematicAreas->removeElement($thematicArea)) {
-            // set the owning side to null (unless already changed)
-            if ($thematicArea->getWorkUnit() === $this) {
-                $thematicArea->setWorkUnit(null);
-            }
-        }
-
-        return $this;
-    }
-
+ 
     public function getPrefix(): ?string
     {
         return $this->prefix;
@@ -275,64 +157,5 @@ class WorkUnit
 
         return $this;
     }
-
-    /**
-     * @return Collection|InstitutionalReviewersBoard[]
-     */
-    public function getInstitutionalReviewersBoards(): Collection
-    {
-        return $this->institutionalReviewersBoards;
-    }
-
-    public function addInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if (!$this->institutionalReviewersBoards->contains($institutionalReviewersBoard)) {
-            $this->institutionalReviewersBoards[] = $institutionalReviewersBoard;
-            $institutionalReviewersBoard->setWorkunit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if ($this->institutionalReviewersBoards->removeElement($institutionalReviewersBoard)) {
-            // set the owning side to null (unless already changed)
-            if ($institutionalReviewersBoard->getWorkunit() === $this) {
-                $institutionalReviewersBoard->setWorkunit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|GuidelineForReviewer[]
-     */
-    public function getGuidelineForReviewers(): Collection
-    {
-        return $this->guidelineForReviewers;
-    }
-
-    public function addGuidelineForReviewer(GuidelineForReviewer $guidelineForReviewer): self
-    {
-        if (!$this->guidelineForReviewers->contains($guidelineForReviewer)) {
-            $this->guidelineForReviewers[] = $guidelineForReviewer;
-            $guidelineForReviewer->setWorkunit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGuidelineForReviewer(GuidelineForReviewer $guidelineForReviewer): self
-    {
-        if ($this->guidelineForReviewers->removeElement($guidelineForReviewer)) {
-            // set the owning side to null (unless already changed)
-            if ($guidelineForReviewer->getWorkunit() === $this) {
-                $guidelineForReviewer->setWorkunit(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 }

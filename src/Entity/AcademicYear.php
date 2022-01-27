@@ -24,15 +24,7 @@ class AcademicYear
      */
     private $year_name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PublishedResearch::class, mappedBy="year")
-     */
-    private $publishedResearch;
-
-    public function __construct()
-    {
-        $this->publishedResearch = new ArrayCollection();
-    }
+   
 
     public function getId(): ?int
     {
@@ -54,33 +46,5 @@ class AcademicYear
     {
      return $this->year_name;   
     }
-    /**
-     * @return Collection|PublishedResearch[]
-     */
-    public function getPublishedResearch(): Collection
-    {
-        return $this->publishedResearch;
-    }
-
-    public function addPublishedResearch(PublishedResearch $publishedResearch): self
-    {
-        if (!$this->publishedResearch->contains($publishedResearch)) {
-            $this->publishedResearch[] = $publishedResearch;
-            $publishedResearch->setYear($this);
-        }
-
-        return $this;
-    }
-
-    public function removePublishedResearch(PublishedResearch $publishedResearch): self
-    {
-        if ($this->publishedResearch->removeElement($publishedResearch)) {
-            // set the owning side to null (unless already changed)
-            if ($publishedResearch->getYear() === $this) {
-                $publishedResearch->setYear(null);
-            }
-        }
-
-        return $this;
-    }
+     
 }

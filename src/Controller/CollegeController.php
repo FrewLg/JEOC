@@ -2,31 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\CallForProposal;
 use App\Entity\College;
 use App\Form\CollegeType;
 use App\Repository\CollegeRepository; 
 
-use App\Entity\ThematicArea;
-use App\Form\ThematicAreaType;
-use App\Repository\ThematicAreaRepository;
-use App\Entity\GuidelineForReviewer;
-use App\Form\GuidelineForReviewerType;
-use App\Repository\GuidelineForReviewerRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use App\Form\InstitutionalReviewersBoardType;
-use App\Entity\InstitutionalReviewersBoard;
-use App\Repository\InstitutionalReviewersBoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Guidelines;
-use App\Form\GuidelinesType;
-use App\Repository\GuidelinesRepository;
 use App\Utils\Constants;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
@@ -196,21 +183,6 @@ class CollegeController extends AbstractController
         // }
         }
         ///////////////institutiona review board members
-    $AllIRBMembers = $entityManager->getRepository(InstitutionalReviewersBoard::class)->findBy(['college' => $college ] );
-#dd($institutionalReviewersBoard); 
-$institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
-        #$form = $this->createForm(WorkUnitType::class, $workUnit);
-    $i_r_b_form = $this->createForm(InstitutionalReviewersBoardType::class, $institutionalReviewersBoard);
-        $i_r_b_form->handleRequest($request);
-
-        if ($i_r_b_form->isSubmitted() && $i_r_b_form->isValid()) {
-           # $this->getDoctrine()->getManager()->flush();
-    $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($institutionalReviewersBoard);
-            $entityManager->flush();
-
-             return $this->redirectToRoute('college_details' );
-        } 
         //to be changerd later
             $form = $this->createForm(CollegeType::class, $college);
      $form->handleRequest($request);
@@ -222,14 +194,7 @@ $institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
         }            
         return $this->render('college/show.html.twig', [
             'college' => $college,
-         'guidelines' => $guidelines,
-         'guideline_for_reviewers' => $guideline_for_reviewers,
-         'formguidelineforReviewer' => $formGuidelineForReviewer->createView(),
          'form' => $form->createView(),
-         'institutional_reviewers_boards'=> $AllIRBMembers,
-         'guidelineform'=>$guidelineform->createView(),
-         'thematicAreaform'=> $thematicAreaform->createView(),
-             'thematic_areas' => $thematicAreas,
         ]);
         
     }
@@ -366,21 +331,6 @@ $institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
         // }
         }
         ///////////////institutiona review board members
-    $AllIRBMembers = $entityManager->getRepository(InstitutionalReviewersBoard::class)->findBy(['college' => $college ] );
-#dd($institutionalReviewersBoard); 
-$institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
-        #$form = $this->createForm(WorkUnitType::class, $workUnit);
-    $i_r_b_form = $this->createForm(InstitutionalReviewersBoardType::class, $institutionalReviewersBoard);
-        $i_r_b_form->handleRequest($request);
-
-        if ($i_r_b_form->isSubmitted() && $i_r_b_form->isValid()) {
-           # $this->getDoctrine()->getManager()->flush();
-    $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($institutionalReviewersBoard);
-            $entityManager->flush();
-
-             return $this->redirectToRoute('college_show', array('id' => $college->getId()));
-        } 
         //to be changerd later
             $form = $this->createForm(CollegeType::class, $college);
      $form->handleRequest($request);
@@ -392,14 +342,7 @@ $institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
         }            
         return $this->render('college/show.html.twig', [
             'college' => $college,
-         'guidelines' => $guidelines,
-         'guideline_for_reviewers' => $guideline_for_reviewers,
-         'formguidelineforReviewer' => $formGuidelineForReviewer->createView(),
          'form' => $form->createView(),
-         'institutional_reviewers_boards'=> $AllIRBMembers,
-         'guidelineform'=>$guidelineform->createView(),
-         'thematicAreaform'=> $thematicAreaform->createView(),
-             'thematic_areas' => $thematicAreas,
         ]);
         
     }
@@ -409,10 +352,7 @@ $institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
     public function details(Request $request,  College $college, $prefix): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $guidelines =$entityManager->getRepository(Guidelines::class)->findOneBy(['college' => $college ] );
    
-    $AllIRBMembers = $entityManager->getRepository(InstitutionalReviewersBoard::class)->findBy(['college' => $college ] );
-    $collegeinfo = $entityManager->getRepository(CallForProposal::class)->findBy(['college' => $college ] );
         //  $collegeinfo='';
     $info = 'All';
     switch ($prefix) {
@@ -420,47 +360,12 @@ $institutionalReviewersBoard= new InstitutionalReviewersBoard() ;
     case 'jih':
          $request->setlocale('am');
          break;
-    case 'jit':
-        $collegeinfo = $collegeinfo->getSubmissions(['complete' => '1']);
-        $info = 'Complete submission';
-        break;
-    case 'beco':
-        $collegeinfo = $collegeinfo->getSubmissions(['submission_type' => 'grant']);
-        $info = 'Grant';
-        break;
-    case 'cns':
-        $collegeinfo = $collegeinfo->getSubmissions(['submission_type' => Constants::RESEARCH_TYPE_COMMUNITY_SERVICE]);
-        $info = 'Community service';
-        break;
-    case 'clg':
-     
-        $collegeinfo = $collegeinfo->getSubmissions(['submission_type' => Constants::RESEARCH_TYPE_MEGA]);
-        $info = 'Technology transfer';
-        break;
-    case 'jucavm':
-        $collegeinfo = $collegeinfo->getSubmissions(['submission_type' =>Constants::RESEARCH_TYPE_TECHNOLOGY_TRANSFER]);
-        $info = 'Technology transfer';
-        break;
-    case 'cebs':
-        $collegeinfo = $collegeinfo->getSubmissions(['published' => '1']);
-        $info = 'Published';
-        break;
-
-    case 'cssh':
-        $collegeinfo = $collegeinfo->getSubmissions(['submission_type' => 'grant']);
-        $info = 'Review assigned';
-        break;
-    case 'ic':
-        $collegeinfo = $collegeinfo->getSubmissions(['complete' => '0']);
-        $info = 'Incomplete ';
-        break;
     default:
-        return $this->redirectToRoute('submission_index');
+        return $this->redirectToRoute('homepage');
  }
     return $this->render('college/showdetails.html.twig', [
             'college' => $college,
          'guidelines' => $guidelines, 
-          'institutional_reviewers_boards'=> $AllIRBMembers,
           ]);
     }
 

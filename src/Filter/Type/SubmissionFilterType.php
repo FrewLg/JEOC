@@ -18,7 +18,7 @@ class SubmissionFilterType extends AbstractType {
     }
 
     public function getBlockPrefix() {
-        return 'submission_filter';
+        return 'homepage';
     }
 
     public function configureOptions(OptionsResolver $resolver) {

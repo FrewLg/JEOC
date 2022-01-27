@@ -34,10 +34,6 @@ class College
      */
     private $departments;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CallForProposal::class, mappedBy="college")
-     */
-    private $callForProposals;
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
@@ -59,36 +55,18 @@ class College
      */
     private $objective;
 
-    /**
-     * @ORM\OneToMany(targetEntity=ThematicArea::class, mappedBy="college")
-     */
-    private $thematicAreas;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prefix;
 
-    /**
-     * @ORM\OneToOne(targetEntity=GuidelineForReviewer::class, mappedBy="college", cascade={"persist", "remove"})
-     */
-    private $guidelineForReviewer;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity=InstitutionalReviewersBoard::class, mappedBy="college")
-     */
-    private $institutionalReviewersBoards;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Guidelines::class, mappedBy="college")
-     */
-    private $guidelines;
 
     /**
      * @ORM\OneToMany(targetEntity=CallForTraining::class, mappedBy="college")
@@ -103,11 +81,6 @@ class College
     {
         $this->collegeCoordinators = new ArrayCollection();
         $this->departments = new ArrayCollection();
-        $this->callForProposals = new ArrayCollection();
-        $this->thematicAreas = new ArrayCollection();
-        // $this->guidelineForReviewers = new ArrayCollection();
-        $this->institutionalReviewersBoards = new ArrayCollection();
-        $this->guidelines = new ArrayCollection();
         $this->callForTrainings = new ArrayCollection();
       }
  
@@ -196,35 +169,6 @@ class College
     }
  
 
-    /**
-     * @return Collection|CallForProposal[]
-     */
-    public function getCallForProposals(): Collection
-    {
-        return $this->callForProposals;
-    }
-
-    public function addCallForProposal(CallForProposal $callForProposal): self
-    {
-        if (!$this->callForProposals->contains($callForProposal)) {
-            $this->callForProposals[] = $callForProposal;
-            $callForProposal->setCollege($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCallForProposal(CallForProposal $callForProposal): self
-    {
-        if ($this->callForProposals->removeElement($callForProposal)) {
-            // set the owning side to null (unless already changed)
-            if ($callForProposal->getCollege() === $this) {
-                $callForProposal->setCollege(null);
-            }
-        }
-
-        return $this;
-    }
 
      
     public function getPrincipalContact(): ?string
@@ -275,35 +219,6 @@ class College
         return $this;
     }
 
-    /**
-     * @return Collection|ThematicArea[]
-     */
-    public function getThematicAreas(): Collection
-    {
-        return $this->thematicAreas;
-    }
-
-    public function addThematicArea(ThematicArea $thematicArea): self
-    {
-        if (!$this->thematicAreas->contains($thematicArea)) {
-            $this->thematicAreas[] = $thematicArea;
-            $thematicArea->setCollege($this);
-        }
-
-        return $this;
-    }
-
-    public function removeThematicArea(ThematicArea $thematicArea): self
-    {
-        if ($this->thematicAreas->removeElement($thematicArea)) {
-            // set the owning side to null (unless already changed)
-            if ($thematicArea->getCollege() === $this) {
-                $thematicArea->setCollege(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getPrefix(): ?string
     {
@@ -318,58 +233,6 @@ class College
     }
 
 
-
-
-
-
-    public function getGuidelineForReviewer(): ?GuidelineForReviewer
-    {
-        return $this->guidelineForReviewer;
-    }
-
-    public function setGuidelineForReviewer(GuidelineForReviewer $guidelineForReviewer): self
-    {
-        // set the owning side of the relation if necessary
-        if ($guidelineForReviewer->getCollege() !== $this) {
-            $guidelineForReviewer->setCollege($this);
-        }
-
-        $this->guidelineForReviewer = $guidelineForReviewer;
-
-        return $this;
-    }
-
-     
-    /**
-     * @return Collection|InstitutionalReviewersBoard[]
-     */
-    public function getInstitutionalReviewersBoards(): Collection
-    {
-        return $this->institutionalReviewersBoards;
-    }
-
-    public function addInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if (!$this->institutionalReviewersBoards->contains($institutionalReviewersBoard)) {
-            $this->institutionalReviewersBoards[] = $institutionalReviewersBoard;
-            $institutionalReviewersBoard->setCollege($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstitutionalReviewersBoard(InstitutionalReviewersBoard $institutionalReviewersBoard): self
-    {
-        if ($this->institutionalReviewersBoards->removeElement($institutionalReviewersBoard)) {
-            // set the owning side to null (unless already changed)
-            if ($institutionalReviewersBoard->getCollege() === $this) {
-                $institutionalReviewersBoard->setCollege(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -382,35 +245,6 @@ class College
         return $this;
     }
 
-    /**
-     * @return Collection|Guidelines[]
-     */
-    public function getGuidelines(): Collection
-    {
-        return $this->guidelines;
-    }
-
-    public function addGuideline(Guidelines $guideline): self
-    {
-        if (!$this->guidelines->contains($guideline)) {
-            $this->guidelines[] = $guideline;
-            $guideline->setCollege($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGuideline(Guidelines $guideline): self
-    {
-        if ($this->guidelines->removeElement($guideline)) {
-            // set the owning side to null (unless already changed)
-            if ($guideline->getCollege() === $this) {
-                $guideline->setCollege(null);
-            }
-        }
-
-        return $this;
-    }
  
     /**
      * @return Collection|CallForTraining[]

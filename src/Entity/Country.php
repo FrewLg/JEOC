@@ -24,15 +24,9 @@ class Country
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CoAuthor::class, mappedBy="country")
-     */
-    private $coAuthors;
+    
 
-    public function __construct()
-    {
-        $this->coAuthors = new ArrayCollection();
-    }
+   
 
     public function getName(): ?string
     {
@@ -46,35 +40,7 @@ class Country
         return $this;
     }
 
-    /**
-     * @return Collection|CoAuthor[]
-     */
-    public function getCoAuthors(): Collection
-    {
-        return $this->coAuthors;
-    }
-
-    public function addCoAuthor(CoAuthor $coAuthor): self
-    {
-        if (!$this->coAuthors->contains($coAuthor)) {
-            $this->coAuthors[] = $coAuthor;
-            $coAuthor->setCountry($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCoAuthor(CoAuthor $coAuthor): self
-    {
-        if ($this->coAuthors->removeElement($coAuthor)) {
-            // set the owning side to null (unless already changed)
-            if ($coAuthor->getCountry() === $this) {
-                $coAuthor->setCountry(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
        public function __toString(): string
     {

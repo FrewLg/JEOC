@@ -99,16 +99,7 @@ class UserProfileType extends AbstractType
                    ] ,            
             	]) 
             ##########################
-            ->add('researches', CollectionType::class, [
-                'entry_type' => PublishedResearchType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                // 'data_class'=>false,
-                'by_reference' => false,
-                'allow_delete' => true,
-            ])
-            
+           
             ->add('suffix' ,EntityType::class,[
                 'placeholder' => '--- Select Suffix ---',
                 "class"=>Suffixe::class,

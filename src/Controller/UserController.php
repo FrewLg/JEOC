@@ -4,27 +4,22 @@ namespace App\Controller;
 use App\Entity\CollegeCoordinator;
 use App\Entity\Department;
 use App\Entity\DirectorateOfficeUser;
-use App\Entity\PublishedResearch;
 use App\Entity\User;
 use App\Entity\UserInfo;
-use App\Entity\Submission;
 use App\Entity\Subscription;
 use App\Form\ChangePasswordFormType;
 use App\Form\CollegeCoordinatorType;
 use App\Form\DirecotorateOfficeUserType;
-use App\Form\PublishedResearchType;
-use App\Form\UserProfilePictureType;
+ use App\Form\UserProfilePictureType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Message\SendEmail;
 use App\Message\SendEmailMessage;
 use App\Repository\UserRepository;
-use App\Repository\SubmissionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\AnnouncementRepository;
 use App\Repository\DepartmentRepository;
-use App\Repository\PublishedResearchRepository;
-use App\Utils\Constants;
+ use App\Utils\Constants;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -382,35 +377,6 @@ class UserController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 	$qb = $em->createQueryBuilder();
-	$totalSubmissions = $qb
-	->select( 'COUNT(e.id) as Proposals , e.submission_type as Subbmission_type' )
-	->from( 'App\Entity\Submission' , 'e'   )
-	->andWhere(  'e.author = :publisher' ) 
-	->setParameter( 'publisher', $user ) 
-	->groupBy('e.submission_type')
-	->getQuery()->getResult();
-	; 
-	
-		$qb2 = $em->createQueryBuilder();
-	$usersubmission = $qb2
-	->select( 'COUNT(s.id) as Submissions , s.submission_type as research' )
-	->from( 'App\Entity\Submission' , 's'   )
-	 //->andWhere(  's.complete = :status' ) 
-	->andWhere(  's.author = :author' ) 
-	//->setParameter( 'status', 'complete' ) 
-	->setParameter( 'author', $user ) 
-	->groupBy('s.submission_type')
-	->getQuery()->getResult();
-	;
-	
-	$repoArticles = $em->getRepository('App:Submission'::class);
-	$totalSubmissions = $repoArticles->createQueryBuilder('sc')
-             ->select('count(sc.id) as ds')
-             ->andWhere(  'sc.author = :author' ) 
-             ->setParameter( 'author', $user ) 
-            ->getQuery()
-            ->getSingleScalarResult(); 
-           $me = $this->getUser(); 
             	$subscriptions=$em->getRepository(Subscription::class)->findBy(['user'=>$me]);
         return $this->render('user/resercher.html.twig', [
             'user' => $user,
@@ -455,7 +421,7 @@ class UserController extends AbstractController
      * @Route("/profile", name="myprofile", methods={"GET","POST"})
      */
 
-    public function profile(Request $request, UserRepository $UserRepository, SubmissionRepository $submissionRepository)
+    public function profile(Request $request, UserRepository $UserRepository)
     {
         
     return $this->redirectToRoute('researchworks' );
@@ -536,13 +502,10 @@ $udep = $entityManager->getRepository(Department::class)->findOneBy(array('name'
             // return $this->redirectToRoute('call_for_proposal_all' );
         }
  
-        $earlierprojects = $entityManager->getRepository(PublishedResearch::class)->find($this->getUser());
-          
+           
         return $this->render('user/profile2.html.twig', [
-            'published_research' => $publishedResearch,
-            'user' => $user,
-            'alltitles'=>$earlierprojects,
-            'submissionform' => $form->createView(), 
+             'user' => $user,
+             'submissionform' => $form->createView(), 
             'profilepicture' => $profilepictureform->createView(),
         ]);
     }
